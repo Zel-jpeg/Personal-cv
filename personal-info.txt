@@ -1,3 +1,0 @@
-Name: Azel M. Villanueva
-Role: BSIT Student
-Profile: I am focused on web development, UI design, software engineering, emerging technologies, and full-stack development.

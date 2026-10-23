@@ -26,6 +26,7 @@ Open the local URL printed by Vite. This React project runs through Vite; openin
 npm run typecheck
 npm run build
 npm run preview
+npm run format:check
 ```
 
 The build checks TypeScript before generating the production website in `dist/`.
@@ -34,18 +35,24 @@ The build checks TypeScript before generating the production website in `dist/`.
 
 ```text
 CV-Portfolio/
-  assets/profile-zel.webp   Original profile photo
   src/
-    App.tsx                CV section components and page layout
-    hooks/useCV.ts         Typed theme state, active navigation, reveal effects
-    navigation.ts          Typed section navigation data
-    main.tsx               React entry point
-    styles.css             Responsive styles, themes, and print layout
+    assets/profile-zel.webp Original profile photo
+    components/             Shared Sidebar and Footer components
+    sections/               Profile header and individual CV sections
+    data/cv.ts              Typed education, skills, and introduction content
+    data/navigation.ts      Typed section navigation data
+    hooks/useCV.ts          Theme state, active navigation, reveal effects
+    styles/global.css       Responsive styles, themes, and print layout
+    App.tsx                 Page composition
+    main.tsx                React entry point
   index.html               Document metadata and React mount point
   vite.config.ts           Vite React plugin
   tsconfig.json            Strict TypeScript configuration
   ASSIGNMENT.md            Remaining assignment requirements
+  AGENTS.md                Development conventions and folder rules
 ```
+
+Keep reusable UI in `components/`, page sections in `sections/`, repeating content in typed `data/` modules, and interactions in `hooks/`. Add imported images to `src/assets/`. The folder rules are recorded in `AGENTS.md` for future development. Run `npm run format` to apply consistent formatting.
 
 ## Design resources for future development
 
@@ -64,7 +71,7 @@ React manages rendering and theme state. TypeScript checks data and component us
 
 ## Vercel deployment
 
-Create a dedicated GitHub repository for this folder and push meaningful commits as development progresses. Import that repository into Vercel using the Vite framework preset, build command `npm run build`, and output directory `dist`. If this folder is nested in the repository, select it as the Vercel Root Directory.
+Push meaningful commits to the dedicated `Zel-jpeg/Personal-cv` repository as development progresses. Import that repository into Vercel using the Vite framework preset, build command `npm run build`, and output directory `dist`. If this folder is nested in the repository, select it as the Vercel Root Directory.
 
 After deployment, replace the pending links above and verify the public website on mobile and desktop.
 
@@ -72,4 +79,4 @@ After deployment, replace the pending links above and verify the public website 
 
 This is an independent copy of the original `../CV` project. Its existing Git history was retained, and the old GitHub remote was removed. All new development belongs in this folder. The original project is unchanged.
 
-This migration preserves the existing content and design as a starting point. A dedicated Projects section, career objective, final content review, and deployment remain on the assignment checklist. The inherited `personal-info.txt` has been cleaned up and is not used by the website.
+This migration preserves the existing content and design as a starting point. A dedicated Projects section, career objective, final content review, and deployment remain on the assignment checklist. The unused inherited `personal-info.txt` exercise has been removed.

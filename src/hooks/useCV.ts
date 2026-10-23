@@ -5,25 +5,37 @@ const themeKey = 'azel-cv-portfolio-theme';
 
 export function useCV() {
   const [theme, setTheme] = useState<Theme>(() => {
-    try { return localStorage.getItem(themeKey) === 'dark' ? 'dark' : 'light'; }
-    catch { return 'light'; }
+    try {
+      return localStorage.getItem(themeKey) === 'dark' ? 'dark' : 'light';
+    } catch {
+      return 'light';
+    }
   });
   const [activeSection, setActiveSection] = useState('summary');
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    try { localStorage.setItem(themeKey, theme); } catch { /* Storage is optional. */ }
+    try {
+      localStorage.setItem(themeKey, theme);
+    } catch {
+      /* Storage is optional. */
+    }
   }, [theme]);
 
   useEffect(() => {
-    const sections = [...document.querySelectorAll<HTMLElement>('.resume-content > section')];
+    const sections = [
+      ...document.querySelectorAll<HTMLElement>('.resume-content > section'),
+    ];
     let frame = 0;
     function updateNavigation() {
       let current: HTMLElement | undefined = sections[0];
       for (const section of sections) {
         if (section.getBoundingClientRect().top <= 160) current = section;
       }
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 3) {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 3
+      ) {
         current = sections.at(-1);
       }
       if (current) setActiveSection(current.id);
@@ -38,16 +50,22 @@ export function useCV() {
 
     const pending: HTMLElement[] = [];
     let observer: IntersectionObserver | undefined;
-    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      observer = new IntersectionObserver(entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove('is-pending');
-            observer?.unobserve(entry.target);
+    if (
+      'IntersectionObserver' in window &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('is-pending');
+              observer?.unobserve(entry.target);
+            }
           }
-        }
-      }, { threshold: 0.05 });
-      document.querySelectorAll<HTMLElement>('.reveal').forEach(section => {
+        },
+        { threshold: 0.05 },
+      );
+      document.querySelectorAll<HTMLElement>('.reveal').forEach((section) => {
         if (section.getBoundingClientRect().top >= window.innerHeight) {
           pending.push(section);
           section.classList.add('is-pending');
@@ -60,13 +78,14 @@ export function useCV() {
       window.removeEventListener('resize', scheduleUpdate);
       cancelAnimationFrame(frame);
       observer?.disconnect();
-      pending.forEach(section => section.classList.remove('is-pending'));
+      pending.forEach((section) => section.classList.remove('is-pending'));
     };
   }, []);
 
   return {
     theme,
-    toggleTheme: () => setTheme(current => current === 'dark' ? 'light' : 'dark'),
+    toggleTheme: () =>
+      setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
     activeSection,
     setActiveSection,
   };

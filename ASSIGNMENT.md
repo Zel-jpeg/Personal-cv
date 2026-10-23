@@ -38,7 +38,7 @@ Only publish verified personal information. Phone numbers and social accounts ar
 - [x] Connect this folder to the new repository
 - [ ] Make meaningful commits as the new work progresses; retained history belongs to the original project
 - [ ] Update README with the final title, description, technologies, student name, and live Vercel link
-- [x] Remove or resolve the inherited conflict-example text in `personal-info.txt` before publishing
+- [x] Remove the unused inherited `personal-info.txt` conflict exercise
 - [ ] Push the latest source code
 - [ ] Import the new repository into Vercel as a static HTML/CSS/JavaScript site
 - [ ] Open the public deployment and repeat link, image, desktop, and mobile checks

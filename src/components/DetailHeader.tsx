@@ -24,9 +24,11 @@ export default function DetailHeader({
         <Link
           className="site-monogram"
           to="/"
-          aria-label="Azel Villanueva home"
+          aria-label={
+            home ? 'Back to Azel Villanueva profile' : 'Azel Villanueva home'
+          }
         >
-          AV<span>.</span>
+          AV
         </Link>
         <nav className="detail-desktop-nav" aria-label="Main navigation">
           {links.map((link) => (

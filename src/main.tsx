@@ -6,6 +6,7 @@ import './styles/global.css';
 import './styles/portfolio.css';
 import './styles/gallery.css';
 import './styles/navigation.css';
+import './styles/header.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

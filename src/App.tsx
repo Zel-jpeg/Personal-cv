@@ -13,6 +13,7 @@ import OutsideSection from './sections/OutsideSection';
 import GitHubSection from './sections/GitHubSection';
 import TechStackSection from './sections/TechStackSection';
 import DetailHeader from './components/DetailHeader';
+import HomeHeader from './components/HomeHeader';
 import ProjectArchiveSection from './sections/ProjectArchiveSection';
 import CertificationArchiveSection from './sections/CertificationArchiveSection';
 import CommunitySection from './sections/CommunitySection';
@@ -53,9 +54,7 @@ export default function App() {
       <a className="skip-link" href="#main-content">
         Skip to CV content
       </a>
-      <div className="home-mobile-header">
-        <DetailHeader home theme={theme} toggleTheme={toggleTheme} />
-      </div>
+      <HomeHeader theme={theme} toggleTheme={toggleTheme} />
       <main className="cv-shell" id="main-content">
         <ProfileHeader theme={theme} toggleTheme={toggleTheme} />
         <div className="resume-layout">

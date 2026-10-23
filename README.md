@@ -12,6 +12,7 @@ A personal CV website showcasing my profile, education, technical skills, academ
 
 - Responsive layout for desktop, tablet, and mobile screens
 - Burger navigation on mobile and tablet screens, with keyboard and Escape support
+- Glass navbar on scroll, with a compact AV monogram, CV print control, and theme toggle
 - Light and dark themes with saved preferences
 - Section navigation with active section highlighting
 - Hover effects and scroll animations with reduced-motion support
@@ -27,7 +28,7 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Certification overview and archive; supporting documents are available on request
 - Diagonal light/dark theme transition in supported browsers
 - Interactive personal photo stack (profile photos used temporarily)
-- Public GitHub contribution grid, profile summary, and a 15-minute session cache with an unavailable-data fallback
+- Public GitHub contribution grid with square cells and a 15-minute session cache with an unavailable-data fallback
 
 ## Technologies
 

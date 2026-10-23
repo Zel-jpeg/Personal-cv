@@ -1,0 +1,177 @@
+/* The original desktop name and toolbar remain in this single sticky row. */
+.profile-header-marker {
+  height: 1px;
+  margin-top: 48px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+.profile-identity-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 176px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+  height: 64px;
+  padding: 6px 0;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  transition:
+    grid-template-columns 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    gap 450ms ease,
+    padding 450ms ease,
+    border-radius 350ms ease,
+    background-color 350ms ease,
+    border-color 350ms ease,
+    box-shadow 350ms ease;
+}
+.profile-identity-bar::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: 64px;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 6px 24px #0000000a;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 350ms ease,
+    visibility 350ms;
+}
+.profile-identity-bar.is-condensed::before {
+  opacity: 1;
+  visibility: visible;
+}
+.profile-bar-brand {
+  grid-column: 2;
+  min-width: 0;
+}
+.profile-bar-brand h1 {
+  margin: 0;
+  font-size: clamp(29px, 3.4vw, 40px);
+  line-height: 1.2;
+  transition: font-size 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.profile-bar-brand h1 > a {
+  display: grid;
+  width: fit-content;
+}
+.profile-name-full,
+.profile-name-short {
+  grid-area: 1 / 1;
+  transition:
+    opacity 280ms ease,
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.profile-name-full {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+}
+.profile-name-short {
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: left center;
+}
+.profile-identity-bar > .toolbar {
+  grid-column: 3;
+  flex-wrap: nowrap;
+}
+.profile-identity-bar.is-condensed {
+  grid-template-columns: 0px minmax(0, 1fr) auto;
+  gap: 0;
+}
+.profile-identity-bar.is-condensed h1 {
+  font-size: 24px;
+}
+.profile-identity-bar.is-condensed .profile-name-full {
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: left center;
+  pointer-events: none;
+}
+.profile-identity-bar.is-condensed .profile-name-short {
+  opacity: 1;
+  transform: scale(1);
+}
+.profile-header.profile-header-desktop {
+  grid-template-columns: 176px minmax(0, 1fr);
+  align-items: start;
+  margin-top: -64px;
+  padding-top: 0;
+}
+.profile-header-desktop .profile-heading {
+  padding-top: 56px;
+}
+@media screen and (min-width: 851px) {
+  .sidebar {
+    top: 88px;
+    max-height: calc(100dvh - 112px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+  .resume-content > section {
+    scroll-margin-top: 64px;
+  }
+}
+@supports (
+  (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))
+) {
+  .profile-identity-bar::before,
+  .home-mobile-header .detail-site-header {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    backdrop-filter: blur(16px) saturate(130%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-identity-bar,
+  .profile-identity-bar::before,
+  .profile-bar-brand h1,
+  .profile-name-full,
+  .profile-name-short {
+    transition: none;
+  }
+}
+@media print {
+  .profile-header-marker {
+    display: none;
+  }
+  .profile-identity-bar {
+    position: static;
+    height: auto;
+    padding: 0;
+    display: block;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    backdrop-filter: none;
+  }
+  .profile-identity-bar > .toolbar,
+  .profile-identity-bar::before,
+  .profile-name-short {
+    display: none;
+  }
+  .profile-identity-bar h1,
+  .profile-identity-bar.is-condensed h1 {
+    font-size: 28px;
+  }
+  .profile-identity-bar .profile-name-full,
+  .profile-identity-bar.is-condensed .profile-name-full {
+    opacity: 1;
+    transform: none;
+  }
+  .profile-header.profile-header-desktop {
+    margin-top: 0;
+    grid-template-columns: 95px minmax(0, 1fr);
+  }
+  .profile-header-desktop .profile-heading {
+    padding-top: 0;
+  }
+}

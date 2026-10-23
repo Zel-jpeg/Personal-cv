@@ -49,7 +49,7 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 ## Reference-inspired presentation
 
 - Featured-work panels expand on hover, focus, and click.
-- Verde is the first and initially expanded featured panel; panels use 2px borders and direct click/tap activation on phones. The phone name/social links sit beside the profile photo, and Print CV moves into the home burger menu.
+- Verde is the first and initially expanded featured panel; panels and Outside the IDE photos use 1px borders, with direct click/tap activation for featured panels on phones. The phone name/social links sit beside the profile photo, and Print CV moves into the home burger menu.
 - Explore all projects navigates to `/projects`, which lists all verified projects and shares the detail-page navigation and theme toggle.
 - Project cards use the owner's screenshots, verified code/demo URLs, and confirmed technology icons.
 - Technology rows loop and pause on hover; View all opens `/tech-stack` with the complete skills list. Vercel rewrites support direct page visits and refreshes.
@@ -59,6 +59,7 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 - A diagonal View Transition animates theme changes in supported browsers; reduced-motion and unsupported browsers switch directly.
 - The personal photo stack uses the profile image temporarily as requested. Edit `src/data/personal.ts` when personal photos and hobbies are ready.
 - GitHub activity loads public contributions for Zel-jpeg from the GitHub Contributions API by Jo Gruber. The section links to GitHub if the service fails or times out.
+- The activity card displays a January–December calendar for the current year, with weekday alignment, actual contribution totals, and horizontal scrolling inside the card on phones. General UI accents are neutral; featured borders are black. Green intensity remains only in the GitHub grid.
 - Certifications use verified dates. The owner's local development copy shows PDF previews and supporting documents. The owner declined public upload of PDFs, previews, and badges: these stay in ignored `public/local-certificates/`, and production builds omit them. Public entries show an available-on-request email link. Duplicate SRWE PDFs are included only once. Local preview dialogs support close buttons, Escape, and backdrop dismissal.
 - Home and detail pages use burger navigation at widths of 850px and below, with link-selection, outside-click, and Escape dismissal.
 - The community overview opens `/community`, with category filters and links to `/events`. The gallery uses clearly labelled temporary profile/project images until real photos and event details are supplied. Gallery cards reveal upward and open a responsive photo viewer with previous/next buttons, wraparound, arrow keys, Escape/backdrop dismissal, scroll locking, and focus restoration.

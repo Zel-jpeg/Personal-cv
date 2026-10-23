@@ -1,5 +1,4 @@
-import { SiGithub } from 'react-icons/si';
-import { ArrowUpRight } from 'lucide-react';
+import type { CSSProperties } from 'react';
 import { useGitHubActivity } from '../hooks/useGitHubActivity';
 
 export default function GitHubSection() {
@@ -12,74 +11,73 @@ export default function GitHubSection() {
     >
       <div className="section-heading">
         <h2 id="activity-title">
-          GitHub activity<span className="heading-dot">.</span>
+          <a
+            href="https://github.com/Zel-jpeg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub Activity
+          </a>
         </h2>
-        <a
-          className="text-link"
-          href="https://github.com/Zel-jpeg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <SiGithub size={15} /> Zel-jpeg <ArrowUpRight size={14} />
-        </a>
       </div>
       <div className="contribution-box" aria-busy={!activity && !failed}>
         {activity ? (
           <>
             <div className="contribution-scroll">
-              <div className="contribution-months">
-                {activity.days
-                  .filter(
-                    (day, index) =>
-                      index === 0 ||
-                      day.date.slice(0, 7) !==
-                        activity.days[index - 1].date.slice(0, 7),
-                  )
-                  .map((day) => (
-                    <span key={day.date}>
-                      {new Date(`${day.date}T12:00:00Z`).toLocaleString('en', {
-                        month: 'short',
-                        timeZone: 'UTC',
-                      })}
+              <div
+                className="contribution-calendar"
+                style={{ '--week-count': activity.weeks } as CSSProperties}
+              >
+                <div className="contribution-months">
+                  {activity.months.map((month) => (
+                    <span
+                      key={month.label}
+                      style={{ gridColumn: month.column }}
+                    >
+                      {month.label}
                     </span>
                   ))}
-              </div>
-              <div
-                className="contribution-grid"
-                role="img"
-                aria-label={`${activity.total} contributions across the displayed period`}
-              >
-                {activity.days.map((day) => (
-                  <span
-                    key={day.date}
-                    className={`contribution-cell level-${Math.min(4, Math.max(0, day.level))}`}
-                    title={`${day.count} contributions on ${day.date}`}
-                  />
-                ))}
+                </div>
+                <div
+                  className="contribution-grid"
+                  role="img"
+                  aria-label={`${activity.total} contributions in ${activity.year}, from January to December`}
+                >
+                  {activity.cells.map((day, index) =>
+                    day ? (
+                      <span
+                        key={day.date}
+                        className={`contribution-cell level-${Math.min(4, Math.max(0, Math.floor(day.level)))}`}
+                        title={`${day.count} contributions on ${day.date}`}
+                      />
+                    ) : (
+                      <span
+                        key={`empty-${index}`}
+                        className="contribution-cell calendar-padding"
+                      />
+                    ),
+                  )}
+                </div>
               </div>
             </div>
-            <div className="contribution-footer">
-              <span>
-                {activity.total.toLocaleString()} contributions in the displayed
-                period
-              </span>
-              <span className="activity-legend">
-                Less{' '}
-                {[0, 1, 2, 3, 4].map((level) => (
-                  <i
-                    key={level}
-                    className={`contribution-cell level-${level}`}
-                  />
-                ))}{' '}
-                More
-              </span>
-            </div>
+            <p className="contribution-summary">
+              {activity.total.toLocaleString()} contributions in {activity.year}
+            </p>
           </>
         ) : (
-          <p role="status">
-            {failed
-              ? 'Activity is unavailable right now. Visit GitHub to see my latest contributions.'
-              : 'Loading public GitHub activity…'}
+          <p className="contribution-summary" role="status">
+            {failed ? (
+              <a
+                href="https://github.com/Zel-jpeg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Activity is unavailable right now. View my contributions on
+                GitHub.
+              </a>
+            ) : (
+              'Loading public GitHub activity…'
+            )}
           </p>
         )}
       </div>

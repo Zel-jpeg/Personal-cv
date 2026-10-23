@@ -7,8 +7,8 @@
   --text: #1a1a1a;
   --muted: #5c626a;
   --line: #e3e5e8;
-  --accent: #356953;
-  --accent-bg: #eef5f0;
+  --accent: #1a1a1a;
+  --accent-bg: #f0f1f3;
   --button: #1a1a1a;
   --button-text: #fff;
   --shadow: 0 4px 18px #18202b04;
@@ -20,8 +20,8 @@
   --text: #e6edf3;
   --muted: #a7b0bc;
   --line: #30363d;
-  --accent: #a3d4b7;
-  --accent-bg: #1d3028;
+  --accent: #e6edf3;
+  --accent-bg: #21262d;
   --button: #e6edf3;
   --button-text: #0d1117;
   --shadow: 0 4px 18px #00000018;
@@ -656,7 +656,7 @@ h3 {
     --text: #111;
     --muted: #444;
     --line: #ddd;
-    --accent: #28563d;
+    --accent: #111111;
     --accent-bg: #f3f3f3;
   }
   body {

@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 
-export type Contribution = { date: string; count: number; level: number };
-type Activity = { days: Contribution[]; total: number };
+import { buildContributionCalendar } from '../data/githubCalendar';
+import type { Contribution } from '../data/githubCalendar';
+type Activity = ReturnType<typeof buildContributionCalendar>;
+const currentYear = Number(
+  new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    timeZone: 'Asia/Manila',
+  }).format(new Date()),
+);
 
 export function useGitHubActivity() {
   const [activity, setActivity] = useState<Activity | null>(null);
@@ -12,9 +19,12 @@ export function useGitHubActivity() {
       setFailed(true);
       controller.abort();
     }, 12000);
-    fetch('https://github-contributions-api.jogruber.de/v4/Zel-jpeg?y=last', {
-      signal: controller.signal,
-    })
+    fetch(
+      `https://github-contributions-api.jogruber.de/v4/Zel-jpeg?y=${currentYear}`,
+      {
+        signal: controller.signal,
+      },
+    )
       .then((response) => {
         if (!response.ok) throw new Error('Activity unavailable');
         return response.json();
@@ -26,15 +36,12 @@ export function useGitHubActivity() {
             (day) =>
               typeof day.date === 'string' &&
               Number.isFinite(day.count) &&
+              day.count >= 0 &&
               Number.isFinite(day.level),
           )
         )
           throw new Error('Invalid activity');
-        const days = data.contributions;
-        setActivity({
-          days,
-          total: days.reduce((sum, day) => sum + day.count, 0),
-        });
+        setActivity(buildContributionCalendar(data.contributions, currentYear));
         clearTimeout(timeout);
       })
       .catch(() => {

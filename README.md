@@ -1,50 +1,75 @@
-# Azel M. Villanueva — Personal CV
+# Azel M. Villanueva — Personal CV Portfolio
 
-## Student information
+A responsive personal CV website for IT 415, built with React, TypeScript, Vite, and custom CSS. It presents my profile, education, technical skills, academic development experience, certifications, and contact information.
 
-- **Complete Name:** Azel M. Villanueva
-- **Year Level:** 4th Year
-- **Set/Section:** BSIT 4G
-- **Subject:** IT 415 – APPLICATION DEVELOPMENT AND EMERGING TECHNOLOGIES
+## Student
 
-## Project description
+- Name: Azel M. Villanueva
+- Year and section: 4th Year, BSIT 4G
+- Course: IT 415 — Application Development and Emerging Technologies
+- GitHub profile: https://github.com/Zel-jpeg
+- Live Vercel link: Pending deployment
+- Dedicated repository link: https://github.com/Zel-jpeg/Personal-cv
 
-A professional, responsive CV webpage inspired by my existing portfolio's neutral colors, rounded cards, light/dark themes, skill tags, and gentle animations. The page presents education, technical skills, academic and project-based experience, certifications, and contact details. Only the portfolio profile photo is used; there is no project image gallery.
+## Run locally
 
-## Technologies used
+Use Node.js 22.12+ or a compatible newer release (Node.js 24 is used for this setup).
 
-- **HTML5:** semantic CV sections and accessible navigation.
-- **Custom CSS:** responsive grid, light/dark color variables, hover effects, section transitions, and print layout.
-- **Vanilla JavaScript:** theme toggle, optional theme persistence, scroll-reveal effects, active navigation, and printing.
-
-React, Vite, Bootstrap, and Framer Motion are not needed to run this project. React, Bootstrap, and other technologies listed in the CV describe personal skills, not dependencies of this webpage. The portfolio interactions are recreated with browser APIs to keep the project easy to open and explain.
-
-## Files
-
-```text
-CV/
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-└── assets/
-    └── profile-zel.webp
+```sh
+npm install
+npm run dev
 ```
 
-- `index.html`: main CV page and all personal content.
-- `style.css`: customizable theme variables, typography, layout, responsive rules, and print styling.
-- `script.js`: small, commented interaction script. Content remains readable if JavaScript is disabled.
-- `assets/profile-zel.webp`: original profile image copied from the portfolio.
-- `README.md`: student information and project instructions.
+Open the local URL printed by Vite. This React project runs through Vite; opening index.html directly is no longer the development workflow.
 
-## CV sections
+```sh
+npm run typecheck
+npm run build
+npm run preview
+```
 
-1. **Name:** full name, aspiring software engineer / web developer / BSIT student title, location, email and GitHub actions, and student section.
-2. **Profile:** fourth-year BSIT introduction covering software development, web development, UI/UX, emerging technologies, and a coding journey that began in 2022.
-3. **Education:** Davao del Norte State College (BS Information Technology, 4th Year / Present) and A.L. Navarro National High School.
-4. **Skills:** Frontend, Backend, Database, Tools, and Security / Auth categories, based on the portfolio's skill list.
-5. **Experience:** academic and project-based web systems, full-stack development, SkillBridge capstone work, and Sakyan / PhilHealth Figma prototypes. These are experience entries, not claimed employment roles.
-6. **Certifications:** CCNA: Switching, Routing, and Wireless Essentials and CCNA: Introduction to Networks, both from Cisco Networking Academy.
-7. **Contact:** villanueva.azel@dnsc.edu.ph, Davao City, Philippines, and https://github.com/Zel-jpeg.
+The build checks TypeScript before generating the production website in `dist/`.
 
-Personal details were taken from the provided portfolio and updated with the requested full name and current year level. Employment dates, certification dates, proficiency ratings, and quantified results were not supplied and have not been invented.
+## Structure
+
+```text
+CV-Portfolio/
+  assets/profile-zel.webp   Original profile photo
+  src/
+    App.tsx                CV section components and page layout
+    hooks/useCV.ts         Typed theme state, active navigation, reveal effects
+    navigation.ts          Typed section navigation data
+    main.tsx               React entry point
+    styles.css             Responsive styles, themes, and print layout
+  index.html               Document metadata and React mount point
+  vite.config.ts           Vite React plugin
+  tsconfig.json            Strict TypeScript configuration
+  ASSIGNMENT.md            Remaining assignment requirements
+```
+
+## Design resources for future development
+
+Use [React Bits](https://reactbits.dev) and [Origin Kit](https://originkit.dev) as the chosen references for components, design, animations, and interactions. Adapt selected components to this CV, checking their documentation and dependencies before integration. This preference is also recorded in `AGENTS.md` for future coding sessions.
+
+## Current features
+
+- Light and dark themes with optional browser persistence
+- Responsive section navigation and active section tracking
+- Hover and scroll reveal effects with reduced-motion support
+- Print action and print-specific layout
+- Keyboard focus styles and skip link
+- Original CV content and profile photo
+
+React manages rendering and theme state. TypeScript checks data and component usage during development. Vite serves development files and produces the deployment build. Existing CSS and browser APIs handle animations; Motion and an icon package can be added when the design needs them.
+
+## Vercel deployment
+
+Create a dedicated GitHub repository for this folder and push meaningful commits as development progresses. Import that repository into Vercel using the Vite framework preset, build command `npm run build`, and output directory `dist`. If this folder is nested in the repository, select it as the Vercel Root Directory.
+
+After deployment, replace the pending links above and verify the public website on mobile and desktop.
+
+## Project history
+
+This is an independent copy of the original `../CV` project. Its existing Git history was retained, and the old GitHub remote was removed. All new development belongs in this folder. The original project is unchanged.
+
+This migration preserves the existing content and design as a starting point. A dedicated Projects section, career objective, final content review, and deployment remain on the assignment checklist. The inherited `personal-info.txt` has been cleaned up and is not used by the website.

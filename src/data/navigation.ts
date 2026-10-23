@@ -18,6 +18,10 @@ export const navigation: NavigationItem[] = [
     label: 'Experience',
   },
   {
+    id: 'community',
+    label: 'Community',
+  },
+  {
     id: 'projects',
     label: 'Projects',
   },

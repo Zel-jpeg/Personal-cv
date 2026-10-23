@@ -22,7 +22,10 @@
 - List each distinct course once. Supplemental documents and badges belong to that course, and identical duplicate PDFs must not become extra credentials. Cisco Networking Academy course completion must not be presented as passing the separate CCNA certification exam.
 - Certificate thumbnails open the shared native-dialog preview with keyboard dismissal; preserve original PDF links and verified completion dates. Add pagination only when enough distinct credentials warrant it.
 - At widths of 850px and below, use the shared burger menu on home and detail pages; retain desktop sidebar/navigation above that breakpoint. Keep menu labels, expanded state, Escape dismissal, outside-click dismissal, link selection, and keyboard focus behavior accessible.
-- Check home, projects, technologies, and certifications at 320px, 390px, 768px, 1024px, and 1440px when changing layouts. Keep page-wide overflow absent; contribution grids may scroll inside their own container.
+- Community navigation follows home overview → `/community` → `/events`. Keep community entries, categories, and gallery photo metadata in `src/data/community.ts`; replace the clearly labelled sample content only with owner-supplied details and photos. Do not invent attendance, speaking roles, event dates, or awards.
+- Gallery imagery currently reuses existing profile and project assets as temporary samples. When real photos arrive, put them under `src/assets/community/` and update the data module. Do not publish private certificate files or use the reference site's personal photos as placeholders.
+- Reuse `EventGallery`, `PhotoLightbox`, and `useScrollReveal`. Preserve staggered upward reveals, responsive masonry, reduced-motion support, click previews, previous/next wrapping, arrow-key navigation, Escape/backdrop dismissal, scroll locking, and focus restoration.
+- Check home, projects, technologies, certifications, community, and events at 320px, 390px, 768px, 1024px, and 1440px when changing layouts. Keep page-wide overflow absent; contribution grids may scroll inside their own container.
 
 ## Required folder and file organization
 

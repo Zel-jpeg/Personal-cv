@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    { "source": "/community", "destination": "/index.html" },
+    { "source": "/community/", "destination": "/index.html" },
+    { "source": "/events", "destination": "/index.html" },
+    { "source": "/events/", "destination": "/index.html" },
     { "source": "/certifications", "destination": "/index.html" },
     { "source": "/certifications/", "destination": "/index.html" },
     { "source": "/projects", "destination": "/index.html" },

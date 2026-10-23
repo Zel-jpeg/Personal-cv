@@ -14,6 +14,7 @@ export default function DetailHeader({
         { label: 'Projects', href: '/projects' },
         { label: 'Technologies', href: '/tech-stack' },
         { label: 'Certifications', href: '/certifications' },
+        { label: 'Community', href: '/community' },
         { label: 'Contact', href: '/#contact' },
       ];
   return (

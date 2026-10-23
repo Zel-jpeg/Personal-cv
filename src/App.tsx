@@ -15,28 +15,31 @@ import TechStackSection from './sections/TechStackSection';
 import DetailHeader from './components/DetailHeader';
 import ProjectArchiveSection from './sections/ProjectArchiveSection';
 import CertificationArchiveSection from './sections/CertificationArchiveSection';
+import CommunitySection from './sections/CommunitySection';
+import CommunityArchiveSection from './sections/CommunityArchiveSection';
+import EventsSection from './sections/EventsSection';
+import type { ComponentType } from 'react';
+
+const detailPages: Record<string, ComponentType> = {
+  '/projects': ProjectArchiveSection,
+  '/tech-stack': TechStackSection,
+  '/certifications': CertificationArchiveSection,
+  '/community': CommunityArchiveSection,
+  '/events': EventsSection,
+};
 
 export default function App() {
   const { theme, toggleTheme, activeSection, setActiveSection } = useCV();
   const path = window.location.pathname.replace(/\/$/, '');
-  if (
-    path === '/tech-stack' ||
-    path === '/projects' ||
-    path === '/certifications'
-  ) {
+  const DetailPage = detailPages[path];
+  if (DetailPage) {
     return (
       <>
         <a className="skip-link" href="#main-content">
           Skip to page content
         </a>
         <DetailHeader theme={theme} toggleTheme={toggleTheme} />
-        {path === '/certifications' ? (
-          <CertificationArchiveSection />
-        ) : path === '/projects' ? (
-          <ProjectArchiveSection />
-        ) : (
-          <TechStackSection />
-        )}
+        <DetailPage />
         <Footer />
       </>
     );
@@ -61,6 +64,7 @@ export default function App() {
             <EducationSection />
             <SkillsSection />
             <ExperienceSection />
+            <CommunitySection />
             <ProjectsSection />
             <CertificationsSection />
             <OutsideSection />

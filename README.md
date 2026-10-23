@@ -21,6 +21,7 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Scrolling technology icons and a dedicated full tech stack page
 - Compact GitHub and email icon links beneath the profile name
 - Dedicated projects archive with repository and live demo links
+- Community page with category filters and an event gallery with full-screen photo browsing (temporary sample content)
 - Certification overview and archive; supporting documents are available on request
 - Diagonal light/dark theme transition in supported browsers
 - Interactive personal photo stack (profile photos used temporarily)

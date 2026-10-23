@@ -20,8 +20,8 @@ export default function EventsSection() {
           Events<span className="heading-dot">.</span>
         </h1>
         <p>
-          A collection of photos, shared experiences, and moments outside the
-          IDE.
+          Moments from presentations, pitching, and the Sakyan website and
+          mobile app prototype showcase.
         </p>
       </header>
       <EventGallery />

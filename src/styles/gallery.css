@@ -91,7 +91,7 @@
   gap: 12px;
 }
 .event-masonry {
-  columns: 5;
+  columns: 3;
   column-gap: 12px;
   margin-top: 14px;
   padding: 6px;
@@ -265,7 +265,7 @@
     align-items: flex-start;
   }
   .event-masonry {
-    columns: 4;
+    columns: 3;
   }
 }
 @media screen and (max-width: 850px) {
@@ -278,7 +278,7 @@
 }
 @media screen and (max-width: 600px) {
   .event-masonry {
-    columns: 3;
+    columns: 2;
     column-gap: 9px;
   }
   .event-masonry .gallery-reveal {

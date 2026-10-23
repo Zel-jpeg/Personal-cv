@@ -24,8 +24,8 @@ export default function CommunityArchiveSection() {
       <header className="tech-page-intro">
         <h1>Community &amp; Involvement</h1>
         <p>
-          A space for the people, experiences, and ideas that connect my work
-          with the wider community.
+          Presentations, project demonstrations, and experiences shared with the
+          team.
         </p>
         <Link
           className="button button-outline community-gallery-link"
@@ -55,7 +55,8 @@ export default function CommunityArchiveSection() {
           <article className="community-entry" key={entry.id}>
             <img
               src={entry.image}
-              alt={entry.title}
+              alt={entry.imageAlt}
+              style={{ objectPosition: entry.imagePosition }}
               loading="lazy"
               decoding="async"
             />
@@ -77,7 +78,7 @@ export default function CommunityArchiveSection() {
         <div className="section-heading">
           <div>
             <h2 id="community-gallery-title">Event Gallery</h2>
-            <p>Room for the moments between the milestones.</p>
+            <p>Photos from pitching and the Sakyan prototype presentation.</p>
           </div>
           <Link className="text-link" to="/events">
             View all <ArrowUpRight size={14} />

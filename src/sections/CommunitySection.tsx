@@ -15,10 +15,10 @@ export default function CommunitySection() {
       </div>
       <div className="community-overview-row">
         <div>
-          <h3>Learning, sharing, and building together</h3>
+          <h3>Presenting ideas and bringing projects to life</h3>
           <p>
-            A growing collection of community activities and moments beyond the
-            code.
+            Presentation and pitching moments, including the Sakyan website and
+            mobile app prototype.
           </p>
         </div>
         <div className="community-overview-links">

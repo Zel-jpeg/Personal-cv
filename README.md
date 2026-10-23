@@ -26,7 +26,8 @@ A personal CV website showcasing my profile, education, technical and profession
 - Professional skills: problem solving, communication, teamwork, adaptability, and attention to detail
 - Compact GitHub and email icon links beneath the profile name
 - Dedicated projects archive with repository and live demo links
-- Community page with category filters, a masonry gallery with staggered upward entrances, and full-screen photo browsing
+- Community page featuring presentation/pitching and Sakyan prototype photos, with category filters, staggered gallery entrances, and full-screen photo browsing
+- Lightweight gallery previews with larger WebP photos loaded when opened
 - Certification overview and archive; supporting documents are available on request
 - Diagonal light/dark theme transition in supported browsers
 - Interactive personal photo stack (profile photos used temporarily)

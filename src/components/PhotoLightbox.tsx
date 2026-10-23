@@ -89,7 +89,7 @@ export default function PhotoLightbox({
             <img
               decoding="async"
               key={photos[index].id}
-              src={photos[index].src}
+              src={photos[index].fullSrc}
               alt={photos[index].alt}
             />
             <figcaption>

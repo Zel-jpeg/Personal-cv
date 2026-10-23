@@ -14,10 +14,10 @@ export default function EducationSection() {
         {education.map((entry) => (
           <article className="timeline-entry" key={entry.school}>
             <div className="entry-top">
-              <h3>{entry.school}</h3>
+              <h3>{entry.program}</h3>
               <span className="date-label">{entry.period}</span>
             </div>
-            <p className="entry-subtitle">{entry.program}</p>
+            <p className="entry-subtitle">{entry.school}</p>
             {entry.detail && <p className="entry-detail">{entry.detail}</p>}
           </article>
         ))}

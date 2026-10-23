@@ -31,11 +31,12 @@ export default function EventGallery({
               className="gallery-photo"
               style={{ aspectRatio: preview ? '1 / 1' : photo.aspect }}
               onClick={() => setIndex(position)}
-              aria-label={`Open photo ${position + 1}`}
+              aria-label={`Open photo ${position + 1}: ${photo.alt}`}
             >
               <img
                 src={photo.src}
                 alt={photo.alt}
+                style={{ objectPosition: photo.position }}
                 loading={position < 5 ? 'eager' : 'lazy'}
                 decoding="async"
               />

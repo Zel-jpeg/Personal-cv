@@ -43,12 +43,6 @@ export const education: EducationEntry[] = [
     school: 'Davao del Norte State College',
     period: '4th Year / Present',
     program: 'Bachelor of Science in Information Technology',
-    detail: 'Section: BSIT 4G',
-  },
-  {
-    school: 'A.L. Navarro National High School',
-    period: 'Completed',
-    program: 'High School Education',
   },
 ];
 

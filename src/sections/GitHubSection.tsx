@@ -20,7 +20,7 @@ export default function GitHubSection() {
           </a>
         </h2>
       </div>
-      <div className="contribution-box" aria-busy={!activity && !failed}>
+      <div aria-busy={!activity && !failed}>
         {activity ? (
           <div
             className="contribution-content"

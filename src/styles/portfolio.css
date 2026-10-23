@@ -452,11 +452,6 @@ h2 {
   font-size: 10px;
   color: var(--muted);
 }
-.contribution-box {
-  padding: 22px;
-  border: 1px dashed var(--line);
-  border-radius: 14px;
-}
 .contribution-scroll {
   overflow-x: auto;
   padding-bottom: 6px;
@@ -708,9 +703,6 @@ h2 {
   }
   .photo-stack {
     margin: 0 auto;
-  }
-  .contribution-box {
-    padding: 15px;
   }
   .github-section .section-heading {
     flex-wrap: wrap;
@@ -1524,33 +1516,9 @@ h2 {
 .featured-panel.is-expanded {
   border: 1px solid #000;
 }
-.github-section {
-  background: transparent;
-  border: 0;
-  padding: 18px 0;
-  box-shadow: none;
-}
-.github-section:hover {
-  box-shadow: none;
-}
-.github-section h2 {
-  font-size: 28px;
-  font-weight: 350;
-}
-.github-section .section-heading {
-  margin-bottom: 17px;
-}
-.contribution-box {
-  background: var(--card);
-  width: 100%;
-  border: 1px dashed var(--line);
-  border-radius: 18px;
-  padding: 30px 24px 24px;
-}
 .contribution-content {
   width: calc(var(--week-count) * 13px - 3px);
   max-width: 100%;
-  margin-inline: auto;
 }
 .contribution-scroll {
   display: block;
@@ -1610,12 +1578,6 @@ h2 {
   margin: 15px 0 0;
 }
 @media screen and (max-width: 560px) {
-  .github-section {
-    padding: 12px 0;
-  }
-  .contribution-box {
-    padding: 24px 18px 20px;
-  }
   .contribution-summary {
     font-size: 11px;
   }

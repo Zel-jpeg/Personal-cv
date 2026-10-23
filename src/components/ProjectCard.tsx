@@ -2,10 +2,12 @@ import { SiGithub } from 'react-icons/si';
 import { ArrowUpRight, FolderCode } from 'lucide-react';
 import type { Project } from '../data/projects';
 import TechBadge from './TechBadge';
+import { useCardSpotlight } from '../hooks/useCardSpotlight';
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const spotlight = useCardSpotlight();
   return (
-    <article className="project-card">
+    <article className="project-card" {...spotlight}>
       <a
         className="project-preview"
         href={project.demo ?? project.repository}

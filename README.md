@@ -1,6 +1,6 @@
 # Azel M. Villanueva — Personal CV Portfolio
 
-A personal CV website showcasing my profile, education, technical skills, academic development experience, and certifications. Created for IT 415 — Application Development and Emerging Technologies.
+A personal CV website showcasing my profile, education, technical and professional skills, academic development experience, and certifications. Created for IT 415 — Application Development and Emerging Technologies.
 
 ## Links
 
@@ -21,7 +21,9 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Print-friendly CV layout
 - Email and GitHub contact links
 - Expanding featured work panels and project cards with previews, code links, and demos
+- Cursor-following project card spotlights in both themes, with image-only hover zoom
 - Scrolling technology icons and a dedicated full tech stack page
+- Professional skills: problem solving, communication, teamwork, adaptability, and attention to detail
 - Compact GitHub and email icon links beneath the profile name
 - Dedicated projects archive with repository and live demo links
 - Community page with category filters, a masonry gallery with staggered upward entrances, and full-screen photo browsing

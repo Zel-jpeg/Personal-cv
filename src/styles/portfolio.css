@@ -89,6 +89,30 @@ h2 {
   color: var(--muted);
   margin: 8px 0 0;
 }
+.professional-skills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 10px;
+}
+.professional-skills li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--tag);
+  font-size: 13px;
+  break-inside: avoid;
+}
+.professional-skills svg {
+  flex-shrink: 0;
+  color: var(--muted);
+}
 .featured-strip {
   display: flex;
   gap: 9px;
@@ -189,6 +213,10 @@ h2 {
   gap: 14px;
 }
 .project-card {
+  --spotlight-color: rgb(0 0 0 / 0.16);
+  --project-hover-shadow: rgb(15 23 42 / 0.18);
+  position: relative;
+  isolation: isolate;
   border: 1px dashed var(--line);
   border-radius: 12px;
   padding: 8px;
@@ -200,10 +228,37 @@ h2 {
     border-color 0.3s,
     box-shadow 0.3s;
 }
-.project-card:hover {
-  transform: translateY(-5px);
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    var(--spotlight-color),
+    transparent 72%
+  );
+  opacity: var(--spotlight-opacity, 0);
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+[data-theme='dark'] .project-card {
+  --spotlight-color: rgb(255 255 255 / 0.2);
+  --project-hover-shadow: rgb(255 255 255 / 0.16);
+}
+.project-card:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 12px 25px #00000009;
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 30px -24px var(--project-hover-shadow);
+  }
+  .project-preview:hover img {
+    transform: scale(1.05);
+  }
 }
 .project-preview {
   display: block;
@@ -220,9 +275,6 @@ h2 {
   object-fit: cover;
   object-position: top;
   transition: transform 0.6s;
-}
-.project-card:hover .project-preview img {
-  transform: scale(1.05);
 }
 .preview-arrow {
   position: absolute;
@@ -715,6 +767,13 @@ h2 {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .project-card:hover,
+  .project-preview:hover img {
+    transform: none;
+  }
+  .project-card::before {
+    display: none;
+  }
   .technology-track {
     animation: none;
   }
@@ -1553,6 +1612,7 @@ h2 {
 .contribution-content {
   width: calc(var(--week-count) * 15px - 3px);
   max-width: 100%;
+  margin-inline: auto;
 }
 .contribution-scroll {
   display: block;

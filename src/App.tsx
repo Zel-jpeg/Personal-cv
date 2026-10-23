@@ -4,6 +4,7 @@ import ProfileHeader from './sections/ProfileHeader';
 import SummarySection from './sections/SummarySection';
 import EducationSection from './sections/EducationSection';
 import SkillsSection from './sections/SkillsSection';
+import ProfessionalSkillsSection from './sections/ProfessionalSkillsSection';
 import ExperienceSection from './sections/ExperienceSection';
 import CertificationsSection from './sections/CertificationsSection';
 import ContactSection from './sections/ContactSection';
@@ -64,12 +65,13 @@ export default function App() {
           />
           <div className="resume-content">
             <SummarySection />
-            <EducationSection />
-            <SkillsSection />
             <ExperienceSection />
+            <SkillsSection />
+            <ProfessionalSkillsSection />
             <CommunitySection />
             <ProjectsSection />
             <CertificationsSection />
+            <EducationSection />
             <OutsideSection />
             <GitHubSection />
             <ContactSection />

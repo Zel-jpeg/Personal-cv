@@ -13,7 +13,7 @@ Run `npm run dev` and open Vite's local URL to view the current React website. C
 - [x] Add an explicit career objective
 - [x] Education, degree, current year level, and previous school
 - [x] Technical skills
-- [ ] Review and add confirmed professional skills
+- [x] Add confirmed professional skills: problem solving, communication, teamwork, adaptability, and attention to detail
 - [x] Add a dedicated Projects section with descriptions and confirmed technologies
 - [x] Add project previews, repository links, and live demos where available
 - [x] Personal GitHub profile
@@ -51,7 +51,8 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 - Featured-work panels expand on hover, focus, and click.
 - Verde is the first and initially expanded featured panel; panels and Outside the IDE photos use 1px borders, with direct click/tap activation for featured panels on phones. The phone name/social links sit beside the profile photo, and Print CV moves into the home burger menu.
 - Explore all projects navigates to `/projects`, which lists all verified projects and shares the detail-page navigation and theme toggle.
-- Project cards use the owner's screenshots, verified code/demo URLs, and confirmed technology icons.
+- Project cards use the owner's screenshots, verified code/demo URLs, and confirmed technology icons. A neutral cursor-following spotlight and small lift adapt to both themes; screenshots zoom only when their own image area is hovered. Touch and reduced-motion preferences are respected.
+- Home sections begin with Profile, Development experience, Technologies, and Professional skills. Education follows Certifications, and both navigation menus follow the rendered section order.
 - Technology rows loop and pause on hover; View all opens `/tech-stack` with the complete skills list. Vercel rewrites support direct page visits and refreshes.
 - Each technology loop measures its content and repeats it to fill the row continuously. Only the hovered row pauses, while the hovered badge lifts and scales slightly.
 - Header social links show GitHub and email only; LinkedIn is intentionally omitted at the owner's request. The blue name check is a decorative design element.
@@ -61,7 +62,7 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 - GitHub activity loads public contributions for Zel-jpeg from the GitHub Contributions API by Jo Gruber. The section links to GitHub if the service fails or times out.
 - React Router keeps internal navigation in the same application; a brief CSS fade and Back/Forward scroll restoration smooth page changes. GitHub results are cached in memory and sessionStorage for 15 minutes. Images use the browser's normal asset cache, not sessionStorage.
 - Portfolio and local-only certificate images use WebP. The public portfolio image payload was reduced from about 602 KB to 229 KB while keeping image proportions. Gallery entrances establish the hidden state before paint and wait for image readiness before staggered upward reveals. Visible sample labels are omitted at the owner's request; real event details still await owner-provided content.
-- The activity section uses the shared card styling, with its heading inside and a left-aligned January–December calendar and total below. Cells stay square at a fixed size, with horizontal scrolling inside the card on phones. It uses current-year data and weekday alignment. General UI accents are neutral; featured borders are black. Green intensity remains only in the GitHub grid.
+- The activity section uses the shared card styling, with its heading inside and the January–December calendar centered beneath it. The total aligns with the calendar's left edge. Cells stay square at a fixed size, with horizontal scrolling inside the card on phones. It uses current-year data and weekday alignment. General UI accents are neutral; featured borders are black. Green intensity remains only in the GitHub grid.
 - The desktop profile's existing name and CV/theme controls form one sticky row that condenses into a glass bar with AV branding. The same controls remain mounted throughout scrolling; mobile retains its burger navigation. The GitHub profile summary is removed, and calendar cells use 12px squares with 3px gaps to fill more of the card without distortion.
 - Certifications use verified dates. The owner's local development copy shows PDF previews and supporting documents. The owner declined public upload of PDFs, previews, and badges: these stay in ignored `public/local-certificates/`, and production builds omit them. Public entries show an available-on-request email link. Duplicate SRWE PDFs are included only once. Local preview dialogs support close buttons, Escape, and backdrop dismissal.
 - Home and detail pages use burger navigation at widths of 850px and below, with link-selection, outside-click, and Escape dismissal.

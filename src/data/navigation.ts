@@ -6,16 +6,16 @@ export const navigation: NavigationItem[] = [
     label: 'Profile',
   },
   {
-    id: 'education',
-    label: 'Education',
+    id: 'experience',
+    label: 'Experience',
   },
   {
     id: 'skills',
-    label: 'Skills',
+    label: 'Technologies',
   },
   {
-    id: 'experience',
-    label: 'Experience',
+    id: 'professional-skills',
+    label: 'Professional skills',
   },
   {
     id: 'community',
@@ -28,6 +28,10 @@ export const navigation: NavigationItem[] = [
   {
     id: 'certifications',
     label: 'Certifications',
+  },
+  {
+    id: 'education',
+    label: 'Education',
   },
   {
     id: 'outside',

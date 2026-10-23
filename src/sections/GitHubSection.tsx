@@ -22,12 +22,12 @@ export default function GitHubSection() {
       </div>
       <div className="contribution-box" aria-busy={!activity && !failed}>
         {activity ? (
-          <>
+          <div
+            className="contribution-content"
+            style={{ '--week-count': activity.weeks } as CSSProperties}
+          >
             <div className="contribution-scroll">
-              <div
-                className="contribution-calendar"
-                style={{ '--week-count': activity.weeks } as CSSProperties}
-              >
+              <div className="contribution-calendar">
                 <div className="contribution-months">
                   {activity.months.map((month) => (
                     <span
@@ -63,7 +63,7 @@ export default function GitHubSection() {
             <p className="contribution-summary">
               {activity.total.toLocaleString()} contributions in {activity.year}
             </p>
-          </>
+          </div>
         ) : (
           <p className="contribution-summary" role="status">
             {failed ? (

@@ -21,7 +21,7 @@
 }
 .cv-shell,
 .footer {
-  width: min(1240px, calc(100% - 80px));
+  width: min(1120px, calc(100% - 80px));
 }
 .resume-layout {
   grid-template-columns: 175px minmax(0, 1fr);

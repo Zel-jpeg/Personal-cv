@@ -1543,7 +1543,6 @@ h2 {
 .contribution-box {
   background: var(--card);
   width: 100%;
-  max-width: 800px;
   border: 1px dashed var(--line);
   border-radius: 18px;
   padding: 30px 24px 24px;

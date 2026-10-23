@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { projects } from '../data/projects';
+import { featuredProjects } from '../data/projects';
 
 export default function FeaturedWork() {
   const [active, setActive] = useState(0);
@@ -26,13 +26,19 @@ export default function FeaturedWork() {
         { '--featured-image-width': `${imageWidth}px` } as React.CSSProperties
       }
     >
-      {projects.slice(0, 3).map((project, index) => (
+      {featuredProjects.map((project, index) => (
         <button
           type="button"
           key={project.name}
           className={`featured-panel ${active === index ? 'is-expanded' : ''}`}
           aria-expanded={active === index}
-          onMouseEnter={() => setActive(index)}
+          onPointerEnter={(event) => {
+            if (
+              event.pointerType === 'mouse' &&
+              matchMedia('(hover: hover)').matches
+            )
+              setActive(index);
+          }}
           onFocus={() => setActive(index)}
           onClick={() => setActive(index)}
           aria-label={`Feature ${project.name}`}

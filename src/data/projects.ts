@@ -61,3 +61,8 @@ export const projects: Project[] = [
     repository: 'https://github.com/Zel-jpeg/Financify',
   },
 ];
+
+// Featured order is independent of the complete project archive.
+export const featuredProjects = ['Verde Café Kiosk', 'SkillBridge', 'Sakyan']
+  .map((name) => projects.find((project) => project.name === name))
+  .filter((project): project is Project => project !== undefined);

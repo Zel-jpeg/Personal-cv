@@ -1,9 +1,15 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, Printer, X } from 'lucide-react';
 
 export type MenuLink = { label: string; href: string };
 
-export default function MobileMenu({ links }: { links: MenuLink[] }) {
+export default function MobileMenu({
+  links,
+  showPrint = false,
+}: {
+  links: MenuLink[];
+  showPrint?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const id = useId();
   const container = useRef<HTMLDivElement>(null);
@@ -63,6 +69,18 @@ export default function MobileMenu({ links }: { links: MenuLink[] }) {
             {link.label}
           </a>
         ))}
+        {showPrint && (
+          <button
+            type="button"
+            className="mobile-print-action"
+            onClick={() => {
+              setOpen(false);
+              requestAnimationFrame(() => window.print());
+            }}
+          >
+            <Printer size={16} aria-hidden="true" /> Print CV
+          </button>
+        )}
       </nav>
     </div>
   );

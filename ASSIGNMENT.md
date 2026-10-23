@@ -49,6 +49,7 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 ## Reference-inspired presentation
 
 - Featured-work panels expand on hover, focus, and click.
+- Verde is the first and initially expanded featured panel; panels use 2px borders and direct click/tap activation on phones. The phone name/social links sit beside the profile photo, and Print CV moves into the home burger menu.
 - Explore all projects navigates to `/projects`, which lists all verified projects and shares the detail-page navigation and theme toggle.
 - Project cards use the owner's screenshots, verified code/demo URLs, and confirmed technology icons.
 - Technology rows loop and pause on hover; View all opens `/tech-stack` with the complete skills list. Vercel rewrites support direct page visits and refreshes.

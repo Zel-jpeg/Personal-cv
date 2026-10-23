@@ -32,7 +32,7 @@ export default function DetailHeader({
         </nav>
         <div className="header-actions">
           <ThemeToggle {...props} />
-          <MobileMenu links={links} />
+          <MobileMenu links={links} showPrint={home} />
         </div>
       </div>
     </header>

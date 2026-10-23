@@ -40,24 +40,28 @@ export default function ProfileHeader({
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       </div>
       <div className="profile-heading">
-        <h1 id="name">
-          Azel M. Villanueva
-          <BadgeCheck className="name-check" aria-hidden="true" />
-        </h1>
-        <SocialLinks />
-        <p className="professional-title">
-          Aspiring Software Engineer <span aria-hidden="true">/</span> Web
-          Developer <span aria-hidden="true">/</span> BSIT Student
-        </p>
-        <p className="location">
-          <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
-            <circle cx="12" cy="10" r="2.5" />
-          </svg>
-          Davao City, Philippines
-        </p>
-        <div className="profile-actions">
-          <span className="student-tag">4th Year · BSIT 4G</span>
+        <div className="profile-identity">
+          <h1 id="name">
+            Azel M. Villanueva
+            <BadgeCheck className="name-check" aria-hidden="true" />
+          </h1>
+          <SocialLinks />
+        </div>
+        <div className="profile-details">
+          <p className="professional-title">
+            Aspiring Software Engineer <span aria-hidden="true">/</span> Web
+            Developer <span aria-hidden="true">/</span> BSIT Student
+          </p>
+          <p className="location">
+            <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            Davao City, Philippines
+          </p>
+          <div className="profile-actions">
+            <span className="student-tag">4th Year · BSIT 4G</span>
+          </div>
         </div>
       </div>
     </section>

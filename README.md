@@ -11,6 +11,7 @@ A personal CV website showcasing my profile, education, technical skills, academ
 ## Features
 
 - Responsive layout for desktop, tablet, and mobile screens
+- Burger navigation on mobile and tablet screens, with keyboard and Escape support
 - Light and dark themes with saved preferences
 - Section navigation with active section highlighting
 - Hover effects and scroll animations with reduced-motion support
@@ -20,6 +21,7 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Scrolling technology icons and a dedicated full tech stack page
 - Compact GitHub and email icon links beneath the profile name
 - Dedicated projects archive with repository and live demo links
+- Certification overview and archive; supporting documents are available on request
 - Diagonal light/dark theme transition in supported browsers
 - Interactive personal photo stack (profile photos used temporarily)
 - Public GitHub contribution grid with an unavailable-data fallback
@@ -52,6 +54,8 @@ npm run dev
 ```
 
 Open the local URL shown in the terminal.
+
+Private certificate files are excluded from Git and production builds. The owner's local development copy can display these files; a fresh clone shows certificate details with an available-on-request contact link.
 
 To build and preview the production version:
 

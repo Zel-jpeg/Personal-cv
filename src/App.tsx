@@ -14,18 +14,25 @@ import GitHubSection from './sections/GitHubSection';
 import TechStackSection from './sections/TechStackSection';
 import DetailHeader from './components/DetailHeader';
 import ProjectArchiveSection from './sections/ProjectArchiveSection';
+import CertificationArchiveSection from './sections/CertificationArchiveSection';
 
 export default function App() {
   const { theme, toggleTheme, activeSection, setActiveSection } = useCV();
   const path = window.location.pathname.replace(/\/$/, '');
-  if (path === '/tech-stack' || path === '/projects') {
+  if (
+    path === '/tech-stack' ||
+    path === '/projects' ||
+    path === '/certifications'
+  ) {
     return (
       <>
         <a className="skip-link" href="#main-content">
           Skip to page content
         </a>
         <DetailHeader theme={theme} toggleTheme={toggleTheme} />
-        {path === '/projects' ? (
+        {path === '/certifications' ? (
+          <CertificationArchiveSection />
+        ) : path === '/projects' ? (
           <ProjectArchiveSection />
         ) : (
           <TechStackSection />
@@ -39,6 +46,9 @@ export default function App() {
       <a className="skip-link" href="#main-content">
         Skip to CV content
       </a>
+      <div className="home-mobile-header">
+        <DetailHeader home theme={theme} toggleTheme={toggleTheme} />
+      </div>
       <main className="cv-shell" id="main-content">
         <ProfileHeader theme={theme} toggleTheme={toggleTheme} />
         <div className="resume-layout">

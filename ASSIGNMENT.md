@@ -58,4 +58,6 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 - A diagonal View Transition animates theme changes in supported browsers; reduced-motion and unsupported browsers switch directly.
 - The personal photo stack uses the profile image temporarily as requested. Edit `src/data/personal.ts` when personal photos and hobbies are ready.
 - GitHub activity loads public contributions for Zel-jpeg from the GitHub Contributions API by Jo Gruber. The section links to GitHub if the service fails or times out.
+- Certifications use verified dates. The owner's local development copy shows PDF previews and supporting documents. The owner declined public upload of PDFs, previews, and badges: these stay in ignored `public/local-certificates/`, and production builds omit them. Public entries show an available-on-request email link. Duplicate SRWE PDFs are included only once. Local preview dialogs support close buttons, Escape, and backdrop dismissal.
+- Home and detail pages use burger navigation at widths of 850px and below, with link-selection, outside-click, and Escape dismissal.
 - Desktop, 390px phone, and 768px tablet layouts have been visually reviewed locally. The public deployment still needs final verification.

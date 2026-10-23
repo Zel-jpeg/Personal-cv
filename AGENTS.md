@@ -18,6 +18,11 @@
 - Home-page “View all” and “Explore all projects” navigate to `/tech-stack` and `/projects`. Keep their full-content sections under `src/sections/`, reuse `DetailHeader`, and maintain the explicit Vercel rewrites when adding routes.
 - Technology rows must loop seamlessly at all supported widths. Hovering a row pauses only that row; hovering a badge lifts and slightly enlarges it. Preserve reduced-motion behavior.
 - Featured panels crop a fixed image canvas horizontally. Keep image height and scale steady while the panel widths animate; collapsed labels stay horizontal near the bottom.
+- Keep verified certificate metadata in `src/data/certifications.ts`. The owner explicitly chose to keep PDFs, rendered previews, and badges local: they live in ignored `public/local-certificates/`, are served only in local development, and must never enter Git history or production builds. Public certificate entries show “Available on request.” Do not publish these files without new explicit permission. The home overview links to `/certifications`; maintain its Vercel rewrite.
+- List each distinct course once. Supplemental documents and badges belong to that course, and identical duplicate PDFs must not become extra credentials. Cisco Networking Academy course completion must not be presented as passing the separate CCNA certification exam.
+- Certificate thumbnails open the shared native-dialog preview with keyboard dismissal; preserve original PDF links and verified completion dates. Add pagination only when enough distinct credentials warrant it.
+- At widths of 850px and below, use the shared burger menu on home and detail pages; retain desktop sidebar/navigation above that breakpoint. Keep menu labels, expanded state, Escape dismissal, outside-click dismissal, link selection, and keyboard focus behavior accessible.
+- Check home, projects, technologies, and certifications at 320px, 390px, 768px, 1024px, and 1440px when changing layouts. Keep page-wide overflow absent; contribution grids may scroll inside their own container.
 
 ## Required folder and file organization
 

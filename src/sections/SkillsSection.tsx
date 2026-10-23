@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { skillGroups } from '../data/cv';
-import TechBadge from '../components/TechBadge';
+import TechnologyRow from '../components/TechnologyRow';
 
 const highlights = [
   skillGroups[0],
@@ -13,7 +13,6 @@ const highlights = [
 
 // Seamless, hover-paused rows inspired by React Bits Logo Loop.
 export default function SkillsSection() {
-  const [expanded, setExpanded] = useState(false);
   return (
     <section
       className="cv-section reveal"
@@ -24,44 +23,17 @@ export default function SkillsSection() {
         <h2 id="skills-title">
           Technologies<span className="heading-dot">.</span>
         </h2>
-        <button
-          className="text-link"
-          type="button"
-          aria-expanded={expanded}
-          aria-controls="all-skills"
-          onClick={() => setExpanded((value) => !value)}
-        >
-          {expanded ? 'Show less −' : 'View all +'}
-        </button>
+        <a className="text-link" href="/tech-stack">
+          View all <ChevronRight size={14} />
+        </a>
       </div>
       <div className="technology-loops" aria-label="Technology highlights">
         {highlights.map((group) => (
-          <div className="technology-window" key={group.category}>
-            <div className="technology-track">
-              <div>
-                {group.skills.map((name) => (
-                  <TechBadge key={name} name={name} />
-                ))}
-              </div>
-              <div aria-hidden="true">
-                {group.skills.map((name) => (
-                  <TechBadge key={name} name={name} />
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div id="all-skills" hidden={!expanded} className="all-skills">
-        {skillGroups.map((group) => (
-          <div className="skill-group" key={group.category}>
-            <h3>{group.category}</h3>
-            <div className="technology-list">
-              {group.skills.map((name) => (
-                <TechBadge key={name} name={name} />
-              ))}
-            </div>
-          </div>
+          <TechnologyRow
+            key={group.category}
+            label={group.category}
+            skills={group.skills}
+          />
         ))}
       </div>
     </section>

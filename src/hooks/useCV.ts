@@ -46,6 +46,10 @@ export function useCV() {
       if (!frame) frame = requestAnimationFrame(updateNavigation);
     }
     updateNavigation();
+    const anchorFrame = requestAnimationFrame(() => {
+      const anchor = document.getElementById(window.location.hash.slice(1));
+      anchor?.scrollIntoView({ behavior: 'instant' });
+    });
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
 
@@ -78,6 +82,7 @@ export function useCV() {
       window.removeEventListener('scroll', scheduleUpdate);
       window.removeEventListener('resize', scheduleUpdate);
       cancelAnimationFrame(frame);
+      cancelAnimationFrame(anchorFrame);
       observer?.disconnect();
       pending.forEach((section) => section.classList.remove('is-pending'));
     };

@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import { ArrowDown, ArrowUp } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import FeaturedWork from '../components/FeaturedWork';
 import ProjectCard from '../components/ProjectCard';
 
 export default function ProjectsSection() {
-  const [showAll, setShowAll] = useState(false);
   return (
     <section
       className="cv-section projects-section reveal"
@@ -24,22 +22,13 @@ export default function ProjectsSection() {
         <span className="small-label">01 — 0{projects.length}</span>
       </div>
       <div className="project-grid" id="project-list">
-        {projects.slice(0, showAll ? projects.length : 3).map((project) => (
+        {projects.slice(0, 3).map((project) => (
           <ProjectCard key={project.name} project={project} />
         ))}
       </div>
-      <button
-        className="button button-primary explore-projects"
-        type="button"
-        aria-expanded={showAll}
-        aria-controls="project-list"
-        onClick={() => setShowAll((value) => !value)}
-      >
-        {showAll
-          ? 'Show selected projects'
-          : `Explore all ${projects.length} projects`}
-        {showAll ? <ArrowUp size={15} /> : <ArrowDown size={15} />}
-      </button>
+      <a className="button button-primary explore-projects" href="/projects">
+        Explore all {projects.length} projects <ArrowUpRight size={15} />
+      </a>
     </section>
   );
 }

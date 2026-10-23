@@ -49,8 +49,12 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 ## Reference-inspired presentation
 
 - Featured-work panels expand on hover, focus, and click.
+- Explore all projects navigates to `/projects`, which lists all verified projects and shares the detail-page navigation and theme toggle.
 - Project cards use the owner's screenshots, verified code/demo URLs, and confirmed technology icons.
-- Technology rows loop and pause on hover; View all exposes the complete skills list.
+- Technology rows loop and pause on hover; View all opens `/tech-stack` with the complete skills list. Vercel rewrites support direct page visits and refreshes.
+- Each technology loop measures its content and repeats it to fill the row continuously. Only the hovered row pauses, while the hovered badge lifts and scales slightly.
+- Header social links show GitHub and email only; LinkedIn is intentionally omitted at the owner's request. The blue name check is a decorative design element.
+- Featured-work images keep a stable canvas and height while panels crop horizontally; collapsed titles sit at the bottom horizontally.
 - A diagonal View Transition animates theme changes in supported browsers; reduced-motion and unsupported browsers switch directly.
 - The personal photo stack uses the profile image temporarily as requested. Edit `src/data/personal.ts` when personal photos and hobbies are ready.
 - GitHub activity loads public contributions for Zel-jpeg from the GitHub Contributions API by Jo Gruber. The section links to GitHub if the service fails or times out.

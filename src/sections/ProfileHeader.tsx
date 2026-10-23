@@ -1,3 +1,6 @@
+import { BadgeCheck } from 'lucide-react';
+import SocialLinks from '../components/SocialLinks';
+import ThemeToggle from '../components/ThemeToggle';
 import profilePhoto from '../assets/profile-zel.webp';
 
 type ProfileHeaderProps = {
@@ -34,28 +37,15 @@ export default function ProfileHeader({
           </svg>
           <span>Print CV</span>
         </button>
-        <button
-          className="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          aria-pressed={theme === 'dark'}
-          onClick={toggleTheme}
-        >
-          <svg className="icon sun" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
-          </svg>
-          <svg className="icon moon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5Z" />
-          </svg>
-        </button>
+        <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       </div>
       <div className="profile-heading">
         <p className="eyebrow">CURRICULUM VITAE</p>
         <h1 id="name">
-          Azel M. Villanueva<span className="name-dot">.</span>
+          Azel M. Villanueva
+          <BadgeCheck className="name-check" aria-hidden="true" />
         </h1>
+        <SocialLinks />
         <p className="professional-title">
           Aspiring Software Engineer <span aria-hidden="true">/</span> Web
           Developer <span aria-hidden="true">/</span> BSIT Student
@@ -68,24 +58,6 @@ export default function ProfileHeader({
           Davao City, Philippines
         </p>
         <div className="profile-actions">
-          <a
-            className="button button-primary"
-            href="mailto:villanueva.azel@dnsc.edu.ph"
-          >
-            <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2" />
-              <path d="m3 6 9 7 9-7" />
-            </svg>
-            Email me
-          </a>
-          <a
-            className="button button-outline"
-            href="https://github.com/Zel-jpeg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub <span aria-hidden="true">↗</span>
-          </a>
           <span className="student-tag">4th Year · BSIT 4G</span>
         </div>
       </div>

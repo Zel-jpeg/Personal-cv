@@ -11,9 +11,29 @@ import { useCV } from './hooks/useCV';
 import ProjectsSection from './sections/ProjectsSection';
 import OutsideSection from './sections/OutsideSection';
 import GitHubSection from './sections/GitHubSection';
+import TechStackSection from './sections/TechStackSection';
+import DetailHeader from './components/DetailHeader';
+import ProjectArchiveSection from './sections/ProjectArchiveSection';
 
 export default function App() {
   const { theme, toggleTheme, activeSection, setActiveSection } = useCV();
+  const path = window.location.pathname.replace(/\/$/, '');
+  if (path === '/tech-stack' || path === '/projects') {
+    return (
+      <>
+        <a className="skip-link" href="#main-content">
+          Skip to page content
+        </a>
+        <DetailHeader theme={theme} toggleTheme={toggleTheme} />
+        {path === '/projects' ? (
+          <ProjectArchiveSection />
+        ) : (
+          <TechStackSection />
+        )}
+        <Footer />
+      </>
+    );
+  }
   return (
     <>
       <a className="skip-link" href="#main-content">

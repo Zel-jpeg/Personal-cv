@@ -1,11 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 
 export default function FeaturedWork() {
   const [active, setActive] = useState(0);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const [imageWidth, setImageWidth] = useState(600);
+  useEffect(() => {
+    const element = stripRef.current;
+    if (!element) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry.contentRect.width;
+      const collapsed = Math.max(44, Math.min(100, width * 0.12));
+      setImageWidth(Math.max(160, width - collapsed * 2 - 18));
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <div className="featured-strip" aria-label="Featured work">
+    <div
+      className="featured-strip"
+      aria-label="Featured work"
+      ref={stripRef}
+      style={
+        { '--featured-image-width': `${imageWidth}px` } as React.CSSProperties
+      }
+    >
       {projects.slice(0, 3).map((project, index) => (
         <button
           type="button"

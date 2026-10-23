@@ -12,6 +12,10 @@
 - Project data and previews belong in `src/data/projects.ts` and `src/assets/projects/`. Never invent project technologies or destination URLs.
 - `src/data/personal.ts` contains temporary profile photos for the personal photo stack at the user's request. Replace these when the user supplies hobby photos; do not invent hobbies.
 - Interaction components currently use custom CSS and browser APIs inspired by the references. Do not claim that the reference site's exact implementation or a library's source was used without verification.
+- Header social icons link to GitHub and email. Do not add LinkedIn until the user asks for it and supplies a URL. The blue name check is decorative and should not imply third-party verification.
+- Home-page “View all” and “Explore all projects” navigate to `/tech-stack` and `/projects`. Keep their full-content sections under `src/sections/`, reuse `DetailHeader`, and maintain the explicit Vercel rewrites when adding routes.
+- Technology rows must loop seamlessly at all supported widths. Hovering a row pauses only that row; hovering a badge lifts and slightly enlarges it. Preserve reduced-motion behavior.
+- Featured panels crop a fixed image canvas horizontally. Keep image height and scale steady while the panel widths animate; collapsed labels stay horizontal near the bottom.
 
 ## Required folder and file organization
 

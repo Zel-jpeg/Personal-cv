@@ -17,7 +17,9 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Print-friendly CV layout
 - Email and GitHub contact links
 - Expanding featured work panels and project cards with previews, code links, and demos
-- Scrolling technology icons and an expandable skills list
+- Scrolling technology icons and a dedicated full tech stack page
+- Compact GitHub and email icon links beneath the profile name
+- Dedicated projects archive with repository and live demo links
 - Diagonal light/dark theme transition in supported browsers
 - Interactive personal photo stack (profile photos used temporarily)
 - Public GitHub contribution grid with an unavailable-data fallback

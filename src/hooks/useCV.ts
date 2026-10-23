@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 type Theme = 'light' | 'dark';
 const themeKey = 'azel-cv-portfolio-theme';
@@ -84,8 +85,19 @@ export function useCV() {
 
   return {
     theme,
-    toggleTheme: () =>
-      setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
+    toggleTheme: () => {
+      const update = () => {
+        flushSync(() =>
+          setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
+        );
+      };
+      if (
+        document.startViewTransition &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        document.startViewTransition(update);
+      } else update();
+    },
     activeSection,
     setActiveSection,
   };

@@ -16,6 +16,11 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Hover effects and scroll animations with reduced-motion support
 - Print-friendly CV layout
 - Email and GitHub contact links
+- Expanding featured work panels and project cards with previews, code links, and demos
+- Scrolling technology icons and an expandable skills list
+- Diagonal light/dark theme transition in supported browsers
+- Interactive personal photo stack (profile photos used temporarily)
+- Public GitHub contribution grid with an unavailable-data fallback
 
 ## Technologies
 
@@ -23,6 +28,7 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - TypeScript
 - Vite
 - Custom CSS
+- Lucide React and React Icons
 
 ## Student
 

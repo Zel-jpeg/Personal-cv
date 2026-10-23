@@ -8,6 +8,10 @@
 - Consult these resources when planning and implementing the portfolio's design, components, animations, and interactions. Check current documentation, compatibility, and any component dependencies before integration.
 - Adapt selected components to the user's personal design and assignment requirements. Keep the implementation understandable, responsive, accessible, and respectful of reduced-motion preferences.
 - This preference does not require installing every library or using every effect. Choose components that serve the CV's content and usability.
+- Presentation reference chosen by the user: https://renlenon.vercel.app/. Adapt its project cards, expanding featured-work panels, technology rows, photo stack, contribution grid, and theme transition to this CV; retain the existing CV layout and folder organization.
+- Project data and previews belong in `src/data/projects.ts` and `src/assets/projects/`. Never invent project technologies or destination URLs.
+- `src/data/personal.ts` contains temporary profile photos for the personal photo stack at the user's request. Replace these when the user supplies hobby photos; do not invent hobbies.
+- Interaction components currently use custom CSS and browser APIs inspired by the references. Do not claim that the reference site's exact implementation or a library's source was used without verification.
 
 ## Required folder and file organization
 

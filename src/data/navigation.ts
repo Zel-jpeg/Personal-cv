@@ -18,8 +18,20 @@ export const navigation: NavigationItem[] = [
     label: 'Experience',
   },
   {
+    id: 'projects',
+    label: 'Projects',
+  },
+  {
     id: 'certifications',
     label: 'Certifications',
+  },
+  {
+    id: 'outside',
+    label: 'Outside the IDE',
+  },
+  {
+    id: 'activity',
+    label: 'GitHub activity',
   },
   {
     id: 'contact',

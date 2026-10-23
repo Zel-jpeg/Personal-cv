@@ -4,18 +4,18 @@
 
 This folder is an independent copy of `../CV`. The original project is preserved. Existing Git history is retained, and the old GitHub remote is disconnected so this copy can use a dedicated repository.
 
-Open `index.html` to view the current website. Continue editing files in this folder for the new assignment.
+Run `npm run dev` and open Vite's local URL to view the current React website. Continue editing files in this folder for the new assignment.
 
 ## Content checklist
 
 - [x] Full name, professional title, profile photo, and introduction
 - [x] Location, email, personal description, and career interests
-- [ ] Add an explicit career objective
+- [x] Add an explicit career objective
 - [x] Education, degree, current year level, and previous school
 - [x] Technical skills
 - [ ] Review and add confirmed professional skills
-- [ ] Add a dedicated Projects section with descriptions and confirmed technologies
-- [ ] Add project previews, repository links, and live demos where available
+- [x] Add a dedicated Projects section with descriptions and confirmed technologies
+- [x] Add project previews, repository links, and live demos where available
 - [x] Personal GitHub profile
 - [ ] Add LinkedIn and public social accounts if available and desired
 - [x] Certifications
@@ -40,8 +40,18 @@ Only publish verified personal information. Phone numbers and social accounts ar
 - [ ] Update README with the final title, description, technologies, student name, and live Vercel link
 - [x] Remove the unused inherited `personal-info.txt` conflict exercise
 - [ ] Push the latest source code
-- [ ] Import the new repository into Vercel as a static HTML/CSS/JavaScript site
+- [ ] Import the repository into Vercel using the Vite preset, `npm run build`, and `dist` output
 - [ ] Open the public deployment and repeat link, image, desktop, and mobile checks
 - [ ] Submit the accessible Vercel link and GitHub repository link in the LMS
 
 The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is still pending. Push the latest source again after each subsequent update.
+
+## Reference-inspired presentation
+
+- Featured-work panels expand on hover, focus, and click.
+- Project cards use the owner's screenshots, verified code/demo URLs, and confirmed technology icons.
+- Technology rows loop and pause on hover; View all exposes the complete skills list.
+- A diagonal View Transition animates theme changes in supported browsers; reduced-motion and unsupported browsers switch directly.
+- The personal photo stack uses the profile image temporarily as requested. Edit `src/data/personal.ts` when personal photos and hobbies are ready.
+- GitHub activity loads public contributions for Zel-jpeg from the GitHub Contributions API by Jo Gruber. The section links to GitHub if the service fails or times out.
+- Desktop, 390px phone, and 768px tablet layouts have been visually reviewed locally. The public deployment still needs final verification.

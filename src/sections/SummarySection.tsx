@@ -13,6 +13,14 @@ export default function SummarySection() {
       {introduction.map((paragraph) => (
         <p key={paragraph}>{paragraph}</p>
       ))}
+      <div className="career-objective">
+        <h3>Career objective</h3>
+        <p>
+          To grow as a software developer through internship and professional
+          opportunities, applying my web development and UI/UX skills to useful,
+          accessible applications.
+        </p>
+      </div>
     </section>
   );
 }

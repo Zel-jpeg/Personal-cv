@@ -1,3 +1,6 @@
+import { SiGithub } from 'react-icons/si';
+import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
+
 export default function ContactSection() {
   return (
     <section
@@ -5,35 +8,49 @@ export default function ContactSection() {
       id="contact"
       aria-labelledby="contact-title"
     >
-      <div className="section-heading">
-        <h2 id="contact-title">Contact information</h2>
+      <div className="contact-intro">
+        <p className="eyebrow">HAVE SOMETHING IN MIND?</p>
+        <h2 id="contact-title">
+          Let's build something
+          <br />
+          <span>worth sharing.</span>
+        </h2>
+        <p>
+          Interested in internship opportunities, software development, and
+          collaborating on thoughtful web experiences.
+        </p>
+        <span className="contact-location">
+          <MapPin size={14} /> Davao City, Philippines
+        </span>
       </div>
-      <dl className="contact-list">
-        <div>
-          <dt>Email</dt>
-          <dd>
-            <a href="mailto:villanueva.azel@dnsc.edu.ph">
-              villanueva.azel@dnsc.edu.ph <span aria-hidden="true">↗</span>
-            </a>
-          </dd>
-        </div>
-        <div>
-          <dt>Location</dt>
-          <dd>Davao City, Philippines</dd>
-        </div>
-        <div>
-          <dt>GitHub</dt>
-          <dd>
-            <a
-              href="https://github.com/Zel-jpeg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              github.com/Zel-jpeg <span aria-hidden="true">↗</span>
-            </a>
-          </dd>
-        </div>
-      </dl>
+      <div className="contact-actions">
+        <a className="contact-card" href="mailto:villanueva.azel@dnsc.edu.ph">
+          <span className="contact-card-icon">
+            <Mail />
+          </span>
+          <span>
+            <span className="small-label">START A CONVERSATION</span>
+            <strong>Send me an email</strong>
+            <span className="contact-address">villanueva.azel@dnsc.edu.ph</span>
+          </span>
+          <ArrowUpRight size={18} />
+        </a>
+        <a
+          className="contact-card"
+          href="https://github.com/Zel-jpeg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="contact-card-icon">
+            <SiGithub />
+          </span>
+          <span>
+            <span className="small-label">FOLLOW THE WORK</span>
+            <strong>Find me on GitHub</strong>
+          </span>
+          <ArrowUpRight size={18} />
+        </a>
+      </div>
     </section>
   );
 }

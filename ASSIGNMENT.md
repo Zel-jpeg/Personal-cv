@@ -34,14 +34,14 @@ Only publish verified personal information. Phone numbers and social accounts ar
 
 ## Repository and deployment checklist
 
-- [ ] Create a dedicated GitHub repository for this copy
-- [ ] Connect this folder to the new repository
+- [x] Create a dedicated GitHub repository for this copy: https://github.com/Zel-jpeg/Personal-cv
+- [x] Connect this folder to the new repository
 - [ ] Make meaningful commits as the new work progresses; retained history belongs to the original project
 - [ ] Update README with the final title, description, technologies, student name, and live Vercel link
-- [ ] Remove or resolve the inherited conflict-example text in `personal-info.txt` before publishing
+- [x] Remove or resolve the inherited conflict-example text in `personal-info.txt` before publishing
 - [ ] Push the latest source code
 - [ ] Import the new repository into Vercel as a static HTML/CSS/JavaScript site
 - [ ] Open the public deployment and repeat link, image, desktop, and mobile checks
 - [ ] Submit the accessible Vercel link and GitHub repository link in the LMS
 
-No new GitHub repository or Vercel deployment has been created yet.
+The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is still pending. Push the latest source again after each subsequent update.

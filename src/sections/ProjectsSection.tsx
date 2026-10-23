@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import FeaturedWork from '../components/FeaturedWork';
@@ -26,9 +27,9 @@ export default function ProjectsSection() {
           <ProjectCard key={project.name} project={project} />
         ))}
       </div>
-      <a className="button button-primary explore-projects" href="/projects">
+      <Link className="button button-primary explore-projects" to="/projects">
         Explore all {projects.length} projects <ArrowUpRight size={15} />
-      </a>
+      </Link>
     </section>
   );
 }

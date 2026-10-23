@@ -17,7 +17,12 @@ export default function CertificatePreview({
         onClick={() => dialog.current?.showModal()}
         aria-label={`Preview ${title}`}
       >
-        <img src={image} alt={`${title} certificate`} loading="lazy" />
+        <img
+          decoding="async"
+          src={image}
+          alt={`${title} certificate`}
+          loading="lazy"
+        />
       </button>
       <dialog
         ref={dialog}
@@ -39,7 +44,12 @@ export default function CertificatePreview({
             <X size={20} />
           </button>
         </div>
-        <img className="certificate-full-image" src={image} alt={title} />
+        <img
+          decoding="async"
+          className="certificate-full-image"
+          src={image}
+          alt={title}
+        />
         <a
           className="button button-primary"
           href={pdf}

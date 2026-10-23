@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { ChevronRight } from 'lucide-react';
 import { certifications } from '../data/certifications';
 import CertificateRecord from '../components/CertificateRecord';
@@ -13,9 +14,9 @@ export default function CertificationsSection() {
         <h2 id="certifications-title">
           Certifications<span className="heading-dot">.</span>
         </h2>
-        <a className="text-link" href="/certifications">
+        <Link className="text-link" to="/certifications">
           View all <ChevronRight size={14} />
-        </a>
+        </Link>
       </div>
       <p className="eyebrow certificate-group-label">
         LATEST COURSE CREDENTIAL

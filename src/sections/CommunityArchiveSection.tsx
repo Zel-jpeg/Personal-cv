@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowUpRight, Images } from 'lucide-react';
 import { communityCategories, communityEntries } from '../data/community';
@@ -17,25 +18,22 @@ export default function CommunityArchiveSection() {
   );
   return (
     <main className="tech-stack-page community-page" id="main-content">
-      <a className="text-link back-link" href="/#community">
+      <Link className="text-link back-link" to="/#community">
         <ArrowLeft size={15} /> Back to home
-      </a>
+      </Link>
       <header className="tech-page-intro">
         <h1>Community &amp; Involvement</h1>
         <p>
           A space for the people, experiences, and ideas that connect my work
           with the wider community.
         </p>
-        <a
+        <Link
           className="button button-outline community-gallery-link"
-          href="/events"
+          to="/events"
         >
           <Images size={15} /> Browse event photos <ArrowUpRight size={14} />
-        </a>
+        </Link>
       </header>
-      <p className="sample-notice">
-        Sample content · Event details and photos will be added soon.
-      </p>
       <div
         className="community-filters"
         role="group"
@@ -55,14 +53,19 @@ export default function CommunityArchiveSection() {
       <div className="community-entry-list" aria-live="polite">
         {entries.map((entry) => (
           <article className="community-entry" key={entry.id}>
-            <img src={entry.image} alt={`Sample image for ${entry.title}`} />
+            <img
+              src={entry.image}
+              alt={entry.title}
+              loading="lazy"
+              decoding="async"
+            />
             <div>
-              <p className="eyebrow">{entry.category} · Sample entry</p>
+              <p className="eyebrow">{entry.category}</p>
               <h2>{entry.title}</h2>
               <p>{entry.description}</p>
-              <a className="text-link" href="/events">
+              <Link className="text-link" to="/events">
                 Browse gallery <ArrowUpRight size={13} />
-              </a>
+              </Link>
             </div>
           </article>
         ))}
@@ -76,9 +79,9 @@ export default function CommunityArchiveSection() {
             <h2 id="community-gallery-title">Event Gallery</h2>
             <p>Room for the moments between the milestones.</p>
           </div>
-          <a className="text-link" href="/events">
+          <Link className="text-link" to="/events">
             View all <ArrowUpRight size={14} />
-          </a>
+          </Link>
         </div>
         <EventGallery preview />
       </section>

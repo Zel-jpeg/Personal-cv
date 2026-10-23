@@ -44,6 +44,7 @@ export default function FeaturedWork() {
           aria-label={`Feature ${project.name}`}
         >
           <img
+            decoding="async"
             src={project.image}
             alt={`${project.name} project preview`}
             loading="lazy"

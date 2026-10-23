@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import ThemeToggle from './ThemeToggle';
 import type { ThemeToggleProps } from './ThemeToggle';
 import MobileMenu from './MobileMenu';
@@ -20,14 +21,18 @@ export default function DetailHeader({
   return (
     <header className="detail-site-header">
       <div>
-        <a className="site-monogram" href="/" aria-label="Azel Villanueva home">
+        <Link
+          className="site-monogram"
+          to="/"
+          aria-label="Azel Villanueva home"
+        >
           AV<span>.</span>
-        </a>
+        </Link>
         <nav className="detail-desktop-nav" aria-label="Main navigation">
           {links.map((link) => (
-            <a key={link.href} href={link.href}>
+            <Link key={link.href} to={link.href}>
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="header-actions">

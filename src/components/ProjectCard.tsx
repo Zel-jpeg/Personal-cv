@@ -15,6 +15,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       >
         {project.image ? (
           <img
+            decoding="async"
             src={project.image}
             alt={`${project.name} interface`}
             loading="lazy"

@@ -17,28 +17,28 @@ export default function EventGallery({
       <div
         ref={ref}
         className={preview ? 'event-gallery-preview' : 'event-masonry'}
-        aria-label="Sample event photo gallery"
+        aria-label="Event photo gallery"
       >
         {photos.map((photo, position) => (
           <div
             key={photo.id}
             className="gallery-reveal"
             data-reveal
-            style={{ transitionDelay: `${(position % 5) * 60}ms` }}
+            style={{ transitionDelay: `${Math.min(position, 7) * 70}ms` }}
           >
             <button
               type="button"
               className="gallery-photo"
               style={{ aspectRatio: preview ? '1 / 1' : photo.aspect }}
               onClick={() => setIndex(position)}
-              aria-label={`Open sample photo ${position + 1}`}
+              aria-label={`Open photo ${position + 1}`}
             >
               <img
                 src={photo.src}
                 alt={photo.alt}
                 loading={position < 5 ? 'eager' : 'lazy'}
+                decoding="async"
               />
-              <span className="gallery-sample-label">Sample</span>
               <span className="gallery-expand">
                 <Expand size={17} />
               </span>

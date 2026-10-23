@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { certifications } from '../data/certifications';
@@ -12,9 +13,9 @@ export default function CertificationArchiveSection() {
   }, []);
   return (
     <main className="tech-stack-page certification-archive" id="main-content">
-      <a className="text-link back-link" href="/#certifications">
+      <Link className="text-link back-link" to="/#certifications">
         <ArrowLeft size={15} /> Back to home
-      </a>
+      </Link>
       <header className="tech-page-intro">
         <h1>
           Certifications<span className="heading-dot">.</span>

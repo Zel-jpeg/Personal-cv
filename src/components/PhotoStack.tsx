@@ -21,9 +21,11 @@ export default function PhotoStack() {
             className={`stack-photo stack-position-${position}`}
           >
             <img
+              decoding="async"
               src={photo.src}
               alt={position === 0 ? photo.alt : ''}
               draggable="false"
+              loading="lazy"
             />
           </span>
         );

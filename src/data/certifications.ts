@@ -22,13 +22,13 @@ export const certifications: Certificate[] = [
     title: 'CCNA: Switching, Routing, and Wireless Essentials',
     issuer: 'Cisco Networking Academy · Davao del Norte State College',
     date: '2025-12-26',
-    image: localFile('ccna-srwe.png'),
+    image: localFile('ccna-srwe.webp'),
     pdf: localFile('ccna-srwe.pdf'),
-    badge: localFile('ccna-srwe-badge.png'),
+    badge: localFile('ccna-srwe-badge.webp'),
     additionalDocument: hasLocalFiles
       ? {
           title: 'Cisco course-completion credential',
-          image: localFile('ccna-srwe-credential.png')!,
+          image: localFile('ccna-srwe-credential.webp')!,
           pdf: localFile('ccna-srwe-credential.pdf')!,
         }
       : undefined,
@@ -38,7 +38,7 @@ export const certifications: Certificate[] = [
     title: 'CCNA: Introduction to Networks',
     issuer: 'Cisco Networking Academy · Davao del Norte State College',
     date: '2025-06-11',
-    image: localFile('ccna-introduction.png'),
+    image: localFile('ccna-introduction.webp'),
     pdf: localFile('ccna-introduction.pdf'),
   },
 ];

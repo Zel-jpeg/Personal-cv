@@ -19,9 +19,11 @@ export default function ProfileHeader({
       aria-labelledby="name"
     >
       <img
+        decoding="async"
         className="profile-photo"
         src={profilePhoto}
         alt="Portrait of Azel M. Villanueva"
+        fetchPriority="high"
         width="176"
         height="176"
       />

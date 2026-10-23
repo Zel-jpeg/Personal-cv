@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { skillGroups } from '../data/cv';
@@ -12,9 +13,9 @@ export default function TechStackSection() {
   }, []);
   return (
     <main className="tech-stack-page" id="main-content">
-      <a className="text-link back-link" href="/#skills">
+      <Link className="text-link back-link" to="/#skills">
         <ArrowLeft size={15} /> Back to home
-      </a>
+      </Link>
       <header className="tech-page-intro">
         <h1>Full Tech Stack</h1>
         <p>

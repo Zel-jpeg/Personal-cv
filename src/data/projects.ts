@@ -1,6 +1,6 @@
-import skillbridge from '../assets/projects/skillbridge.png';
-import sakyan from '../assets/projects/sakyan.png';
-import verde from '../assets/projects/verde.jpg';
+import skillbridge from '../assets/projects/skillbridge.webp';
+import sakyan from '../assets/projects/sakyan.webp';
+import verde from '../assets/projects/verde.webp';
 
 export type Project = {
   name: string;

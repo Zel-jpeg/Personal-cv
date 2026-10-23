@@ -4,7 +4,7 @@ import { flushSync } from 'react-dom';
 type Theme = 'light' | 'dark';
 const themeKey = 'azel-cv-portfolio-theme';
 
-export function useCV() {
+export function useCV(path: string) {
   const [theme, setTheme] = useState<Theme>(() => {
     try {
       return localStorage.getItem(themeKey) === 'dark' ? 'dark' : 'light';
@@ -27,6 +27,7 @@ export function useCV() {
     const sections = [
       ...document.querySelectorAll<HTMLElement>('.resume-content > section'),
     ];
+    if (!sections.length) return;
     let frame = 0;
     function updateNavigation() {
       let current: HTMLElement | undefined = sections[0];
@@ -46,10 +47,6 @@ export function useCV() {
       if (!frame) frame = requestAnimationFrame(updateNavigation);
     }
     updateNavigation();
-    const anchorFrame = requestAnimationFrame(() => {
-      const anchor = document.getElementById(window.location.hash.slice(1));
-      anchor?.scrollIntoView({ behavior: 'instant' });
-    });
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
 
@@ -82,11 +79,10 @@ export function useCV() {
       window.removeEventListener('scroll', scheduleUpdate);
       window.removeEventListener('resize', scheduleUpdate);
       cancelAnimationFrame(frame);
-      cancelAnimationFrame(anchorFrame);
       observer?.disconnect();
       pending.forEach((section) => section.classList.remove('is-pending'));
     };
-  }, []);
+  }, [path]);
 
   return {
     theme,

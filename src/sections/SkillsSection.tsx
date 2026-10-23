@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { ChevronRight } from 'lucide-react';
 import { skillGroups } from '../data/cv';
 import TechnologyRow from '../components/TechnologyRow';
@@ -23,9 +24,9 @@ export default function SkillsSection() {
         <h2 id="skills-title">
           Technologies<span className="heading-dot">.</span>
         </h2>
-        <a className="text-link" href="/tech-stack">
+        <Link className="text-link" to="/tech-stack">
           View all <ChevronRight size={14} />
-        </a>
+        </Link>
       </div>
       <div className="technology-loops" aria-label="Technology highlights">
         {highlights.map((group) => (

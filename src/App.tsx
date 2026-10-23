@@ -19,6 +19,8 @@ import CommunitySection from './sections/CommunitySection';
 import CommunityArchiveSection from './sections/CommunityArchiveSection';
 import EventsSection from './sections/EventsSection';
 import type { ComponentType } from 'react';
+import { useLocation } from 'react-router';
+import { usePageNavigation } from './hooks/usePageNavigation';
 
 const detailPages: Record<string, ComponentType> = {
   '/projects': ProjectArchiveSection,
@@ -29,23 +31,25 @@ const detailPages: Record<string, ComponentType> = {
 };
 
 export default function App() {
-  const { theme, toggleTheme, activeSection, setActiveSection } = useCV();
-  const path = window.location.pathname.replace(/\/$/, '');
+  const location = useLocation();
+  const path = location.pathname.replace(/\/$/, '');
+  const { theme, toggleTheme, activeSection, setActiveSection } = useCV(path);
+  usePageNavigation();
   const DetailPage = detailPages[path];
   if (DetailPage) {
     return (
-      <>
+      <div className="page-view" key={path}>
         <a className="skip-link" href="#main-content">
           Skip to page content
         </a>
         <DetailHeader theme={theme} toggleTheme={toggleTheme} />
         <DetailPage />
         <Footer />
-      </>
+      </div>
     );
   }
   return (
-    <>
+    <div className="page-view" key={path}>
       <a className="skip-link" href="#main-content">
         Skip to CV content
       </a>
@@ -74,6 +78,6 @@ export default function App() {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

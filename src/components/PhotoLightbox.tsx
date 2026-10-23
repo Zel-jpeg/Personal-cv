@@ -87,6 +87,7 @@ export default function PhotoLightbox({
         {index !== null && (
           <figure className="lightbox-photo">
             <img
+              decoding="async"
               key={photos[index].id}
               src={photos[index].src}
               alt={photos[index].alt}

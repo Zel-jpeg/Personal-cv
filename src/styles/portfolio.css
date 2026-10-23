@@ -1516,6 +1516,42 @@ h2 {
 .featured-panel.is-expanded {
   border: 1px solid #000;
 }
+.github-section {
+  container-type: inline-size;
+}
+.github-activity-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+.github-activity-layout > div {
+  min-width: 0;
+}
+.github-profile-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+.github-profile-summary strong {
+  font-size: 14px;
+}
+.github-profile-summary p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 260px;
+  margin: 0;
+}
+.github-profile-summary .text-link {
+  font-size: 11px;
+}
+@container (min-width: 880px) {
+  .github-activity-layout {
+    grid-template-columns: minmax(0, 1fr) 180px;
+  }
+}
 .contribution-content {
   width: calc(var(--week-count) * 13px - 3px);
   max-width: 100%;

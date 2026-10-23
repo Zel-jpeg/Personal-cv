@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Menu, Printer, X } from 'lucide-react';
 
@@ -65,9 +66,9 @@ export default function MobileMenu({
         hidden={!open}
       >
         {links.map((link) => (
-          <a href={link.href} key={link.href} onClick={() => setOpen(false)}>
+          <Link to={link.href} key={link.href} onClick={() => setOpen(false)}>
             {link.label}
-          </a>
+          </Link>
         ))}
         {showPrint && (
           <button

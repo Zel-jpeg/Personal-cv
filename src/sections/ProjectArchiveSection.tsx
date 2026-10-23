@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { projects } from '../data/projects';
@@ -12,9 +13,9 @@ export default function ProjectArchiveSection() {
   }, []);
   return (
     <main className="tech-stack-page project-archive" id="main-content">
-      <a className="text-link back-link" href="/#projects">
+      <Link className="text-link back-link" to="/#projects">
         <ArrowLeft size={15} /> Back to home
-      </a>
+      </Link>
       <header className="tech-page-intro">
         <p className="eyebrow">A COLLECTION OF THINGS I'VE BUILT</p>
         <h1>

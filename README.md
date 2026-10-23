@@ -15,21 +15,24 @@ A personal CV website showcasing my profile, education, technical skills, academ
 - Light and dark themes with saved preferences
 - Section navigation with active section highlighting
 - Hover effects and scroll animations with reduced-motion support
+- Smooth internal page navigation with Back/Forward scroll restoration
+- Optimized WebP images with asynchronous decoding and lazy loading
 - Print-friendly CV layout
 - Email and GitHub contact links
 - Expanding featured work panels and project cards with previews, code links, and demos
 - Scrolling technology icons and a dedicated full tech stack page
 - Compact GitHub and email icon links beneath the profile name
 - Dedicated projects archive with repository and live demo links
-- Community page with category filters and an event gallery with full-screen photo browsing (temporary sample content)
+- Community page with category filters, a masonry gallery with staggered upward entrances, and full-screen photo browsing
 - Certification overview and archive; supporting documents are available on request
 - Diagonal light/dark theme transition in supported browsers
 - Interactive personal photo stack (profile photos used temporarily)
-- Public GitHub contribution grid with an unavailable-data fallback
+- Public GitHub contribution grid, profile summary, and a 15-minute session cache with an unavailable-data fallback
 
 ## Technologies
 
 - React
+- React Router
 - TypeScript
 - Vite
 - Custom CSS

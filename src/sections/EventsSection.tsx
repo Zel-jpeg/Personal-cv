@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import EventGallery from '../components/EventGallery';
@@ -11,9 +12,9 @@ export default function EventsSection() {
   }, []);
   return (
     <main className="tech-stack-page events-page" id="main-content">
-      <a className="text-link back-link" href="/community">
+      <Link className="text-link back-link" to="/community">
         <ArrowLeft size={15} /> Back to community
-      </a>
+      </Link>
       <header className="tech-page-intro">
         <h1>
           Events<span className="heading-dot">.</span>
@@ -23,9 +24,6 @@ export default function EventsSection() {
           IDE.
         </p>
       </header>
-      <p className="sample-notice">
-        Temporary gallery images · Your event photos will replace these samples.
-      </p>
       <EventGallery />
     </main>
   );

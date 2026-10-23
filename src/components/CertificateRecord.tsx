@@ -68,6 +68,7 @@ export default function CertificateRecord({
             aria-label={`View badge for ${certificate.title}`}
           >
             <img
+              decoding="async"
               src={certificate.badge}
               alt={`${certificate.title} course badge`}
               loading="lazy"

@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { ChevronRight, Images } from 'lucide-react';
 
 export default function CommunitySection() {
@@ -21,12 +22,12 @@ export default function CommunitySection() {
           </p>
         </div>
         <div className="community-overview-links">
-          <a className="text-link" href="/events">
+          <Link className="text-link" to="/events">
             <Images size={14} /> Event photos
-          </a>
-          <a className="text-link" href="/community">
+          </Link>
+          <Link className="text-link" to="/community">
             Explore <ChevronRight size={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

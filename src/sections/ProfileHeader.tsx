@@ -22,8 +22,8 @@ export default function ProfileHeader({
         className="profile-photo"
         src={profilePhoto}
         alt="Portrait of Azel M. Villanueva"
-        width="144"
-        height="144"
+        width="176"
+        height="176"
       />
       <div className="toolbar">
         <button
@@ -40,7 +40,6 @@ export default function ProfileHeader({
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       </div>
       <div className="profile-heading">
-        <p className="eyebrow">CURRICULUM VITAE</p>
         <h1 id="name">
           Azel M. Villanueva
           <BadgeCheck className="name-check" aria-hidden="true" />

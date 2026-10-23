@@ -20,7 +20,10 @@ import {
   SiGithub,
   SiFigma,
   SiPrettier,
+  SiJsonwebtokens,
 } from 'react-icons/si';
+import { FaJava, FaUnlockKeyhole } from 'react-icons/fa6';
+import { VscVscode } from 'react-icons/vsc';
 import { Code2 } from 'lucide-react';
 
 const icons: Record<string, { icon: IconType; color: string }> = {
@@ -37,6 +40,11 @@ const icons: Record<string, { icon: IconType; color: string }> = {
   'Node.js': { icon: SiNodedotjs, color: '#68a357' },
   PHP: { icon: SiPhp, color: '#888ac2' },
   Django: { icon: SiDjango, color: '#499477' },
+  Java: { icon: FaJava, color: '#e47636' },
+  'VS Code': { icon: VscVscode, color: '#23a9f2' },
+  'Django REST Framework': { icon: SiDjango, color: '#bf5858' },
+  OAuth2: { icon: FaUnlockKeyhole, color: '#b08bd4' },
+  JWT: { icon: SiJsonwebtokens, color: '#d65c95' },
   Laravel: { icon: SiLaravel, color: '#ef645b' },
   PostgreSQL: { icon: SiPostgresql, color: '#628ab3' },
   MySQL: { icon: SiMysql, color: '#bf8c48' },

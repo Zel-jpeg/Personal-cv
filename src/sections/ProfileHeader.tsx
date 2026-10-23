@@ -52,7 +52,7 @@ export default function ProfileHeader({
         <div className="profile-details">
           <p className="professional-title">
             Aspiring Software Engineer <span aria-hidden="true">/</span> Web
-            Developer <span aria-hidden="true">/</span> BSIT Student
+            Developer
           </p>
           <p className="location">
             <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -61,9 +61,6 @@ export default function ProfileHeader({
             </svg>
             Davao City, Philippines
           </p>
-          <div className="profile-actions">
-            <span className="student-tag">4th Year · BSIT 4G</span>
-          </div>
         </div>
       </div>
     </section>

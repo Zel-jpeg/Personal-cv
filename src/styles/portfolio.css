@@ -787,10 +787,24 @@ h2 {
   grid-template-columns: max-content;
 }
 /* Compact profile links and the owner's decorative blue check. */
+.profile-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 .profile-heading h1 {
   display: flex;
   align-items: center;
   gap: 9px;
+  margin: 0;
+}
+.profile-details {
+  display: grid;
+  gap: 8px;
+}
+.profile-details .professional-title,
+.profile-details .location {
+  margin: 0;
 }
 .name-check {
   width: 0.64em;
@@ -804,7 +818,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin: -2px 0 13px;
+  margin: 8px 0 0;
 }
 .profile-socials a {
   display: grid;
@@ -813,6 +827,26 @@ h2 {
   height: 34px;
   color: var(--muted);
   transition: color 0.2s;
+}
+.profile-socials a svg {
+  transition: transform 0.2s ease;
+}
+@media (hover: hover) {
+  .profile-socials a:hover svg {
+    transform: translateY(-3px);
+  }
+}
+.profile-socials a:focus-visible svg {
+  transform: translateY(-3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-socials a svg {
+    transition: none;
+  }
+  .profile-socials a:hover svg,
+  .profile-socials a:focus-visible svg {
+    transform: none;
+  }
 }
 .profile-socials a:first-child {
   margin-left: -7px;

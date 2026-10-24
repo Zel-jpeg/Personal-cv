@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { ChevronRight } from 'lucide-react';
 import { skillGroups } from '../data/cv';
 import TechnologyRow from '../components/TechnologyRow';
+import ProfessionalSkillsSection from './ProfessionalSkillsSection';
 
 const highlights = [
   skillGroups[0],
@@ -21,9 +22,10 @@ export default function SkillsSection() {
       aria-labelledby="skills-title"
     >
       <div className="section-heading">
-        <h2 id="skills-title">
-          Technologies<span className="heading-dot">.</span>
-        </h2>
+        <h2 id="skills-title">Skills</h2>
+      </div>
+      <div className="section-heading skills-technologies-heading">
+        <h3>Technologies</h3>
         <Link className="text-link" to="/tech-stack">
           View all <ChevronRight size={14} />
         </Link>
@@ -37,6 +39,7 @@ export default function SkillsSection() {
           />
         ))}
       </div>
+      <ProfessionalSkillsSection />
     </section>
   );
 }

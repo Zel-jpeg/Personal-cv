@@ -6,6 +6,8 @@ type SocialLink = {
   href: string;
 };
 
+export const contactEmail = 'azelmv14@gmail.com';
+
 // Add LinkedIn here once the owner supplies their actual profile URL.
 export const socialLinks: SocialLink[] = [
   {
@@ -16,7 +18,7 @@ export const socialLinks: SocialLink[] = [
   {
     kind: 'email',
     label: 'Email Azel',
-    href: 'mailto:villanueva.azel@dnsc.edu.ph',
+    href: `mailto:${contactEmail}`,
   },
 ];
 

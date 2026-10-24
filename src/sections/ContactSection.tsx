@@ -1,5 +1,6 @@
 import { SiGithub } from 'react-icons/si';
 import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
+import { contactEmail } from '../data/personal';
 
 export default function ContactSection() {
   return (
@@ -24,16 +25,22 @@ export default function ContactSection() {
         </span>
       </div>
       <div className="contact-actions">
-        <a className="contact-card" href="mailto:villanueva.azel@dnsc.edu.ph">
-          <span className="contact-card-icon">
+        <a
+          className="contact-card contact-email-card"
+          href={`mailto:${contactEmail}`}
+        >
+          <span className="contact-card-icon" aria-hidden="true">
             <Mail />
           </span>
           <span>
-            <span className="small-label">START A CONVERSATION</span>
-            <strong>Send me an email</strong>
-            <span className="contact-address">villanueva.azel@dnsc.edu.ph</span>
+            <span className="small-label">EMAIL</span>
+            <span className="contact-address">{contactEmail}</span>
           </span>
-          <ArrowUpRight size={18} />
+          <ArrowUpRight
+            className="contact-card-arrow"
+            size={18}
+            aria-hidden="true"
+          />
         </a>
         <a
           className="contact-card"
@@ -48,7 +55,11 @@ export default function ContactSection() {
             <span className="small-label">FOLLOW THE WORK</span>
             <strong>Find me on GitHub</strong>
           </span>
-          <ArrowUpRight size={18} />
+          <ArrowUpRight
+            className="contact-card-arrow"
+            size={18}
+            aria-hidden="true"
+          />
         </a>
       </div>
     </section>

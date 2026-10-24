@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import type { Certificate } from '../data/certifications';
 import { certificateDate } from '../data/certifications';
 import CertificatePreview from './CertificatePreview';
+import { contactEmail } from '../data/personal';
 
 export default function CertificateRecord({
   certificate,
@@ -35,7 +36,7 @@ export default function CertificateRecord({
           <a
             href={
               certificate.pdf ??
-              `mailto:villanueva.azel@dnsc.edu.ph?subject=${encodeURIComponent(`Certificate request: ${certificate.title}`)}`
+              `mailto:${contactEmail}?subject=${encodeURIComponent(`Certificate request: ${certificate.title}`)}`
             }
             {...(certificate.pdf
               ? { target: '_blank', rel: 'noopener noreferrer' }

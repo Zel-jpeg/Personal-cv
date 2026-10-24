@@ -15,7 +15,7 @@ function ProfileDetails() {
   return (
     <div className="profile-details">
       <p className="professional-title">
-        Aspiring Software Engineer <span aria-hidden="true">/</span> Web
+        Aspiring Software Engineer <span aria-hidden="true">/</span> Fullstack
         Developer
       </p>
       <p className="location">

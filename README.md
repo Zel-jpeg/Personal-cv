@@ -23,9 +23,12 @@ A personal CV website showcasing my profile, education, technical and profession
 - Expanding featured work panels and project cards with previews, code links, and demos
 - Cursor-following project card spotlights in both themes, with image-only hover zoom
 - Scrolling technology icons and a dedicated full tech stack page
-- Professional skills: problem solving, communication, teamwork, adaptability, and attention to detail
+- One Skills card with technology highlights above a professional skills paragraph covering problem solving, communication, teamwork, adaptability, and attention to detail
 - Compact GitHub and email icon links beneath the profile name
 - Dedicated projects archive with repository and live demo links
+- Entire project cards open their preview or project destination, with independent Code and Visit site links
+- Project cards show a single row of primary technology icons, including Supabase and SQLite where used
+- DoneeIt mobile app preview at `/projects/doneeit`, with 13 expandable screenshots, a GitHub APK download, and a repository link
 - Community page featuring presentation/pitching and Sakyan prototype photos, with category filters, staggered gallery entrances, and full-screen photo browsing
 - Lightweight gallery previews with larger WebP photos loaded when opened
 - Certification overview and archive; supporting documents are available on request

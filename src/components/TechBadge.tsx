@@ -27,6 +27,9 @@ import {
   SiSwift,
   SiKotlin,
   SiJupyter,
+  SiSupabase,
+  SiSqlite,
+  SiVercel,
 } from 'react-icons/si';
 import { TbCodeCircle2, TbTerminal2 } from 'react-icons/tb';
 import { FaJava, FaUnlockKeyhole } from 'react-icons/fa6';
@@ -65,6 +68,9 @@ const icons: Record<string, { icon: IconType; color: string }> = {
   Laravel: { icon: SiLaravel, color: '#ef645b' },
   PostgreSQL: { icon: SiPostgresql, color: '#628ab3' },
   MySQL: { icon: SiMysql, color: '#bf8c48' },
+  Supabase: { icon: SiSupabase, color: '#3ecf8e' },
+  SQLite: { icon: SiSqlite, color: '#3b8dbd' },
+  Vercel: { icon: SiVercel, color: 'currentColor' },
   Git: { icon: SiGit, color: '#e66b4a' },
   GitHub: { icon: SiGithub, color: 'currentColor' },
   Figma: { icon: SiFigma, color: '#bb69d5' },

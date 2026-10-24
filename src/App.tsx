@@ -4,7 +4,6 @@ import ProfileHeader from './sections/ProfileHeader';
 import SummarySection from './sections/SummarySection';
 import EducationSection from './sections/EducationSection';
 import SkillsSection from './sections/SkillsSection';
-import ProfessionalSkillsSection from './sections/ProfessionalSkillsSection';
 import ExperienceSection from './sections/ExperienceSection';
 import CertificationsSection from './sections/CertificationsSection';
 import ContactSection from './sections/ContactSection';
@@ -20,11 +19,13 @@ import CertificationArchiveSection from './sections/CertificationArchiveSection'
 import CommunitySection from './sections/CommunitySection';
 import CommunityArchiveSection from './sections/CommunityArchiveSection';
 import EventsSection from './sections/EventsSection';
+import DoneeitProjectSection from './sections/DoneeitProjectSection';
 import type { ComponentType } from 'react';
 import { useLocation } from 'react-router';
 import { usePageNavigation } from './hooks/usePageNavigation';
 
 const detailPages: Record<string, ComponentType> = {
+  '/projects/doneeit': DoneeitProjectSection,
   '/projects': ProjectArchiveSection,
   '/tech-stack': TechStackSection,
   '/certifications': CertificationArchiveSection,
@@ -67,7 +68,6 @@ export default function App() {
             <SummarySection />
             <ExperienceSection />
             <SkillsSection />
-            <ProfessionalSkillsSection />
             <CommunitySection />
             <ProjectsSection />
             <CertificationsSection />

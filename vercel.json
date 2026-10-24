@@ -1,5 +1,7 @@
 {
   "rewrites": [
+    { "source": "/projects/doneeit", "destination": "/index.html" },
+    { "source": "/projects/doneeit/", "destination": "/index.html" },
     { "source": "/community", "destination": "/index.html" },
     { "source": "/community/", "destination": "/index.html" },
     { "source": "/events", "destination": "/index.html" },

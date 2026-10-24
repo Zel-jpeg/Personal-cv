@@ -11,11 +11,7 @@ export const navigation: NavigationItem[] = [
   },
   {
     id: 'skills',
-    label: 'Technologies',
-  },
-  {
-    id: 'professional-skills',
-    label: 'Professional skills',
+    label: 'Skills',
   },
   {
     id: 'community',

@@ -1,12 +1,19 @@
 import { useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import type { EventPhoto } from '../data/community';
+
+type LightboxPhoto = {
+  id: string;
+  fullSrc: string;
+  alt: string;
+  caption: string;
+};
 
 type PhotoLightboxProps = {
-  photos: EventPhoto[];
+  photos: LightboxPhoto[];
   index: number | null;
   onIndex: (index: number) => void;
   onClose: () => void;
+  label?: string;
 };
 
 export default function PhotoLightbox({
@@ -14,6 +21,7 @@ export default function PhotoLightbox({
   index,
   onIndex,
   onClose,
+  label = 'Event photo viewer',
 }: PhotoLightboxProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -42,7 +50,7 @@ export default function PhotoLightbox({
     <dialog
       className="photo-lightbox"
       ref={dialog}
-      aria-label="Event photo viewer"
+      aria-label={label}
       onCancel={(event) => {
         event.preventDefault();
         onClose();

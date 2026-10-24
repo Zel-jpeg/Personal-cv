@@ -79,39 +79,20 @@ h2 {
 .text-link:hover {
   color: var(--accent);
 }
-.career-objective {
+.career-objective,
+.professional-skills {
   padding: 18px 0 0;
   margin-top: 22px;
   border-top: 1px dashed var(--line);
 }
-.career-objective p {
+.career-objective p,
+.professional-skills p {
   font-size: 13px;
   color: var(--muted);
   margin: 8px 0 0;
 }
-.professional-skills {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: 10px;
-}
-.professional-skills li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 52px;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--tag);
-  font-size: 13px;
-  break-inside: avoid;
-}
-.professional-skills svg {
-  flex-shrink: 0;
-  color: var(--muted);
+.skills-technologies-heading {
+  margin-bottom: 14px;
 }
 .featured-strip {
   display: flex;
@@ -250,6 +231,25 @@ h2 {
 .project-card:focus-within {
   border-color: var(--accent);
 }
+.project-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 12px;
+}
+.project-card-link:focus-visible {
+  outline: none;
+}
+.project-card-link:focus-visible::after {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+}
+.project-card .project-preview,
+.project-links a {
+  position: relative;
+  z-index: 2;
+}
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
     transform: translateY(-2px);
@@ -320,10 +320,11 @@ h2 {
 }
 .project-technologies {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
+  min-width: 0;
 }
 .tech-icon {
   display: inline-flex;
@@ -604,12 +605,26 @@ h2 {
   border-radius: 12px;
   transition:
     transform 0.2s,
-    border-color 0.2s;
+    border-color 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
   min-width: 0;
 }
-.contact-card:hover {
+.contact-card:is(:hover, :focus-visible) {
   transform: translateY(-3px);
-  border-color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 18%, var(--line));
+  background: color-mix(in srgb, var(--accent) 2%, var(--card));
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.contact-card-arrow {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.contact-card:is(:hover, :focus-visible) .contact-card-arrow {
+  transform: translate(2px, -2px);
+}
+.contact-card:is(:hover, :focus-visible) .contact-card-icon {
+  background: color-mix(in srgb, var(--accent) 7%, var(--tag));
 }
 .contact-card > span:nth-child(2) {
   flex: 1;
@@ -626,6 +641,7 @@ h2 {
 }
 .contact-card-icon {
   background: var(--tag);
+  transition: background-color 0.2s;
   border-radius: 9px;
   width: 34px;
   height: 34px;
@@ -640,6 +656,40 @@ h2 {
   font-size: 9px;
   color: var(--muted);
   overflow-wrap: anywhere;
+}
+.contact-email-card {
+  padding: 16px;
+  border-radius: 18px;
+  box-shadow: 0 2px 4px #18202b05;
+}
+.contact-email-card .contact-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+.contact-email-card .small-label {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+}
+.contact-email-card .contact-address {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-card,
+  .contact-card-arrow,
+  .contact-card-icon {
+    transition: none;
+  }
+  .contact-card:is(:hover, :focus-visible),
+  .contact-card:is(:hover, :focus-visible) .contact-card-arrow {
+    transform: none;
+  }
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {

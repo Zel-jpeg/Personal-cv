@@ -320,11 +320,14 @@ h2 {
 }
 .project-technologies {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin-bottom: 18px;
 }
 .tech-icon {
   display: inline-flex;
+  flex-shrink: 0;
   font-size: 17px;
 }
 .project-links {

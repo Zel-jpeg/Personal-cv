@@ -21,7 +21,14 @@ import {
   SiFigma,
   SiPrettier,
   SiJsonwebtokens,
+  SiC,
+  SiCplusplus,
+  SiCmake,
+  SiSwift,
+  SiKotlin,
+  SiJupyter,
 } from 'react-icons/si';
+import { TbCodeCircle2, TbTerminal2 } from 'react-icons/tb';
 import { FaJava, FaUnlockKeyhole } from 'react-icons/fa6';
 import { VscVscode } from 'react-icons/vsc';
 import { Code2 } from 'lucide-react';
@@ -35,6 +42,16 @@ const icons: Record<string, { icon: IconType; color: string }> = {
   Vite: { icon: SiVite, color: '#9870ef' },
   Python: { icon: SiPython, color: '#4988b7' },
   Dart: { icon: SiDart, color: '#2196b3' },
+  C: { icon: SiC, color: '#7294cb' },
+  'C++': { icon: SiCplusplus, color: '#659ad2' },
+  CMake: { icon: SiCmake, color: '#53a0c3' },
+  Swift: { icon: SiSwift, color: '#ef7254' },
+  Kotlin: { icon: SiKotlin, color: '#a47aeb' },
+  'Jupyter Notebook': { icon: SiJupyter, color: '#ef9752' },
+  PLpgSQL: { icon: SiPostgresql, color: '#628ab3' },
+  // These file/language types have no Simple Icons brand mark.
+  'Objective-C': { icon: TbCodeCircle2, color: '#7294cb' },
+  Procfile: { icon: TbTerminal2, color: '#9983bb' },
   'Tailwind CSS': { icon: SiTailwindcss, color: '#16a8ba' },
   Bootstrap: { icon: SiBootstrap, color: '#9565d7' },
   'Node.js': { icon: SiNodedotjs, color: '#68a357' },

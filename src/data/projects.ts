@@ -1,19 +1,21 @@
 import skillbridge from '../assets/projects/skillbridge.webp';
 import sakyan from '../assets/projects/sakyan.webp';
 import verde from '../assets/projects/verde.webp';
+import bgSalon from '../assets/projects/bg-salon.webp';
 
 export type Project = {
   name: string;
   category: string;
   description: string;
   image?: string;
-  technologies: string[];
+  languages: string[];
   repository: string;
   demo?: string;
 };
 
 // Links and descriptions verified against Zel-jpeg's public repositories and portfolio.
-// Technology tags are limited to confirmed repository languages or local dependencies.
+// Language icons match GitHub's public /repos/{owner}/{repo}/languages response,
+// checked 2026-10-24. Preserve its order; never display byte counts or percentages.
 export const projects: Project[] = [
   {
     name: 'SkillBridge',
@@ -21,7 +23,14 @@ export const projects: Project[] = [
     description:
       'An OJT recommendation system connecting academic development with internship opportunities.',
     image: skillbridge,
-    technologies: ['Python'],
+    languages: [
+      'Python',
+      'JavaScript',
+      'Jupyter Notebook',
+      'HTML',
+      'CSS',
+      'Procfile',
+    ],
     repository: 'https://github.com/Zel-jpeg/SkillBridge',
     demo: 'https://skill-bridge-six-psi.vercel.app/',
   },
@@ -31,7 +40,17 @@ export const projects: Project[] = [
     description:
       'A centralized car rental platform that brings vehicle discovery and rental journeys into one place.',
     image: sakyan,
-    technologies: ['Dart'],
+    languages: [
+      'Dart',
+      'JavaScript',
+      'Python',
+      'CSS',
+      'HTML',
+      'Swift',
+      'Kotlin',
+      'Procfile',
+      'Objective-C',
+    ],
     repository: 'https://github.com/Zel-jpeg/lakbaytech-sakyan',
     demo: 'https://lakbaytech-sakyan.vercel.app/',
   },
@@ -41,15 +60,34 @@ export const projects: Project[] = [
     description:
       'A self-service café kiosk with menu browsing, order review, simulated payments, and digital receipts.',
     image: verde,
-    technologies: ['TypeScript', 'React', 'Vite'],
+    languages: ['TypeScript', 'PLpgSQL', 'Python', 'JavaScript', 'HTML'],
     repository: 'https://github.com/Zel-jpeg/verde-cafe-kiosk',
     demo: 'https://verde-cafe-kiosk.vercel.app/',
+  },
+  {
+    name: 'BG Salon',
+    category: 'Salon website',
+    description:
+      'A salon website showcasing services, styling work, client testimonials, and appointment contact information.',
+    image: bgSalon,
+    languages: ['HTML', 'CSS', 'JavaScript'],
+    repository: 'https://github.com/Zel-jpeg/BG_salon',
+    demo: 'https://bg-salon-eta.vercel.app/',
   },
   {
     name: 'DoneeIt',
     category: 'Student productivity',
     description: 'A student task management app for organizing academic work.',
-    technologies: ['Dart'],
+    languages: [
+      'Dart',
+      'C++',
+      'CMake',
+      'Swift',
+      'C',
+      'HTML',
+      'Kotlin',
+      'Objective-C',
+    ],
     repository: 'https://github.com/Zel-jpeg/DoneeIt',
   },
   {
@@ -57,7 +95,16 @@ export const projects: Project[] = [
     category: 'Personal finance',
     description:
       'A budgeting application built as part of my development journey.',
-    technologies: ['Dart'],
+    languages: [
+      'Dart',
+      'C++',
+      'CMake',
+      'Swift',
+      'C',
+      'HTML',
+      'Kotlin',
+      'Objective-C',
+    ],
     repository: 'https://github.com/Zel-jpeg/Financify',
   },
 ];

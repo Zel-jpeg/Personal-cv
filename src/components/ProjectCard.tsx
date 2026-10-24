@@ -36,8 +36,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         <p className="small-label">{project.category}</p>
         <h3>{project.name}</h3>
         <p className="project-description">{project.description}</p>
-        <div className="project-technologies" aria-label="Technologies">
-          {project.technologies.map((name) => (
+        <div
+          className="project-technologies"
+          role="group"
+          aria-label="Repository languages"
+        >
+          {project.languages.map((name) => (
             <TechBadge key={name} name={name} compact />
           ))}
         </div>

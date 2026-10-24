@@ -1,8 +1,9 @@
 import { Mail } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
+import { FaLinkedin } from 'react-icons/fa6';
 import { socialLinks } from '../data/personal';
 
-const icons = { github: SiGithub, email: Mail };
+const icons = { github: SiGithub, linkedin: FaLinkedin, email: Mail };
 
 export default function SocialLinks() {
   return (

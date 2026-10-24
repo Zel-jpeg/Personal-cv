@@ -4,19 +4,23 @@ import sakyanTeamPhoto from '../assets/community/sakyan-prototype-team-preview.w
 import profilePhoto from '../assets/profile-zel.webp';
 
 type SocialLink = {
-  kind: 'github' | 'email';
+  kind: 'github' | 'linkedin' | 'email';
   label: string;
   href: string;
 };
 
 export const contactEmail = 'azelmv14@gmail.com';
 
-// Add LinkedIn here once the owner supplies their actual profile URL.
 export const socialLinks: SocialLink[] = [
   {
     kind: 'github',
     label: 'GitHub profile',
     href: 'https://github.com/Zel-jpeg',
+  },
+  {
+    kind: 'linkedin',
+    label: 'LinkedIn profile',
+    href: 'https://www.linkedin.com/in/azel-villanueva-b81773446',
   },
   {
     kind: 'email',

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import { featuredProjects } from '../data/projects';
 
 export default function FeaturedWork() {
@@ -64,7 +63,6 @@ export default function FeaturedWork() {
             <span className="small-label">{project.category}</span>
             <strong>{project.name}</strong>
             <span className="featured-description">{project.description}</span>
-            <ArrowUpRight size={20} />
           </span>
           <span className="featured-vertical" aria-hidden="true">
             {project.name}

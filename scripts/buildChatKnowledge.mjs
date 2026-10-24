@@ -23,7 +23,7 @@ try {
     '/src/data/certifications.ts',
   );
   const facts = {
-    name: 'Azel M. Villanueva',
+    name: 'Azel Villanueva',
     nickname: 'Zel',
     location: 'Davao City, Philippines',
     title: cv.professionalTitle,

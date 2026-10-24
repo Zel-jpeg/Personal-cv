@@ -48,10 +48,10 @@ export default function ProfileHeader({
             aria-label="Profile navigation"
           >
             <div className="profile-bar-brand">
-              <h1 id="name" aria-label="Azel M. Villanueva">
+              <h1 id="name" aria-label="Azel Villanueva">
                 <Link to="/" aria-label="Azel Villanueva, back to profile">
                   <span className="profile-name-full" aria-hidden="true">
-                    Azel M. Villanueva
+                    Azel Villanueva
                     <BadgeCheck className="name-check" />
                   </span>
                   <span className="profile-name-short" aria-hidden="true">
@@ -76,7 +76,7 @@ export default function ProfileHeader({
           decoding="async"
           className="profile-photo"
           src={profilePhoto}
-          alt="Portrait of Azel M. Villanueva"
+          alt="Portrait of Azel Villanueva"
           fetchPriority="high"
           width="176"
           height="176"
@@ -85,7 +85,7 @@ export default function ProfileHeader({
           {mobile ? (
             <div className="profile-identity">
               <h1 id="name">
-                Azel M. Villanueva
+                Azel Villanueva
                 <BadgeCheck className="name-check" aria-hidden="true" />
               </h1>
               <SocialLinks />

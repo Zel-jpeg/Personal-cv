@@ -62,18 +62,20 @@ export const doneeitScreenshots = [
   'Student profile',
   'App settings',
   'Completed tasks',
-].map((caption, index) => {
-  const file = `../assets/projects/doneeit/screen-${String(index + 1).padStart(2, '0')}`;
-  return {
-    id: `doneeit-screen-${index + 1}`,
-    src: doneeitAssets[`${file}-preview.webp`],
-    fullSrc: doneeitAssets[`${file}.webp`],
-    caption,
-    alt: `DoneeIt mobile app: ${caption.toLowerCase()}`,
-    width: 432,
-    height: 984,
-  };
-});
+]
+  .map((caption, index) => {
+    const file = `../assets/projects/doneeit/screen-${String(index + 1).padStart(2, '0')}`;
+    return {
+      id: `doneeit-screen-${index + 1}`,
+      src: doneeitAssets[`${file}-preview.webp`],
+      fullSrc: doneeitAssets[`${file}.webp`],
+      caption,
+      alt: `DoneeIt mobile app: ${caption.toLowerCase()}`,
+      width: 432,
+      height: 984,
+    };
+  })
+  .filter(({ id }) => id !== 'doneeit-screen-5');
 
 // Verified against the repository's public release assets on 2026-10-24.
 export const doneeitRelease = {

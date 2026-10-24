@@ -5,9 +5,9 @@ import EventGallery from '../components/EventGallery';
 
 export default function EventsSection() {
   useEffect(() => {
-    document.title = 'Events — Azel M. Villanueva';
+    document.title = 'Events — Azel Villanueva';
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, []);
   return (

@@ -6,9 +6,9 @@ import ProjectCard from '../components/ProjectCard';
 
 export default function ProjectArchiveSection() {
   useEffect(() => {
-    document.title = 'Projects — Azel M. Villanueva';
+    document.title = 'Projects — Azel Villanueva';
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, []);
   return (

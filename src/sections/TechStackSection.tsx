@@ -6,9 +6,9 @@ import TechBadge from '../components/TechBadge';
 
 export default function TechStackSection() {
   useEffect(() => {
-    document.title = 'Full Tech Stack — Azel M. Villanueva';
+    document.title = 'Full Tech Stack — Azel Villanueva';
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, []);
   return (

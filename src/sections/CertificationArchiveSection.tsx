@@ -6,9 +6,9 @@ import CertificateRecord from '../components/CertificateRecord';
 
 export default function CertificationArchiveSection() {
   useEffect(() => {
-    document.title = 'Certifications — Azel M. Villanueva';
+    document.title = 'Certifications — Azel Villanueva';
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, []);
   return (

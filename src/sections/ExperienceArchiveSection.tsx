@@ -5,9 +5,9 @@ import ExperienceTimeline from '../components/ExperienceTimeline';
 
 export default function ExperienceArchiveSection() {
   useEffect(() => {
-    document.title = 'Experience — Azel M. Villanueva';
+    document.title = 'Experience — Azel Villanueva';
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, []);
 

@@ -928,6 +928,7 @@ h2 {
 }
 .profile-heading h1 {
   display: flex;
+  font-weight: 650;
   align-items: center;
   gap: 9px;
   margin: 0;

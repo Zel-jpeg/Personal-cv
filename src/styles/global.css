@@ -512,14 +512,12 @@ h3 {
 }
 .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   gap: 15px;
   color: var(--muted);
   font-size: 11px;
   padding: 30px 0;
-}
-.footer span span {
-  padding: 0 8px;
 }
 /* JS adds this state only to offscreen sections. Content is visible without JS. */
 .reveal {

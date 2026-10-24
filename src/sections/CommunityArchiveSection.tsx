@@ -8,9 +8,9 @@ import EventGallery from '../components/EventGallery';
 export default function CommunityArchiveSection() {
   const [filter, setFilter] = useState<CommunityCategory>('All');
   useEffect(() => {
-    document.title = 'Community — Azel M. Villanueva';
+    document.title = 'Community — Azel Villanueva';
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, []);
   const entries = communityEntries.filter(

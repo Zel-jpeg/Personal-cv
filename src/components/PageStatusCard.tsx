@@ -1,15 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router';
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  FileQuestion,
-  RefreshCw,
-  Unplug,
-  Wifi,
-  WifiOff,
-} from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, RefreshCw } from 'lucide-react';
 import { pageStatuses, type PageStatus } from '../data/pageStatuses';
+import PageStatusIllustration from './PageStatusIllustration';
 
 export default function PageStatusCard({
   kind,
@@ -35,19 +28,11 @@ export default function PageStatusCard({
           'Your device is connected again. You can return to the portfolio whenever you are ready.',
       }
     : pageStatuses[kind];
-  const Icon =
-    kind === 'not-found'
-      ? FileQuestion
-      : kind === 'error'
-        ? Unplug
-        : reconnected
-          ? Wifi
-          : WifiOff;
   const heading = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = `${status.title} — Azel M. Villanueva`;
+    document.title = `${status.title} — Azel Villanueva`;
     if (reloadHome) heading.current?.focus({ preventScroll: true });
     return () => {
       document.title = previousTitle;
@@ -56,14 +41,9 @@ export default function PageStatusCard({
 
   return (
     <article className="page-status-card">
-      <span className="page-status-icon" aria-hidden="true">
-        <Icon size={28} />
-      </span>
-      <p
-        className={`page-status-code${kind === 'not-found' ? ' page-status-code-large' : ''}`}
-        aria-hidden="true"
-      >
-        {status.code}
+      <PageStatusIllustration kind={kind} connected={reconnected} />
+      <p className="page-status-code" aria-hidden="true">
+        {kind === 'not-found' ? '404 / PAGE NOT FOUND' : status.code}
       </p>
       <h1 ref={heading} tabIndex={-1}>
         {kind === 'not-found' && <span className="sr-only">404: </span>}

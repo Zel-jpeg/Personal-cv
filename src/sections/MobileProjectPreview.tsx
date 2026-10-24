@@ -23,9 +23,9 @@ export default function MobileProjectPreview({
   release,
 }: MobileProjectPreviewProps) {
   useEffect(() => {
-    document.title = `${project.name} — Azel M. Villanueva`;
+    document.title = `${project.name} — Azel Villanueva`;
     return () => {
-      document.title = 'Azel M. Villanueva - Personal CV';
+      document.title = 'Azel Villanueva - Personal CV';
     };
   }, [project.name]);
 

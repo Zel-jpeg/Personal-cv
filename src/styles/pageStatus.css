@@ -11,22 +11,60 @@
 .page-status-card {
   width: 100%;
   max-width: 640px;
-  padding: 44px 28px;
+  padding: 28px 32px 40px;
   border: 1px dashed var(--line);
   border-radius: 18px;
   background: var(--card);
   text-align: center;
 }
-.page-status-icon {
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
+.page-status-illustration {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
   margin: 0 auto 22px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--tag);
+}
+.status-art-fill,
+.status-art-panel {
+  fill: var(--tag);
+}
+.status-art-window,
+.status-art-badge {
+  fill: var(--card);
+  stroke: var(--muted);
+  stroke-width: 1.25;
+}
+.status-art-window {
+  stroke: var(--line);
+}
+.status-art-panel {
+  stroke: var(--line);
+}
+.status-art-guide {
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.status-art-dot {
+  fill: var(--muted);
+  opacity: 0.4;
+}
+.status-art-ink {
+  color: var(--text);
+}
+.status-art-muted {
   color: var(--muted);
+}
+.status-art-cable {
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.status-art-number {
+  fill: var(--text);
+  font-family: inherit;
+  font-size: 74px;
+  font-weight: 450;
+  letter-spacing: -4px;
 }
 .page-status-code {
   margin: 0 0 14px;
@@ -34,12 +72,6 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
-}
-.page-status-code-large {
-  font-size: clamp(70px, 14vw, 110px);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.08em;
 }
 .page-status-card h1 {
   margin-bottom: 14px;
@@ -104,7 +136,7 @@
     margin-block: 30px;
   }
   .page-status-card {
-    padding: 32px 20px;
+    padding: 20px 20px 28px;
   }
   .page-status-actions {
     flex-direction: column;

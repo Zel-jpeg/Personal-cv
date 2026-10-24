@@ -1,5 +1,7 @@
 import knowledge from '../src/data/chatKnowledge.json' with { type: 'json' };
 import type { ChatMessage, ChatReply } from '../src/data/chat.ts';
+import { getConversationalReply } from '../src/data/chatConversation.ts';
+import { containsChatProfanity } from '../src/data/chatEtiquette.ts';
 import {
   detectChatLanguage,
   normalizeQuestion,
@@ -79,13 +81,14 @@ const technologies = new RegExp(
 const owner =
   /\b(you|your|yourself|zel|azel|imong|imohang|nimo|ikaw|iyong|mo|sarili|ka)\b/;
 const portfolioTopics =
-  /\b(portfolio|projects?|tech stack|technolog\w*|skills?|experience|academic|education|school|college|university|certificat\w*|ccna|community|events?|pitching|presentations?|github|repositories|repos?|capstone|ojt|internship|frontend|backend|full.?stack|ui\/?ux|career|coding journey|work style|teamwork|proyekto|edukasyon|eskwela|paaralan|kurso|sertipiko|komunidad|kalihokan)\b/;
+  /\b(portfolio|projects?|tech stack|technolog\w*|skills?|experience|academic|education|school|college|university|certificat\w*|ccna|community|events?|pitching|presentations?|github|repositories|repos?|capstone|ojt|internship|frontend|backend|full.?stack|ui\/?ux|career|coding|developer|software engineer|learning|work style|teamwork|personality|interests?|hobbies|role|proyekto|edukasyon|eskwela|paaralan|kurso|sertipiko|komunidad|kalihokan)\b/;
 const followup =
-  /^(?:(?:and|also|please|pls|can you|could you|sige|pwede|at|ug)\s+)*(?:why|how|more|why is that|why that choice|(?:tell me|explain|elaborate)(?: more| further)?(?: about)?(?: it| that| this| those| these)?|(?:why did you|why do you) (?:choose|use|prefer|build) (?:it|that|this|them)|how (?:does|did|would) (?:it|that|this) (?:work|help|affect your work)|what (?:about|technologies are in) (?:it|that|this)|unsa pa|ngano(?: man| kana| ana)?|ipasabot pa|dugang pa|bakit(?: naman| iyan)?|paano(?: iyon| yun)?|paliwanag pa|dagdag pa)[.!?\s]*$/;
+  /^(?:(?:and|also|please|pls|can you|could you|sige|pwede|at|ug)\s+)*(?:why|how|more|why is that|why that choice|what do you mean(?: by that)?|(?:tell me|explain|elaborate)(?: more| further)?(?: about)?(?: it| that| this| those| these)?|(?:why did you|why do you) (?:choose|use|prefer|build) (?:it|that|this|them)|how (?:does|did|would) (?:it|that|this) (?:work|help|affect your work)|what (?:about|technologies are in) (?:it|that|this)|unsa pa|unsa imong pasabot|ngano(?: man| kana| ana)?|ipasabot pa|dugang pa|bakit(?: naman| iyan)?|anong ibig mong sabihin|paano(?: iyon| yun)?|paliwanag pa|dagdag pa)[.!?\s]*$/;
 
 function directlyInScope(question: string) {
   const text = scopeText(question);
   if (isTaskOrOverride(text)) return false;
+  if (getConversationalReply(question)) return true;
   if (projects.test(text)) return true;
   if (
     /^(hi|hello|hey|yo|kumusta|kamusta|maayong (buntag|hapon|gabii)|magandang (umaga|hapon|gabi)|good (morning|afternoon|evening)|thanks|thank you|salamat(?: kaayo| po)?)[!.?\s]*$/.test(
@@ -145,6 +148,11 @@ export function scopedConversation(
     const message = messages[index];
     const text = scopeText(message.content);
     const resolved = resolveChatQuestion(message.content, scoped);
+    if (containsChatProfanity(resolved)) {
+      scoped = [];
+      if (index === messages.length - 1) return null;
+      continue;
+    }
     const inheritsTopic =
       scoped.length > 0 &&
       !isTaskOrOverride(text) &&
@@ -169,9 +177,9 @@ export function scopeReply(
 ): ChatReply {
   const language = detectChatLanguage(question, history);
   const text = {
-    en: "I'm here to talk about my portfolio, projects, experience, and interests. I can't do homework or general chatbot tasks here. Try asking about my work!",
-    ceb: 'Para ni sa akong portfolio, mga proyekto, kasinatian, ug mga hilig. Dili ko motubag og assignment o general chatbot tasks diri. Pangutana lang bahin sa akong mga gibuhat!',
-    fil: 'Para ito sa portfolio, mga proyekto, karanasan, at mga hilig ko. Hindi ako gagawa ng assignment o general chatbot tasks dito. Magtanong tungkol sa mga gawa ko!',
+    en: 'That’s a little outside what I can help with here. I’m happy to chat about my projects, how I work, or the things I enjoy. What would you like to know?',
+    ceb: 'Medyo gawas na sa akong matabangan diri. Pero pwede ra ta magchika bahin sa akong mga proyekto, pamaagi sa pagtrabaho, o mga hilig. Unsa imong gustong mahibal-an?',
+    fil: 'Medyo labas iyon sa matutulungan ko rito. Pero puwede tayong magkuwentuhan tungkol sa mga proyekto ko, paraan ng pagtatrabaho, o mga hilig. Ano ang gusto mong malaman?',
   }[language];
   return {
     text,

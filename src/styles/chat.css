@@ -62,10 +62,29 @@
   padding: 17px 16px 14px;
   border-bottom: 1px solid var(--line);
 }
-.zel-header img {
+.zel-avatar {
+  position: relative;
   flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+}
+.zel-avatar img {
+  display: block;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 50%;
+}
+.zel-status-dot {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: #22c55e;
+}
+.zel-status-offline {
+  background: var(--muted);
 }
 .zel-heading {
   flex: 1;
@@ -561,16 +580,6 @@
   color: var(--text);
   font-size: 11px;
   line-height: 1.6;
-}
-.zel-direct-email {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  color: var(--muted);
-  font-size: 11px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 .zel-clear-draft {
   display: block;

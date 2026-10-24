@@ -15,7 +15,7 @@ export default function CertificateRecord({
 }) {
   return (
     <article
-      className={`certificate-record ${detailed ? 'certificate-detailed' : 'certificate-compact'} ${!preview || !certificate.image || !certificate.pdf ? 'without-preview' : ''}`}
+      className={`certificate-record ${detailed ? 'certificate-detailed' : 'certificate-compact'} ${!preview || !certificate.image ? 'without-preview' : ''}`}
     >
       <time dateTime={certificate.date}>
         {certificateDate(certificate.date)}
@@ -25,7 +25,7 @@ export default function CertificateRecord({
           <h3>{certificate.title}</h3>
           <p>{certificate.issuer}</p>
         </div>
-        {preview && certificate.image && certificate.pdf && (
+        {preview && certificate.image && (
           <CertificatePreview
             title={certificate.title}
             image={certificate.image}
@@ -42,7 +42,7 @@ export default function CertificateRecord({
               ? { target: '_blank', rel: 'noopener noreferrer' }
               : {})}
           >
-            {certificate.pdf ? 'View certificate' : 'Available on request'}{' '}
+            {certificate.pdf ? 'View certificate' : 'Request PDF'}{' '}
             <ArrowUpRight size={12} />
           </a>
         </div>
@@ -50,14 +50,16 @@ export default function CertificateRecord({
           <div className="certificate-supporting">
             <p className="small-label">ADDITIONAL COURSE DOCUMENT</p>
             <CertificatePreview {...certificate.additionalDocument} />
-            <a
-              className="text-link"
-              href={certificate.additionalDocument.pdf}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Cisco credential <ArrowUpRight size={12} />
-            </a>
+            {certificate.additionalDocument.pdf && (
+              <a
+                className="text-link"
+                href={certificate.additionalDocument.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Cisco credential <ArrowUpRight size={12} />
+              </a>
+            )}
           </div>
         )}
         {detailed && certificate.badge && (

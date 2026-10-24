@@ -64,15 +64,19 @@ test('off-topic and disguised tasks use zero provider calls even with AI enabled
     assert.equal(response.status, 200, content);
     const reply = await response.json();
     assert.equal(reply.source, 'portfolio', content);
-    assert.match(reply.text, /homework|assignment/, content);
+    assert.match(
+      reply.text,
+      /outside what I can help|gawas na|labas iyon/,
+      content,
+    );
   }
 });
 
 test('scope refusals follow English, Bisaya and Tagalog language selection', async () => {
   for (const [question, expected] of [
-    ['Unsa ang answer sa akong assignment?', /Dili ko motubag/],
-    ['Ano ang sagot sa assignment ko?', /Hindi ako gagawa/],
-    ['Solve my homework', /I cant|I can.t do homework/],
+    ['Unsa ang answer sa akong assignment?', /gawas na/],
+    ['Ano ang sagot sa assignment ko?', /labas iyon/],
+    ['Solve my homework', /outside what I can help/],
   ] as const) {
     const response = await handleZelRequest(request([user(question)]), env);
     assert.match((await response.json()).text, expected);
@@ -93,6 +97,8 @@ test('portfolio questions remain eligible in each language, including technology
     'Bakit mo pinili ang React?',
     'What are your strengths and weaknesses?',
     'Tell me about your capstone leadership',
+    'What do you like about being a developer?',
+    'How would you describe your personality?',
     'What is Financify?',
     'Show me your projects',
   ])
@@ -107,6 +113,9 @@ test('only scoped user context authorizes short follow-ups and language switches
   for (const question of [
     'Why did you choose it?',
     'Explain more',
+    'What do you mean?',
+    'Unsa imong pasabot?',
+    'Anong ibig mong sabihin?',
     'Sa Bisaya please',
     'Bakit?',
     'Ngano?',

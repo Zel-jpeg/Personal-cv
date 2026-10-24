@@ -1,7 +1,6 @@
 import { CheckCircle2, Mail, Send, ShieldCheck, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
-import { contactEmail } from '../data/personal';
 import ZelCaptcha from './ZelCaptcha';
 
 export type ContactDraft = { name: string; email: string; message: string };
@@ -81,7 +80,7 @@ export default function ZelContactForm({
         if (response.status === 429) retryAt.current = Date.now() + 60000;
         setNotice(
           response.status === 429
-            ? 'The form is receiving too many requests. Please try again later or email me directly.'
+            ? 'The form is receiving too many requests. Please try again later.'
             : "Your message couldn't be sent. Please check your details and verification, then try again.",
         );
         return;
@@ -203,7 +202,7 @@ export default function ZelContactForm({
         )}
         {!loading && (!endpoint || !siteKey) && (
           <p className="zel-form-notice" role="status">
-            The form is unavailable right now. You can email me directly below.
+            The form is unavailable right now. Please try again later.
           </p>
         )}
         <details className="zel-contact-policy">
@@ -229,9 +228,6 @@ export default function ZelContactForm({
           </p>
         </details>
       </form>
-      <a className="zel-direct-email" href={`mailto:${contactEmail}`}>
-        <Mail size={14} aria-hidden="true" /> Email me directly
-      </a>
       {(draft.name || draft.email || draft.message) && (
         <button
           type="button"

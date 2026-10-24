@@ -62,13 +62,13 @@ export function detectChatLanguage(
   if (explicit) return explicit;
   const text = normalizeQuestion(question);
   if (
-    /\b(unsa|unsay|unsang|pila|kinsa|kanus.a|nagsugod|kasabot|makasabot|ngano|nganong|asa|imong|imohang|nimo|kaayo|gihimo|ganahan|kumusta|maayong|salamat kaayo|nindot|trabaho nimo)\b/.test(
+    /\b(unsa|unsay|unsang|pila|kinsa|kanus.a|nagsugod|kasabot|makasabot|ngano|nganong|asa|imong|imohang|nimo|kaayo|gihimo|ganahan|kumusta|maayong|salamat kaayo|nindota?|hawd[ao]?|kuyawa?|ngilngig|payter|yawa|pist[ei]|buang|boang|bogo|amaw|ataya?|bilat|iyot|trabaho nimo)\b/.test(
       text,
     )
   )
     return 'ceb';
   if (
-    /\b(ano|anong|ilang|sino|kailan|nagsimula\w*|naiintindihan|marunong|bakit|paano|saan|saang|iyong|mo|ikaw|kamusta|pangarap|salamat po|ginawa|gusto mong)\b/.test(
+    /\b(ano|anong|ilang|sino|kailan|nagsimula\w*|naiintindihan|marunong|bakit|paano|saan|saang|iyong|mo|ikaw|kamusta|pangarap|salamat po|ginawa|gusto mong|galing|magaling|husay|mahusay|astig|angas|lupit|malupit|putang\s*ina|tang\s*ina|gago|gaga|tanga|ulol|tarantado|bw[ei]sit)\b/.test(
       text,
     )
   )
@@ -86,9 +86,17 @@ export function detectChatLanguage(
     if (explicitLanguage(message.content))
       return explicitLanguage(message.content)!;
     const prior = normalizeQuestion(message.content);
-    if (/\b(unsa|pila|imong|nimo|bisaya|cebuano|ganahan)\b/.test(prior))
+    if (
+      /\b(unsa|pila|imong|nimo|bisaya|cebuano|ganahan|hawd[ao]?|kuyawa?|nindota?|kaayo)\b/.test(
+        prior,
+      )
+    )
       return 'ceb';
-    if (/\b(ano|anong|ilang|mo|tagalog|filipino|taglish)\b/.test(prior))
+    if (
+      /\b(ano|anong|ilang|mo|tagalog|filipino|taglish|galing|magaling|husay|astig|angas|lupit)\b/.test(
+        prior,
+      )
+    )
       return 'fil';
     if (/\b(what|how|your|you|english)\b/.test(prior)) return 'en';
   }

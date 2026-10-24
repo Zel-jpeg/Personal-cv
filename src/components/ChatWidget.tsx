@@ -1,14 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router';
-import {
-  ArrowUpRight,
-  Mail,
-  MessageCircle,
-  RotateCcw,
-  Send,
-  X,
-} from 'lucide-react';
+import { ArrowUpRight, Mail, MessageCircle, Send, X } from 'lucide-react';
 import { chatSuggestionLabels, chatSuggestions } from '../data/chat';
 import { useZelChat } from '../hooks/useZelChat';
 import profilePhoto from '../assets/profile-zel.webp';
@@ -16,9 +9,12 @@ import ZelContactForm from './ZelContactForm';
 import type { ContactDraft } from './ZelContactForm';
 
 export default function ChatWidget() {
+  const { messages, busy, awaitingReply, notice, send, interruptedQuestion } =
+    useZelChat();
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<'chat' | 'contact'>('chat');
-  const [question, setQuestion] = useState('');
+  const [question, setQuestion] = useState(interruptedQuestion);
+  const [online, setOnline] = useState(() => navigator.onLine);
   const [draft, setDraft] = useState<ContactDraft>({
     name: '',
     email: '',
@@ -32,7 +28,16 @@ export default function ChatWidget() {
   const input = useRef<HTMLTextAreaElement>(null);
   const thread = useRef<HTMLDivElement>(null);
   const followThread = useRef(true);
-  const { messages, busy, awaitingReply, notice, send, reset } = useZelChat();
+
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+    return () => {
+      window.removeEventListener('online', update);
+      window.removeEventListener('offline', update);
+    };
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -132,30 +137,25 @@ export default function ChatWidget() {
       >
         <div className="zel-panel">
           <header className="zel-header">
-            <img
-              src={profilePhoto}
-              alt=""
-              width={38}
-              height={38}
-              decoding="async"
-            />
+            <div className="zel-avatar">
+              <img
+                src={profilePhoto}
+                alt=""
+                width={38}
+                height={38}
+                decoding="async"
+              />
+              <span
+                className={`zel-status-dot${online ? '' : ' zel-status-offline'}`}
+                aria-hidden="true"
+              />
+            </div>
             <div className="zel-heading">
               <h2 id="zel-chat-title">Chat with Zel</h2>
-              <span>Automated portfolio chat</span>
+              <span role="status">
+                {online ? 'Online' : 'Offline'} · AI assistant
+              </span>
             </div>
-            <button
-              type="button"
-              className="zel-icon-button"
-              aria-label="Start a new chat"
-              title="Start a new chat"
-              onClick={() => {
-                reset();
-                setQuestion('');
-                setMode('chat');
-              }}
-            >
-              <RotateCcw size={16} aria-hidden="true" />
-            </button>
             <button
               type="button"
               className="zel-icon-button"
@@ -250,12 +250,8 @@ export default function ChatWidget() {
                       Send me a message <Mail size={13} aria-hidden="true" />
                     </button>
                   )}
-                  {!message.revealing && message.reply && (
-                    <span className="zel-answer-source">
-                      {message.reply.source === 'ai'
-                        ? 'AI reply · check details with me'
-                        : 'From my portfolio'}
-                    </span>
+                  {!message.revealing && message.reply?.source === 'ai' && (
+                    <span className="zel-answer-source">AI reply</span>
                   )}
                 </div>
               ))}
@@ -306,7 +302,7 @@ export default function ChatWidget() {
                 onChange={(event) => setQuestion(event.target.value)}
                 maxLength={600}
                 rows={1}
-                placeholder="Ask about my work…"
+                placeholder="Say hi or ask me something…"
                 aria-describedby="zel-chat-privacy"
                 onKeyDown={(event) => {
                   if (
@@ -329,8 +325,8 @@ export default function ChatWidget() {
               </button>
             </form>
             <p className="zel-privacy" id="zel-chat-privacy">
-              Questions may be processed by AI. Keep personal details in the
-              message form.
+              Chat stays in this tab across refreshes. Use the message form for
+              private details.
             </p>
           </div>
           <div

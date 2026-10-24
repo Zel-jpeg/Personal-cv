@@ -1,5 +1,6 @@
 import knowledge from './chatKnowledge.json' with { type: 'json' };
 import { publicChatProfile } from './chatProfile.ts';
+import { getConversationalReply } from './chatConversation.ts';
 import {
   detectChatLanguage,
   localize,
@@ -18,7 +19,7 @@ export type ChatReply = {
   contact?: boolean;
 };
 export const chatGreeting =
-  "Hi! I'm Zel — feel free to ask about my projects, the stack I work with, or anything else on the site.";
+  "Hi! I'm Zel - feel free to ask about my projects, the stack I work with, or anything else on the site.";
 export const chatSuggestions = [
   'Show me your projects',
   'What is your tech stack?',
@@ -60,6 +61,8 @@ export function getPreparedReply(
     localize({ en, ceb, fil }, language);
   const text = portfolioQuestionText(resolveChatQuestion(question, history));
   const base = { source: 'portfolio' as const };
+  const conversation = getConversationalReply(question, history);
+  if (conversation) return conversation;
   if (isLanguageQuestion(question))
     return {
       ...base,
@@ -272,6 +275,8 @@ export function getQuickReply(
   question: string,
   history: ChatMessage[] = [],
 ): ChatReply | undefined {
+  const conversation = getConversationalReply(question, history);
+  if (conversation) return conversation;
   const text = normalizeQuestion(question);
   if (isLanguageQuestion(question)) return getPreparedReply(question, history);
   if (personalTopic(question, history)) return undefined;

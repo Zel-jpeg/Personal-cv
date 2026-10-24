@@ -9,6 +9,7 @@ import {
 } from './personalProfile.ts';
 import { needsAIReasoning } from '../src/data/chatLanguage.ts';
 import { scopedConversation, scopeReply } from './chatScope.ts';
+import { getEtiquetteReply } from '../src/data/chatEtiquette.ts';
 
 const maxBodyBytes = 12_000;
 const localRequests: number[] = [];
@@ -135,6 +136,13 @@ export async function handleZelRequest(
     )
       throw new RequestError(415, 'Please use the chat on my portfolio.');
     const submitted = validateMessages(await readBody(request));
+    // Courtesy replies run before scope/profile lookup, including mixed
+    // profanity + portfolio/task requests. They never call an AI provider.
+    const etiquette = getEtiquetteReply(
+      submitted.at(-1)!.content,
+      submitted.slice(0, -1),
+    );
+    if (etiquette) return json(etiquette);
     const messages = scopedConversation(submitted);
     if (!messages)
       return json(

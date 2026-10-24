@@ -1,18 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { chatGreeting, getPreparedReply, getQuickReply } from '../data/chat';
-import type { ChatMessage, ChatReply } from '../data/chat';
-
-export type ChatEntry = ChatMessage & {
-  id: number;
-  reply?: ChatReply;
-  displayContent?: string;
-  revealing?: boolean;
-};
-const greeting = (): ChatEntry => ({
-  id: 0,
-  role: 'assistant',
-  content: chatGreeting,
-});
+import { getPreparedReply, getQuickReply } from '../data/chat';
+import type { ChatReply } from '../data/chat';
+import { readChatSession, saveChatSession } from '../data/chatSession';
+import type { ChatEntry } from '../data/chatSession';
 
 function pause(milliseconds: number, signal: AbortSignal) {
   return new Promise<void>((resolve, reject) => {
@@ -33,14 +23,32 @@ function pause(milliseconds: number, signal: AbortSignal) {
 }
 
 export function useZelChat() {
-  const [messages, setMessages] = useState<ChatEntry[]>([greeting()]);
+  const [initialSession] = useState(readChatSession);
+  const [messages, setMessages] = useState<ChatEntry[]>(
+    initialSession.messages,
+  );
   const [busy, setBusy] = useState(false);
   const [awaitingReply, setAwaitingReply] = useState(false);
-  const [notice, setNotice] = useState('');
-  const [retryAt, setRetryAt] = useState(0);
-  const nextId = useRef(1);
+  const [notice, setNotice] = useState(
+    initialSession.pendingQuestion
+      ? 'Your last reply was interrupted. Your question is ready below if you’d like to send it again.'
+      : '',
+  );
+  const [retryAt, setRetryAt] = useState(initialSession.retryAt);
+  const nextId = useRef(initialSession.messages.length);
   const controller = useRef<AbortController | null>(null);
   const inFlight = useRef(false);
+  const savedSignature = useRef(
+    `${initialSession.messages.at(-1)?.id}:${initialSession.messages.at(-1)?.content}:${initialSession.retryAt}`,
+  );
+
+  useEffect(() => {
+    const last = messages.at(-1);
+    const signature = `${last?.id}:${last?.content}:${retryAt}`;
+    if (signature === savedSignature.current) return;
+    savedSignature.current = signature;
+    saveChatSession(messages, retryAt);
+  }, [messages, retryAt]);
 
   useEffect(
     () => () => {
@@ -49,16 +57,6 @@ export function useZelChat() {
     },
     [],
   );
-
-  const reset = () => {
-    controller.current?.abort();
-    controller.current = null;
-    inFlight.current = false;
-    setBusy(false);
-    setAwaitingReply(false);
-    setNotice('');
-    setMessages([greeting()]);
-  };
 
   const send = (rawQuestion: string) => {
     const question = rawQuestion.trim();
@@ -223,5 +221,12 @@ export function useZelChat() {
     void deliver();
     return true;
   };
-  return { messages, busy, awaitingReply, notice, send, reset };
+  return {
+    messages,
+    busy,
+    awaitingReply,
+    notice,
+    send,
+    interruptedQuestion: initialSession.pendingQuestion,
+  };
 }

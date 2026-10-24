@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 
-type CertificatePreviewProps = { title: string; image: string; pdf: string };
+type CertificatePreviewProps = { title: string; image: string; pdf?: string };
 
 export default function CertificatePreview({
   title,
@@ -50,14 +50,16 @@ export default function CertificatePreview({
           src={image}
           alt={title}
         />
-        <a
-          className="button button-primary"
-          href={pdf}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open original PDF <ArrowUpRight size={15} />
-        </a>
+        {pdf && (
+          <a
+            className="button button-primary"
+            href={pdf}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open original PDF <ArrowUpRight size={15} />
+          </a>
+        )}
       </dialog>
     </>
   );

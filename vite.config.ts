@@ -11,7 +11,7 @@ export default defineConfig(({ command, mode }) => ({
       ? [zelDevAPI(loadEnv(mode, process.cwd(), ''))]
       : []),
   ],
-  // Certificate files stay local: serve them in development, never copy to a build.
+  // Original certificate PDFs stay local; approved WebP previews are imported assets.
   publicDir: command === 'serve' ? 'public' : false,
   define: {
     'import.meta.env.VITE_LOCAL_CERTIFICATES': JSON.stringify(

@@ -24,11 +24,19 @@
   gap: 16px;
   margin-bottom: 16px;
 }
-.project-detail-logo {
+.project-detail-logo-frame {
+  display: block;
+  overflow: hidden;
   flex-shrink: 0;
   width: 64px;
   height: 64px;
   border-radius: 14px;
+}
+.project-detail-logo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .project-detail-identity .eyebrow {
   font-size: 10px;
@@ -75,6 +83,9 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px 20px;
+}
+.project-screenshot-grid-curated {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .project-screenshot-grid figure {
   margin: 0;

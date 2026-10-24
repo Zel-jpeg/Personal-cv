@@ -1,0 +1,618 @@
+.zel-launcher {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--button);
+  border-radius: 12px;
+  background: var(--button);
+  color: var(--button-text);
+  box-shadow: 0 5px 18px #00000015;
+  font-size: 13px;
+  font-weight: 650;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.zel-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px #00000020;
+}
+.zel-dialog {
+  position: fixed;
+  inset: auto max(20px, env(safe-area-inset-right))
+    max(82px, calc(env(safe-area-inset-bottom) + 64px)) auto;
+  width: min(400px, calc(100vw - 32px));
+  max-width: none;
+  height: min(620px, calc(100dvh - 108px));
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 18px 60px #00000024;
+  font: inherit;
+}
+.zel-dialog::backdrop {
+  background: #0000000d;
+}
+.zel-dialog[open] {
+  animation: zel-open 0.2s ease-out;
+}
+.zel-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.zel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 17px 16px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.zel-header img {
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.zel-heading {
+  flex: 1;
+  min-width: 0;
+}
+.zel-heading h2 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.zel-heading span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+.zel-icon-button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+}
+.zel-icon-button:hover {
+  background: var(--tag);
+  color: var(--text);
+}
+.zel-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  flex-shrink: 0;
+  margin: 12px 14px;
+  padding: 4px;
+  background: var(--tag);
+  border-radius: 11px;
+}
+.zel-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 7px 6px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.zel-tabs button[aria-pressed='true'] {
+  border-color: var(--line);
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 1px 3px #00000005;
+}
+.zel-chat-view {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+}
+.zel-thread {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 5px 16px 16px;
+  background: color-mix(in srgb, var(--bg) 45%, var(--card));
+}
+/* Keep wheel, touch, and keyboard scrolling without browser scrollbar chrome. */
+.zel-thread,
+.zel-contact-view,
+.zel-composer textarea,
+.zel-contact-form textarea {
+  scrollbar-width: none;
+}
+.zel-thread::-webkit-scrollbar,
+.zel-contact-view::-webkit-scrollbar,
+.zel-composer textarea::-webkit-scrollbar,
+.zel-contact-form textarea::-webkit-scrollbar {
+  display: none;
+}
+.zel-thread:focus-visible,
+.zel-contact-view:focus-visible {
+  outline: 2px solid var(--line);
+  outline-offset: -2px;
+}
+.zel-message {
+  max-width: 92%;
+  width: fit-content;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 14px 4px;
+  background: var(--card);
+  overflow-wrap: anywhere;
+}
+.zel-speaker {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+.zel-message p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.zel-message-user {
+  margin-left: auto;
+  border-color: transparent;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--button);
+  color: var(--button-text);
+}
+.zel-message-user .zel-speaker {
+  color: inherit;
+  opacity: 0.7;
+}
+.zel-message-arriving {
+  animation: zel-message-in 0.28s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.zel-typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  border-radius: 1px;
+  background: currentColor;
+  vertical-align: -0.12em;
+  animation: zel-cursor 0.7s step-end infinite;
+}
+.zel-reply-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.zel-reply-links a,
+.zel-reply-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 30px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--tag);
+  color: var(--text);
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.zel-reply-links a:hover,
+.zel-reply-contact:hover {
+  border-color: var(--muted);
+}
+.zel-reply-contact {
+  margin-top: 10px;
+}
+.zel-answer-source {
+  display: block;
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.5;
+}
+.zel-thinking {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 11px;
+  width: fit-content;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 14px 4px;
+  background: var(--card);
+  animation: zel-message-in 0.24s ease-out both;
+}
+.zel-thinking-dots {
+  display: flex;
+  gap: 3px;
+}
+.zel-thinking-dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: zel-dot 1s ease-in-out infinite;
+}
+.zel-thinking-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.zel-thinking-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.zel-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 12px 14px 9px;
+  border-top: 1px solid var(--line);
+}
+.zel-suggestions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+.zel-suggestions button:hover {
+  background: var(--tag);
+  color: var(--text);
+}
+.zel-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0 14px;
+}
+.zel-composer textarea {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  min-height: 44px;
+  max-height: 104px;
+  padding: 12px;
+  resize: none;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--tag);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.zel-send {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--button);
+  color: var(--button-text);
+}
+.zel-send:disabled,
+.zel-primary:disabled,
+.zel-suggestions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.zel-privacy {
+  flex-shrink: 0;
+  margin: 8px 16px 12px;
+  color: var(--muted);
+  font-size: 9px;
+  text-align: center;
+  line-height: 1.5;
+}
+.zel-chat-notice {
+  margin: 0 14px 8px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.zel-contact-view {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.zel-contact {
+  padding: 6px 20px 22px;
+}
+.zel-contact-intro {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  column-gap: 10px;
+  margin-bottom: 16px;
+}
+.zel-contact-icon {
+  display: grid;
+  place-items: center;
+  grid-row: 1 / 3;
+  width: 34px;
+  height: 34px;
+  margin: 2px 0 0;
+  background: var(--tag);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+.zel-contact-intro h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
+}
+.zel-contact-intro p {
+  grid-column: 2;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.zel-contact-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.zel-contact-form > label {
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+.zel-contact-form > label span {
+  font-weight: 400;
+  color: var(--muted);
+}
+.zel-contact-form > input,
+.zel-contact-form > textarea {
+  width: 100%;
+  min-height: 40px;
+  margin: 0 0 12px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--tag);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.zel-contact-form > textarea {
+  min-height: 100px;
+  resize: none;
+  overflow-y: auto;
+}
+.zel-composer textarea:focus-visible,
+.zel-contact-form input:focus-visible,
+.zel-contact-form textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.zel-contact-privacy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.zel-contact-privacy svg {
+  flex-shrink: 0;
+}
+.zel-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 1px solid var(--button);
+  border-radius: 10px;
+  background: var(--button);
+  color: var(--button-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+.zel-contact-help {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+.zel-form-notice {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--tag);
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.zel-direct-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.zel-clear-draft {
+  display: block;
+  min-height: 32px;
+  margin: 12px 0 0;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.zel-field-trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.zel-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@keyframes zel-open {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes zel-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes zel-cursor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes zel-dot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+@media (max-width: 480px) {
+  .zel-launcher {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .zel-dialog {
+    right: 12px;
+    width: calc(100vw - 24px);
+    bottom: max(76px, calc(env(safe-area-inset-bottom) + 60px));
+    height: min(620px, calc(100dvh - 94px));
+    border-radius: 16px;
+  }
+  .zel-header {
+    padding: 13px 12px;
+    gap: 8px;
+  }
+  .zel-icon-button {
+    width: 32px;
+  }
+  .zel-thread {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  .zel-contact {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .zel-composer textarea,
+  .zel-contact-form > input,
+  .zel-contact-form > textarea {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zel-dialog[open],
+  .zel-thinking-dots i,
+  .zel-thinking,
+  .zel-message-arriving,
+  .zel-typing-cursor {
+    animation: none;
+  }
+  .zel-launcher {
+    transition: none;
+  }
+  .zel-launcher:hover {
+    transform: none;
+  }
+}
+@media print {
+  .zel-launcher,
+  .zel-dialog {
+    display: none !important;
+  }
+  .zel-dialog::backdrop {
+    display: none;
+  }
+}

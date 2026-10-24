@@ -1,29 +1,34 @@
-import { useState } from 'react';
 import { RotateCw } from 'lucide-react';
 import { personalPhotos } from '../data/personal';
+import { stackTransform, usePhotoShuffle } from '../hooks/usePhotoShuffle';
 
-// Inspired by the click-through Stack interaction documented at reactbits.dev/components/stack.
 export default function PhotoStack() {
-  const [front, setFront] = useState(0);
+  const { button, order, shuffle } = usePhotoShuffle(personalPhotos.length);
   return (
     <button
+      ref={button}
       type="button"
       className="photo-stack"
-      onClick={() => setFront((value) => (value + 1) % personalPhotos.length)}
-      aria-label="Cycle personal photos"
+      onClick={() => void shuffle()}
+      aria-label="Shuffle Outside the IDE photos"
     >
-      {personalPhotos.map((photo, index) => {
-        const position =
-          (index - front + personalPhotos.length) % personalPhotos.length;
+      {order.map((photoIndex, position) => {
+        const photo = personalPhotos[photoIndex];
         return (
           <span
-            key={index}
+            key={photo.src}
             className={`stack-photo stack-position-${position}`}
+            data-photo-index={photoIndex}
+            style={{
+              transform: stackTransform(position),
+              zIndex: order.length - position,
+            }}
           >
             <img
               decoding="async"
               src={photo.src}
               alt={position === 0 ? photo.alt : ''}
+              style={{ objectPosition: photo.position }}
               draggable="false"
               loading="lazy"
             />

@@ -1,0 +1,148 @@
+{
+  "name": "Azel M. Villanueva",
+  "nickname": "Zel",
+  "location": "Davao City, Philippines",
+  "title": "Aspiring Software Engineer / Fullstack Developer",
+  "introduction": [
+    "A fourth-year Bachelor of Science in Information Technology student at Davao del Norte State College with academic and project-based experience in web systems, full-stack applications, and UI/UX prototyping.",
+    "Interested in software development, web development, UI/UX, and emerging technologies. Since beginning my coding journey in 2022, I have worked on car rental platforms, budgeting applications, and point-of-sale systems, bringing together intuitive interfaces and practical backend logic."
+  ],
+  "education": [
+    {
+      "school": "Davao del Norte State College",
+      "period": "4th Year / Present",
+      "program": "Bachelor of Science in Information Technology"
+    }
+  ],
+  "skillGroups": [
+    {
+      "category": "Frontend",
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Bootstrap",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "category": "Backend",
+      "skills": [
+        "Node.js",
+        "Python",
+        "Java",
+        "PHP",
+        "Django",
+        "Django REST Framework",
+        "Laravel"
+      ]
+    },
+    { "category": "Database", "skills": ["PostgreSQL", "MySQL"] },
+    {
+      "category": "Tools",
+      "skills": ["Git", "GitHub", "VS Code", "Figma", "Prettier"]
+    },
+    { "category": "Security / Auth", "skills": ["OAuth2", "JWT"] }
+  ],
+  "professionalSkills": [
+    "Problem solving",
+    "Communication",
+    "Teamwork",
+    "Adaptability",
+    "Attention to detail"
+  ],
+  "projects": [
+    {
+      "name": "SkillBridge",
+      "category": "Capstone project",
+      "description": "An OJT recommendation system connecting academic development with internship opportunities.",
+      "technologies": [
+        "React",
+        "Python",
+        "JavaScript",
+        "CSS",
+        "Supabase",
+        "Vercel"
+      ],
+      "repository": "https://github.com/Zel-jpeg/SkillBridge",
+      "demo": "https://skill-bridge-six-psi.vercel.app/"
+    },
+    {
+      "name": "Sakyan",
+      "category": "Car rental platform",
+      "description": "A centralized car rental platform that brings vehicle discovery and rental journeys into one place.",
+      "technologies": [
+        "React",
+        "Dart",
+        "JavaScript",
+        "Python",
+        "Supabase",
+        "Vercel"
+      ],
+      "repository": "https://github.com/Zel-jpeg/lakbaytech-sakyan",
+      "demo": "https://lakbaytech-sakyan.vercel.app/"
+    },
+    {
+      "name": "Verde Café Kiosk",
+      "category": "Interactive ordering",
+      "description": "A self-service café kiosk with menu browsing, order review, simulated payments, and digital receipts.",
+      "technologies": [
+        "TypeScript",
+        "PLpgSQL",
+        "Python",
+        "JavaScript",
+        "Supabase",
+        "Vercel"
+      ],
+      "repository": "https://github.com/Zel-jpeg/verde-cafe-kiosk",
+      "demo": "https://verde-cafe-kiosk.vercel.app/"
+    },
+    {
+      "name": "BG Salon",
+      "category": "Salon website",
+      "description": "A salon website showcasing services, styling work, client testimonials, and appointment contact information.",
+      "technologies": ["HTML", "CSS", "JavaScript", "Vercel"],
+      "repository": "https://github.com/Zel-jpeg/BG_salon",
+      "demo": "https://bg-salon-eta.vercel.app/"
+    },
+    {
+      "name": "DoneeIt",
+      "category": "Student productivity",
+      "description": "A student task management app for organizing academic work.",
+      "technologies": ["Dart", "SQLite"],
+      "repository": "https://github.com/Zel-jpeg/DoneeIt",
+      "details": "/projects/doneeit"
+    },
+    {
+      "name": "Financify",
+      "category": "Personal finance",
+      "description": "A budgeting application built as part of my development journey.",
+      "technologies": ["Dart", "SQLite"],
+      "repository": "https://github.com/Zel-jpeg/Financify",
+      "details": "/projects/financify"
+    }
+  ],
+  "community": [
+    {
+      "title": "Presentation & pitching",
+      "description": "Presenting ideas and sharing the pitching experience with the team."
+    },
+    {
+      "title": "Sakyan prototype presentation",
+      "description": "Presenting and pitching the Sakyan website and mobile app prototype, with a booth showcasing the project."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "CCNA: Switching, Routing, and Wireless Essentials",
+      "issuer": "Cisco Networking Academy · Davao del Norte State College",
+      "date": "2025-12-26"
+    },
+    {
+      "title": "CCNA: Introduction to Networks",
+      "issuer": "Cisco Networking Academy · Davao del Norte State College",
+      "date": "2025-06-11"
+    }
+  ]
+}

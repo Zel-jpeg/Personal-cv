@@ -1,5 +1,6 @@
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
+import BackToTop from './components/BackToTop';
 import ProfileHeader from './sections/ProfileHeader';
 import SummarySection from './sections/SummarySection';
 import EducationSection from './sections/EducationSection';
@@ -20,11 +21,13 @@ import CommunitySection from './sections/CommunitySection';
 import CommunityArchiveSection from './sections/CommunityArchiveSection';
 import EventsSection from './sections/EventsSection';
 import DoneeitProjectSection from './sections/DoneeitProjectSection';
+import FinancifyProjectSection from './sections/FinancifyProjectSection';
 import type { ComponentType } from 'react';
 import { useLocation } from 'react-router';
 import { usePageNavigation } from './hooks/usePageNavigation';
 
 const detailPages: Record<string, ComponentType> = {
+  '/projects/financify': FinancifyProjectSection,
   '/projects/doneeit': DoneeitProjectSection,
   '/projects': ProjectArchiveSection,
   '/tech-stack': TechStackSection,
@@ -48,6 +51,7 @@ export default function App() {
         <DetailHeader theme={theme} toggleTheme={toggleTheme} />
         <DetailPage />
         <Footer />
+        <BackToTop />
       </div>
     );
   }
@@ -79,6 +83,7 @@ export default function App() {
         </div>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

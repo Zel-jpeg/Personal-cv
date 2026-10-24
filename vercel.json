@@ -1,5 +1,8 @@
 {
+  "functions": { "api/zel.ts": { "maxDuration": 30 } },
   "rewrites": [
+    { "source": "/projects/financify", "destination": "/index.html" },
+    { "source": "/projects/financify/", "destination": "/index.html" },
     { "source": "/projects/doneeit", "destination": "/index.html" },
     { "source": "/projects/doneeit/", "destination": "/index.html" },
     { "source": "/community", "destination": "/index.html" },

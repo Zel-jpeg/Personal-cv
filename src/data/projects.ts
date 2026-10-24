@@ -5,6 +5,44 @@ import bgSalon from '../assets/projects/bg-salon.webp';
 import doneeitLogo from '../assets/projects/doneeit-logo.webp';
 import financifyLogo from '../assets/projects/financify-logo.webp';
 
+export type ProjectScreenshot = {
+  id: string;
+  src: string;
+  fullSrc: string;
+  caption: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type ProjectRelease = {
+  version: string;
+  size: string;
+  download: string;
+  url: string;
+};
+
+const financifyAssets = import.meta.glob<string>(
+  '../assets/projects/financify/*.webp',
+  { eager: true, query: '?url', import: 'default' },
+);
+
+// Owner-supplied screens with populated content; omit onboarding and empty states.
+export const financifyScreenshots: ProjectScreenshot[] = [
+  { id: 'dashboard', caption: 'Balance and recent transactions' },
+  { id: 'analytics', caption: 'Budget allocation and analytics' },
+  { id: 'recipes', caption: 'Budget-friendly recipe recommendations' },
+  { id: 'currency', caption: 'Currency conversion and exchange rates' },
+].map(({ id, caption }) => ({
+  id: `financify-${id}`,
+  src: financifyAssets[`../assets/projects/financify/${id}-preview.webp`],
+  fullSrc: financifyAssets[`../assets/projects/financify/${id}.webp`],
+  caption,
+  alt: `Financify mobile app: ${caption.toLowerCase()}`,
+  width: 432,
+  height: 984,
+}));
+
 const doneeitAssets = import.meta.glob<string>(
   '../assets/projects/doneeit/*.webp',
   { eager: true, query: '?url', import: 'default' },
@@ -44,6 +82,15 @@ export const doneeitRelease = {
   download:
     'https://github.com/Zel-jpeg/DoneeIt/releases/download/v1.0.0/app-release.apk',
   url: 'https://github.com/Zel-jpeg/DoneeIt/releases/tag/v1.0.0',
+};
+
+// Verified against GitHub's public release metadata on 2026-10-24.
+export const financifyRelease: ProjectRelease = {
+  version: 'v1.0.3',
+  size: '53.7 MB',
+  download:
+    'https://github.com/Zel-jpeg/Financify/releases/download/v1.0.3/Financify.apk',
+  url: 'https://github.com/Zel-jpeg/Financify/releases/tag/v1.0.3',
 };
 
 export type Project = {
@@ -173,6 +220,7 @@ export const projects: Project[] = [
     description:
       'A budgeting application built as part of my development journey.',
     image: financifyLogo,
+    details: '/projects/financify',
     imageKind: 'logo',
     // Fill the rounded frame without the source logo's transparent margins.
     logoScale: 1.2,

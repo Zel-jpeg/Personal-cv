@@ -4,14 +4,23 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run security:check && npm run chat:knowledge",
     "dev": "vite",
     "typecheck": "tsc --noEmit",
+    "prebuild": "npm run security:check && npm run chat:knowledge",
     "build": "npm run typecheck && vite build",
+    "postbuild": "node scripts/checkSecrets.mjs --dist",
+    "security:check": "node scripts/checkSecrets.mjs",
+    "security:test": "node --test scripts/checkSecrets.test.mjs",
+    "chat:knowledge": "node scripts/buildChatKnowledge.mjs",
+    "chat:test": "node --experimental-strip-types --test server/*.test.ts",
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@vercel/firewall": "^1.2.6",
+    "botid": "^1.5.11",
     "lucide-react": "^1.61.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",

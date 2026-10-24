@@ -991,6 +991,10 @@ h2 {
 [data-theme='dark'] .profile-socials a[href*='github.com']:hover {
   color: #fff;
 }
+.profile-socials a[href*='linkedin.com']:hover,
+.profile-socials a[href*='linkedin.com']:focus-visible {
+  color: #0a66c2;
+}
 .profile-socials a[href^='mailto:']:hover {
   color: #df5149;
 }
@@ -1608,26 +1612,6 @@ h2 {
 }
 .featured-panel.is-expanded {
   border-color: var(--accent);
-}
-.mobile-print-action {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 10px 14px;
-  width: 100%;
-  border: 0;
-  border-top: 1px solid var(--line);
-  border-radius: 0 0 7px 7px;
-  color: var(--text);
-  background: transparent;
-  text-align: left;
-  font-size: 14px;
-}
-.mobile-print-action:hover,
-.mobile-print-action:focus-visible {
-  background: var(--accent-bg);
-  color: var(--accent);
 }
 @media screen and (max-width: 850px) {
   .profile-header > .toolbar {

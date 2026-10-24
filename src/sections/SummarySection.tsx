@@ -16,9 +16,9 @@ export default function SummarySection() {
       <div className="career-objective">
         <h3>Career objective</h3>
         <p>
-          To grow as a software developer through internship and professional
-          opportunities, applying my web development and UI/UX skills to useful,
-          accessible applications.
+          To contribute to a software development team by building reliable,
+          user-focused applications, applying full-stack development, UI/UX
+          design, and practical problem-solving skills.
         </p>
       </div>
     </section>

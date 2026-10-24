@@ -79,95 +79,39 @@
   font-size: 12px;
   color: var(--muted);
 }
-.project-screenshot-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px 20px;
+/* Reuse the event gallery's masonry, reveal, hover, and full-size viewer. */
+.event-masonry.project-screenshot-gallery {
+  --gallery-columns: 3;
+  --gallery-gap: 12;
+  --gallery-stagger: 30;
+  margin-top: 0;
 }
-.project-screenshot-grid-curated {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.event-masonry.project-screenshot-gallery-curated {
+  --gallery-columns: 2;
 }
-.project-screenshot-grid figure {
-  margin: 0;
-  min-width: 0;
-}
-.project-screenshot {
-  display: block;
-  position: relative;
-  width: 100%;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--card);
-  transition:
-    transform 0.2s,
-    border-color 0.2s,
-    box-shadow 0.2s;
-}
-.project-screenshot img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.project-screenshot-expand {
-  display: grid;
-  place-items: center;
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--text);
-}
-.project-screenshot:is(:hover, :focus-visible) {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--accent) 18%, var(--line));
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 8%, transparent);
-}
-.project-screenshot-grid figcaption {
-  display: flex;
-  gap: 9px;
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
-}
-.project-screenshot-grid figcaption > span {
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
+.project-screenshot-gallery .gallery-photo > img {
+  object-fit: contain;
 }
 @media (max-width: 600px) {
-  .project-screenshot-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px 14px;
+  .event-masonry.project-screenshot-gallery {
+    --gallery-columns: 2;
+    --gallery-gap: 9;
+    --gallery-stagger: 20;
   }
 }
 @media (max-width: 380px) {
-  .project-screenshot-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .project-detail-actions > a {
     width: 100%;
     justify-content: center;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-screenshot {
+  .project-screenshot-gallery .gallery-photo,
+  .project-screenshot-gallery .gallery-photo > img {
     transition: none;
   }
-  .project-screenshot:is(:hover, :focus-visible) {
+  .project-screenshot-gallery .gallery-photo:hover,
+  .project-screenshot-gallery .gallery-photo:hover > img {
     transform: none;
-  }
-}
-@media print {
-  .project-screenshot-expand {
-    display: none;
-  }
-  .project-screenshot-grid figure {
-    break-inside: avoid;
   }
 }

@@ -24,7 +24,7 @@ export default function EventsSection() {
           mobile app prototype showcase.
         </p>
       </header>
-      <EventGallery />
+      <EventGallery comingSoon />
     </main>
   );
 }

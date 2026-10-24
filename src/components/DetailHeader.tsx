@@ -13,6 +13,7 @@ export default function DetailHeader({
     : [
         { label: 'Home', href: '/' },
         { label: 'Projects', href: '/projects' },
+        { label: 'Experience', href: '/experience' },
         { label: 'Technologies', href: '/tech-stack' },
         { label: 'Certifications', href: '/certifications' },
         { label: 'Community', href: '/community' },
@@ -39,7 +40,7 @@ export default function DetailHeader({
         </nav>
         <div className="header-actions">
           <ThemeToggle {...props} />
-          <MobileMenu links={links} showPrint={home} />
+          <MobileMenu links={links} showResume={home} />
         </div>
       </div>
     </header>

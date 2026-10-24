@@ -12,14 +12,17 @@ A personal CV website showcasing my profile, education, technical and profession
 
 - Responsive layout for desktop, tablet, and mobile screens
 - Burger navigation on mobile and tablet screens, with keyboard and Escape support
-- Glass navbar on scroll, with a compact AV monogram, CV print control, and theme toggle
+- Glass navbar on scroll, with a compact AV monogram, View Resume action, and theme toggle
 - Light and dark themes with saved preferences
 - Section navigation with active section highlighting
 - Hover effects and scroll animations with reduced-motion support
 - Smooth internal page navigation with Back/Forward scroll restoration
+- Custom 404, offline, and app-error screens with theme-aware recovery actions. Unknown paths render the 404 view; `/404`, `/offline`, and `/error` provide direct status-page routes. A connection notice appears when the browser reports offline and clears on reconnect without reloading the page. `AppErrorBoundary` provides recovery from React rendering errors.
+- Compact experience overview with a “View details” link to `/experience`, a full timeline of confirmed training and project work, and full responsibility bullets retained in the printed CV. Shared content lives in `src/data/experience.ts`; experience categories stand in for dates until the owner supplies them.
 - A floating Back to top button appears after 400px on home and detail pages, with smooth scrolling and reduced-motion support
 - Optimized WebP images with asynchronous decoding and lazy loading
 - Print-friendly CV layout
+- Matching two-page resume PDF: View Resume opens it in a new tab from the desktop profile toolbar and the home mobile menu. There is no separate Download CV option. Contact cards offer email and GitHub; the mobile number remains in the resume only.
 - Email and GitHub contact links
 - Chat with Zel: first-person portfolio answers, optional Gemini → Groq fallback, private server-configured personal FAQs, and an in-place contact form with CAPTCHA and a success toast
 - Expanding featured work panels and project cards with previews, code links, and demos
@@ -33,7 +36,9 @@ A personal CV website showcasing my profile, education, technical and profession
 - DoneeIt mobile app preview at `/projects/doneeit`, with 13 expandable screenshots, a GitHub APK download, and a repository link
 - Financify preview at `/projects/financify`, with four populated screens (dashboard, analytics, recipes, and currency conversion), a GitHub APK download, release details, and a repository link; both app pages reuse `src/sections/MobileProjectPreview.tsx`
 - Community page featuring presentation/pitching and Sakyan prototype photos, with category filters, staggered gallery entrances, and full-screen photo browsing
+- Events displays five real owner-supplied photos and ten blank “More moments coming soon” cards inside the animated masonry gallery in place of the former stock photos. Blank cards are non-interactive and excluded from the photo viewer. New real photos can be added in `src/data/community.ts`.
 - Lightweight gallery previews with larger WebP photos loaded when opened
+- DoneeIt and Financify UI screenshots reuse the community event gallery's masonry positions, staggered fade/blur reveals, hover effects, and full-size viewer. Portrait screenshots stay uncropped, with slightly offset columns and responsive two/three-column layouts.
 - Certification overview and archive; supporting documents are available on request
 - Diagonal light/dark theme transition in supported browsers
 - Interactive Outside the IDE photo stack with the profile portrait and three presentation/pitching photos, keeping the photo sequence fixed while randomly choosing left/right motion with coordinated spring settling and no fading
@@ -72,6 +77,16 @@ Davao del Norte State College
 
 ## Run locally
 
+### Updating the resume
+
+The profile and resume share the “Aspiring Software Engineer / Full-Stack Developer” title and a job-focused summary from `src/data/cv.ts`. Experience counts reflect the named work: five applications, two UI/UX prototypes, one business website, one capstone recommendation system, and nearly one month of training; overlapping work is not presented as a combined total.
+
+The resume PDF is bundled from `src/assets/resume/azel-villanueva-resume.pdf`. Its content is selected in `src/data/resume.ts` from the existing public experience, projects, education, skills, and certificate metadata. Its summary focuses on development experience and omits fourth-year/student status; Education lists the program and school without year-level wording or an unconfirmed graduation claim. The website's Education section separately shows “4th Year / Present” to meet the course requirements. Update the resume's mobile number in `src/data/personal.ts`. No original certificate PDFs or private profile settings are included.
+
+Run `npm run resume:build` after editing resume content, then visually check both PDF pages. Generation requires Python with `reportlab`; set `RESUME_PYTHON` to a Python executable if needed. The rendering script is `scripts/renderResume.py`. Normal development and production builds use the saved PDF and need no Python dependencies.
+
+### Starting the portfolio
+
 With Node.js 22.18+ (or Node.js 24 LTS) installed:
 
 ```sh
@@ -82,6 +97,12 @@ npm run dev
 ```
 
 Open the local URL shown in the terminal.
+
+### Error and connection states
+
+Unknown URLs show the custom 404 screen instead of the homepage. The build emits `dist/404.html` from the compiled app shell for Vercel's static 404 fallback, while explicit rewrites continue to handle valid routes. There is no broad catch-all rewrite over API, asset, or download paths. After deploying, test a made-up URL directly as well as `/404`, `/offline`, and `/error`.
+
+The offline notice and `/offline` page use the browser's connectivity signal, not a server-health probe. They work after the app loads; this is not an offline-cached app, and a first visit or reload without connectivity may show the browser's own network page. Reconnecting does not automatically reload or discard an open contact draft. Rendering failures show a retry/home fallback without exposing exception details; async requests keep their existing local error handling. The `/error` route previews that design without deliberately crashing the app.
 
 ## Chat credentials, spam protection, and free usage
 

@@ -10,6 +10,7 @@ type SocialLink = {
 };
 
 export const contactEmail = 'azelmv14@gmail.com';
+export const contactPhone = '09567549872';
 
 export const socialLinks: SocialLink[] = [
   {

@@ -28,15 +28,20 @@ export function useMasonryLayout(
       previousWidth = width;
       previousColumns = columns;
       const columnWidth = (width - gap * (columns - 1)) / columns;
-      const heights = Array<number>(columns).fill(0);
+      const stagger =
+        Number.parseFloat(styles.getPropertyValue('--gallery-stagger')) || 0;
+      const heights = Array.from({ length: columns }, (_, column) =>
+        column % 2 === 1 ? stagger : 0,
+      );
 
-      cards.forEach((card) => {
+      cards.forEach((card, index) => {
         const [numerator, denominator] = (card.dataset.aspect ?? '3 / 4')
           .split('/')
           .map(Number);
         const ratio = numerator / denominator;
         const height = columnWidth / (ratio > 0 ? ratio : 0.75);
-        const column = heights.indexOf(Math.min(...heights));
+        const column =
+          index < columns ? index : heights.indexOf(Math.min(...heights));
         card.style.width = `${columnWidth}px`;
         card.style.height = `${height}px`;
         card.style.setProperty('--tile-x', `${column * (columnWidth + gap)}px`);

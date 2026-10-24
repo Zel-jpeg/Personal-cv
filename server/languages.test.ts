@@ -6,6 +6,7 @@ import {
   detectChatLanguage,
   personalTopic,
   needsAIReasoning,
+  identityQuestionTopics,
 } from '../src/data/chatLanguage.ts';
 import { getRelevantProfileFacts } from './personalProfile.ts';
 import type { ChatMessage } from '../src/data/chat.ts';
@@ -87,6 +88,106 @@ function request(messages: ChatMessage[]) {
 const noFetch = async () => {
   assert.fail('Prepared answers must not consume provider quota');
 };
+
+test('short name and age questions, including the reported fragments, stay prepared', async () => {
+  const noServices = {
+    fetcher: noFetch,
+    protect: async () =>
+      assert.fail('Identity FAQs must not reach AI protection'),
+  };
+  for (const enabled of ['true', 'false']) {
+    for (const [content, expected] of [
+      ['name?', /Zel/],
+      ['Name', /Zel/],
+      ['full name?', /Zel/],
+      ['nickname?', /Zel/],
+      ['name please?', /Zel/],
+      ['ngalan?', /Ako si .*Zel/],
+      ['pangalan?', /Ako si .*Zel/],
+      ['how old?', /\d+ years old/],
+      ['how old are you?', /\d+ years old/],
+      ['how old r u?', /\d+ years old/],
+      ['howold?', /\d+ years old/],
+      ['age?', /\d+ years old/],
+      ['your age?', /\d+ years old/],
+      ['edad mo?', /\d+ taong gulang/],
+      ['pila imong edad?', /\d+ anyos/],
+    ] as const) {
+      const response = await handleZelRequest(
+        request([{ role: 'user', content }]),
+        { ...env, CHAT_AI_ENABLED: enabled },
+        noServices,
+      );
+      const reply = await response.json();
+      assert.equal(response.status, 200, content);
+      assert.equal(reply.source, 'portfolio');
+      assert.match(reply.text, expected, content);
+      assert.doesNotMatch(reply.text, /outside what I can help|2000-11-05/);
+    }
+  }
+  const followup = await handleZelRequest(
+    request([
+      { role: 'user', content: 'name?' },
+      {
+        role: 'assistant',
+        content: 'That is outside what I can help with here.',
+      },
+      { role: 'user', content: 'how old?' },
+    ]),
+    env,
+    noServices,
+  );
+  assert.match((await followup.json()).text, /\d+ years old/);
+});
+
+test('paired name and age questions answer both facts without spending AI tokens', async () => {
+  for (const content of [
+    'name and age?',
+    'name and how old are you?',
+    'What is your name and how old are you?',
+    'name? how old?',
+    'Unsa imong ngalan ug pila imong edad?',
+    'Ano ang pangalan mo at ilang taon ka na?',
+  ]) {
+    assert.deepEqual(
+      new Set(identityQuestionTopics(content)),
+      new Set(['name', 'age']),
+      content,
+    );
+    assert.equal(needsAIReasoning(content), false, content);
+    const response = await handleZelRequest(
+      request([{ role: 'user', content }]),
+      env,
+      {
+        fetcher: noFetch,
+        protect: async () =>
+          assert.fail('Paired identity FAQs must not consume services'),
+      },
+    );
+    const reply = await response.json();
+    assert.equal(response.status, 200, content);
+    assert.equal(reply.source, 'portfolio');
+    assert.match(reply.text, /Zel/, content);
+    assert.match(reply.text, /\d+ (?:years old|anyos|taong gulang)/, content);
+    assert.doesNotMatch(reply.text, /2000-11-05|outside what I can help/);
+  }
+  const missing = await handleZelRequest(
+    request([{ role: 'user', content: 'name and age?' }]),
+    { ...env, CHAT_PERSONAL_PROFILE: '{}' },
+    { fetcher: noFetch },
+  );
+  const missingReply = await missing.json();
+  assert.match(missingReply.text, /Zel/);
+  assert.doesNotMatch(missingReply.text, /\d+ years old/);
+  for (const task of [
+    'name the planets',
+    'name and age of the universe',
+    'name and write my essay',
+    'How old is the sun?',
+    'What is your name and solve my homework?',
+  ])
+    assert.deepEqual(identityQuestionTopics(task), [], task);
+});
 
 test('casual name aliases and paired strengths/weaknesses stay prepared with AI enabled', async () => {
   for (const content of [

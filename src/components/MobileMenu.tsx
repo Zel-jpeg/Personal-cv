@@ -1,15 +1,16 @@
 import { Link } from 'react-router';
 import { useEffect, useId, useRef, useState } from 'react';
-import { Menu, Printer, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import ResumeActions from './ResumeActions';
 
 export type MenuLink = { label: string; href: string };
 
 export default function MobileMenu({
   links,
-  showPrint = false,
+  showResume = false,
 }: {
   links: MenuLink[];
-  showPrint?: boolean;
+  showResume?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -70,17 +71,10 @@ export default function MobileMenu({
             {link.label}
           </Link>
         ))}
-        {showPrint && (
-          <button
-            type="button"
-            className="mobile-print-action"
-            onClick={() => {
-              setOpen(false);
-              requestAnimationFrame(() => window.print());
-            }}
-          >
-            <Printer size={16} aria-hidden="true" /> Print CV
-          </button>
+        {showResume && (
+          <div className="mobile-resume-actions">
+            <ResumeActions onSelect={() => setOpen(false)} />
+          </div>
         )}
       </nav>
     </div>

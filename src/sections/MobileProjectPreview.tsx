@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router';
-import { ArrowLeft, ArrowUpRight, Download, Expand } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
 import type {
   Project,
   ProjectRelease,
   ProjectScreenshot,
 } from '../data/projects';
-import PhotoLightbox from '../components/PhotoLightbox';
+import EventGallery from '../components/EventGallery';
 
 type MobileProjectPreviewProps = {
   project: Project;
@@ -22,7 +22,6 @@ export default function MobileProjectPreview({
   description,
   release,
 }: MobileProjectPreviewProps) {
-  const [index, setIndex] = useState<number | null>(null);
   useEffect(() => {
     document.title = `${project.name} — Azel M. Villanueva`;
     return () => {
@@ -94,44 +93,17 @@ export default function MobileProjectPreview({
         <p className="project-preview-hint">
           Select a screenshot to view it full size.
         </p>
-        <div
-          className={`project-screenshot-grid${screenshots.length <= 4 ? ' project-screenshot-grid-curated' : ''}`}
-        >
-          {screenshots.map((screen, position) => (
-            <figure key={screen.id}>
-              <button
-                type="button"
-                className="project-screenshot"
-                onClick={() => setIndex(position)}
-                aria-label={`Open screenshot ${position + 1}: ${screen.caption}`}
-              >
-                <img
-                  src={screen.src}
-                  alt={screen.alt}
-                  width={screen.width}
-                  height={screen.height}
-                  loading={position < 3 ? 'eager' : 'lazy'}
-                  decoding="async"
-                />
-                <span className="project-screenshot-expand" aria-hidden="true">
-                  <Expand size={16} />
-                </span>
-              </button>
-              <figcaption>
-                <span>{String(position + 1).padStart(2, '0')}</span>
-                {screen.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <EventGallery
+          key={project.name}
+          photos={screenshots.map((screen) => ({
+            ...screen,
+            aspect: `${screen.width} / ${screen.height}`,
+          }))}
+          className={`project-screenshot-gallery${screenshots.length <= 4 ? ' project-screenshot-gallery-curated' : ''}`}
+          label={`${project.name} app screenshots`}
+          viewerLabel={`${project.name} screenshot viewer`}
+        />
       </section>
-      <PhotoLightbox
-        photos={screenshots}
-        index={index}
-        onIndex={setIndex}
-        onClose={() => setIndex(null)}
-        label={`${project.name} screenshot viewer`}
-      />
     </main>
   );
 }

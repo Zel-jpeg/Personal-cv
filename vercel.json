@@ -1,6 +1,14 @@
 {
   "functions": { "api/zel.ts": { "maxDuration": 30 } },
   "rewrites": [
+    { "source": "/404", "destination": "/index.html" },
+    { "source": "/404/", "destination": "/index.html" },
+    { "source": "/offline", "destination": "/index.html" },
+    { "source": "/offline/", "destination": "/index.html" },
+    { "source": "/error", "destination": "/index.html" },
+    { "source": "/error/", "destination": "/index.html" },
+    { "source": "/experience", "destination": "/index.html" },
+    { "source": "/experience/", "destination": "/index.html" },
     { "source": "/projects/financify", "destination": "/index.html" },
     { "source": "/projects/financify/", "destination": "/index.html" },
     { "source": "/projects/doneeit", "destination": "/index.html" },

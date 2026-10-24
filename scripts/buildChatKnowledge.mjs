@@ -26,7 +26,7 @@ try {
     name: 'Azel M. Villanueva',
     nickname: 'Zel',
     location: 'Davao City, Philippines',
-    title: 'Aspiring Software Engineer / Fullstack Developer',
+    title: cv.professionalTitle,
     introduction: cv.introduction,
     education: cv.education,
     skillGroups: cv.skillGroups,

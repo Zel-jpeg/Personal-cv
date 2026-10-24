@@ -2,6 +2,8 @@ import { BadgeCheck } from 'lucide-react';
 import { Link } from 'react-router';
 import SocialLinks from '../components/SocialLinks';
 import ThemeToggle from '../components/ThemeToggle';
+import ResumeActions from '../components/ResumeActions';
+import { professionalTitle } from '../data/cv';
 import { useCondensedHeader } from '../hooks/useCondensedHeader';
 import { useMobileLayout } from '../hooks/useMobileLayout';
 import profilePhoto from '../assets/profile-zel.webp';
@@ -14,10 +16,7 @@ type ProfileHeaderProps = {
 function ProfileDetails() {
   return (
     <div className="profile-details">
-      <p className="professional-title">
-        Aspiring Software Engineer <span aria-hidden="true">/</span> Fullstack
-        Developer
-      </p>
+      <p className="professional-title">{professionalTitle}</p>
       <p className="location">
         <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
@@ -62,17 +61,7 @@ export default function ProfileHeader({
               </h1>
             </div>
             <div className="toolbar">
-              <button
-                className="button button-quiet"
-                id="print-cv"
-                type="button"
-                onClick={() => window.print()}
-              >
-                <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 8V3h10v5M7 17H4V8h16v9h-3M7 14h10v7H7zM17 11h.01" />
-                </svg>
-                <span>Print CV</span>
-              </button>
+              <ResumeActions />
               <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             </div>
           </header>

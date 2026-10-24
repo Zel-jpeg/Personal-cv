@@ -113,6 +113,13 @@ export function getPreparedReply(
       contact: true,
     };
   const topic = personalTopic(question, history);
+  if (topic === 'nameAndAge') {
+    const identity = getPreparedReply(
+      say('What is your name?', 'Unsa imong ngalan?', 'Ano ang pangalan mo?'),
+    );
+    // Age belongs to the server profile; offline fallbacks never guess it.
+    return { ...identity, text: `${identity.text} ${unknown().text}` };
+  }
   if (topic === 'name')
     return {
       ...base,

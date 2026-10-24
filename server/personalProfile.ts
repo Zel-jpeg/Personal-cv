@@ -161,6 +161,18 @@ export function getPersonalProfileReply(
   const say = (en: string, ceb: string, fil: string) =>
     localize({ en, ceb, fil }, language);
   const answer = (text: string): ChatReply => ({ text, source: 'portfolio' });
+  if (topic === 'nameAndAge') {
+    const identity = getPreparedReply(
+      say('What is your name?', 'Unsa imong ngalan?', 'Ano ang pangalan mo?'),
+    );
+    const age = getPersonalProfileReply(
+      say('How old are you?', 'Pila imong edad?', 'Ilang taon ka na?'),
+      env,
+      now,
+      history,
+    )!;
+    return answer(`${identity.text} ${age.text}`);
+  }
   if (
     topic === 'strengths' ||
     topic === 'weaknesses' ||

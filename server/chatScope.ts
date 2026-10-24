@@ -4,6 +4,7 @@ import { getConversationalReply } from '../src/data/chatConversation.ts';
 import { containsChatProfanity } from '../src/data/chatEtiquette.ts';
 import {
   detectChatLanguage,
+  identityQuestionTopics,
   normalizeQuestion,
   personalTopic,
   portfolioQuestionText,
@@ -88,6 +89,7 @@ const followup =
 function directlyInScope(question: string) {
   const text = scopeText(question);
   if (isTaskOrOverride(text)) return false;
+  if (identityQuestionTopics(question).length) return true;
   if (getConversationalReply(question)) return true;
   if (projects.test(text)) return true;
   if (

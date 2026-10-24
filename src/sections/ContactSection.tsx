@@ -17,8 +17,8 @@ export default function ContactSection() {
           <span>worth sharing.</span>
         </h2>
         <p>
-          Interested in internship opportunities, software development, and
-          collaborating on thoughtful web experiences.
+          Open to software development roles and collaborations on useful,
+          well-designed web experiences.
         </p>
         <span className="contact-location">
           <MapPin size={14} /> Davao City, Philippines

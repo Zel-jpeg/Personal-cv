@@ -6,6 +6,7 @@ import SummarySection from './sections/SummarySection';
 import EducationSection from './sections/EducationSection';
 import SkillsSection from './sections/SkillsSection';
 import ExperienceSection from './sections/ExperienceSection';
+import ExperienceArchiveSection from './sections/ExperienceArchiveSection';
 import CertificationsSection from './sections/CertificationsSection';
 import ContactSection from './sections/ContactSection';
 import { useCV } from './hooks/useCV';
@@ -22,11 +23,19 @@ import CommunityArchiveSection from './sections/CommunityArchiveSection';
 import EventsSection from './sections/EventsSection';
 import DoneeitProjectSection from './sections/DoneeitProjectSection';
 import FinancifyProjectSection from './sections/FinancifyProjectSection';
+import NotFoundSection, {
+  OfflineSection,
+  ErrorSection,
+} from './sections/PageStatusSection';
 import type { ComponentType } from 'react';
 import { useLocation } from 'react-router';
 import { usePageNavigation } from './hooks/usePageNavigation';
 
 const detailPages: Record<string, ComponentType> = {
+  '/404': NotFoundSection,
+  '/offline': OfflineSection,
+  '/error': ErrorSection,
+  '/experience': ExperienceArchiveSection,
   '/projects/financify': FinancifyProjectSection,
   '/projects/doneeit': DoneeitProjectSection,
   '/projects': ProjectArchiveSection,
@@ -41,7 +50,7 @@ export default function App() {
   const path = location.pathname.replace(/\/$/, '');
   const { theme, toggleTheme, activeSection, setActiveSection } = useCV(path);
   usePageNavigation();
-  const DetailPage = detailPages[path];
+  const DetailPage = detailPages[path] ?? (path ? NotFoundSection : undefined);
   if (DetailPage) {
     return (
       <div className="page-view" key={path}>

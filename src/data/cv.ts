@@ -46,7 +46,10 @@ export const education: EducationEntry[] = [
   },
 ];
 
+export const professionalTitle =
+  'Aspiring Software Engineer / Full-Stack Developer';
+
 export const introduction: string[] = [
-  'A fourth-year Bachelor of Science in Information Technology student at Davao del Norte State College with academic and project-based experience in web systems, full-stack applications, and UI/UX prototyping.',
-  'Interested in software development, web development, UI/UX, and emerging technologies. Since beginning my coding journey in 2022, I have worked on car rental platforms, budgeting applications, and point-of-sale systems, bringing together intuitive interfaces and practical backend logic.',
+  'Full-stack developer with hands-on experience building web applications, mobile apps, and UI/UX prototypes. Project experience spans car rental platforms, budgeting applications, task management, and point-of-sale systems, combining clear interfaces with practical backend logic.',
+  'Skilled in React, Python, Django, databases, and Figma. Seeking a software development role where I can contribute practical problem solving, thoughtful interface design, and reliable application features to a collaborative team.',
 ];

@@ -1,0 +1,117 @@
+.page-status-page {
+  width: min(800px, calc(100% - 40px));
+  min-height: calc(100svh - 220px);
+  margin: 48px auto;
+  display: grid;
+  place-items: center;
+}
+.page-status-fallback {
+  min-height: calc(100svh - 96px);
+}
+.page-status-card {
+  width: 100%;
+  max-width: 640px;
+  padding: 44px 28px;
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+  background: var(--card);
+  text-align: center;
+}
+.page-status-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--tag);
+  color: var(--muted);
+}
+.page-status-code {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+.page-status-code-large {
+  font-size: clamp(70px, 14vw, 110px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+.page-status-card h1 {
+  margin-bottom: 14px;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 500;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.page-status-description {
+  max-width: 46ch;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+.page-status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.page-status-actions .button {
+  min-height: 44px;
+}
+.page-status-notice {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.network-status {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(560px, calc(100% - 32px));
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.1);
+  font-size: 12px;
+}
+.network-status > svg {
+  flex-shrink: 0;
+}
+.network-status p {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.network-status a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 440px) {
+  .page-status-page {
+    margin-block: 30px;
+  }
+  .page-status-card {
+    padding: 32px 20px;
+  }
+  .page-status-actions {
+    flex-direction: column;
+  }
+}
+@media print {
+  .network-status {
+    display: none;
+  }
+}

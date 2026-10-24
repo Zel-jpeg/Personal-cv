@@ -7,6 +7,7 @@ export type PersonalTopic =
   | 'birthday'
   | 'birthplace'
   | 'name'
+  | 'nameAndAge'
   | 'location'
   | 'hobbies'
   | 'goals'
@@ -62,13 +63,13 @@ export function detectChatLanguage(
   if (explicit) return explicit;
   const text = normalizeQuestion(question);
   if (
-    /\b(unsa|unsay|unsang|pila|kinsa|kanus.a|nagsugod|kasabot|makasabot|ngano|nganong|asa|imong|imohang|nimo|kaayo|gihimo|ganahan|kumusta|maayong|salamat kaayo|nindota?|hawd[ao]?|kuyawa?|ngilngig|payter|yawa|pist[ei]|buang|boang|bogo|amaw|ataya?|bilat|iyot|trabaho nimo)\b/.test(
+    /\b(unsa|unsay|unsang|pila|kinsa|ngalan|kanus.a|nagsugod|kasabot|makasabot|ngano|nganong|asa|imong|imohang|nimo|kaayo|gihimo|ganahan|kumusta|maayong|salamat kaayo|nindota?|hawd[ao]?|kuyawa?|ngilngig|payter|yawa|pist[ei]|buang|boang|bogo|amaw|ataya?|bilat|iyot|trabaho nimo)\b/.test(
       text,
     )
   )
     return 'ceb';
   if (
-    /\b(ano|anong|ilang|sino|kailan|nagsimula\w*|naiintindihan|marunong|bakit|paano|saan|saang|iyong|mo|ikaw|kamusta|pangarap|salamat po|ginawa|gusto mong|galing|magaling|husay|mahusay|astig|angas|lupit|malupit|putang\s*ina|tang\s*ina|gago|gaga|tanga|ulol|tarantado|bw[ei]sit)\b/.test(
+    /\b(ano|anong|ilang|sino|pangalan|kailan|nagsimula\w*|naiintindihan|marunong|bakit|paano|saan|saang|iyong|mo|ikaw|kamusta|pangarap|salamat po|ginawa|gusto mong|galing|magaling|husay|mahusay|astig|angas|lupit|malupit|putang\s*ina|tang\s*ina|gago|gaga|tanga|ulol|tarantado|bw[ei]sit)\b/.test(
       text,
     )
   )
@@ -125,10 +126,52 @@ export function resolveChatQuestion(
   return question;
 }
 
+// Recognize complete identity questions, including conversational fragments.
+// Every clause must be an identity question; a stray "name" keyword cannot
+// admit a general task or answer an unrelated person's age.
+export function identityQuestionTopics(
+  question: string,
+  history: ChatMessage[] = [],
+): ('name' | 'age')[] {
+  const clauses = normalizeQuestion(resolveChatQuestion(question, history))
+    .split(/\b(?:and|ug|at|pati|tsaka)\b|[&?;]+/)
+    .map((part) =>
+      part
+        .replace(/[.,!:]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/^(?:please|pls|zel|azel)\s+/, '')
+        .replace(/\s+(?:please|pls|po|zel|azel)$/, '')
+        .trim(),
+    )
+    .filter(Boolean);
+  if (!clauses.length || clauses.length > 3) return [];
+  const topics: ('name' | 'age')[] = [];
+  for (const clause of clauses) {
+    if (
+      /^(?:name|full name|nickname|your (?:full |preferred )?name|your nickname|whats your (?:full )?name|what is your (?:full )?name|tell me your name|who are you|whore you|who you|kinsa ka|ngalan|imong ngalan|unsay? imong ngalan|pangalan|pangalan mo|anong pangalan mo|ano ang pangalan mo|sino ka)$/.test(
+        clause,
+      )
+    )
+      topics.push('name');
+    else if (
+      /^(?:age|your age|how ?old(?: are you| you)?|whats your age|what is your age|tell me your age|how many years old are you|edad|imong edad|pila (?:na )?imong edad|edad mo|anong edad mo|ano ang edad mo|ilang taon(?: ka(?: na)?)?)$/.test(
+        clause,
+      )
+    )
+      topics.push('age');
+    else return [];
+  }
+  return [...new Set(topics)];
+}
+
 export function personalTopic(
   question: string,
   history: ChatMessage[] = [],
 ): PersonalTopic | undefined {
+  const identity = identityQuestionTopics(question, history);
+  if (identity.length === 2) return 'nameAndAge';
+  if (identity.length === 1) return identity[0];
   const text = normalizeQuestion(question);
   const strength =
     /\b(strengths?|strong points?|kusog|kalig.on|lakas|kalakasan)\b/.test(text);
@@ -244,6 +287,7 @@ export function isSimplePersonalQuestion(
 }
 
 export function needsAIReasoning(question: string) {
+  if (identityQuestionTopics(question).length) return false;
   const topics = question
     .split(/\b(?:and|ug|at)\b/i)
     .map((part) => personalTopic(part))

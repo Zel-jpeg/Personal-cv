@@ -8,7 +8,6 @@ import sakyanBoothPreview from '../assets/community/sakyan-prototype-booth-previ
 import sakyanBooth from '../assets/community/sakyan-prototype-booth.webp';
 import sakyanTeamPreview from '../assets/community/sakyan-prototype-team-preview.webp';
 import sakyanTeam from '../assets/community/sakyan-prototype-team.webp';
-import { gallerySamples } from './gallerySamples';
 
 export const communityCategories = [
   'All',
@@ -64,7 +63,7 @@ export type EventPhoto = {
 
 // Five unique owner-supplied photos; the second and third uploaded files were
 // identical. Previews load in galleries; larger WebP copies load on opening.
-const ownerEventPhotos: EventPhoto[] = [
+export const eventPhotos: EventPhoto[] = [
   {
     id: 'pitching-team-01',
     src: pitchingTeamPreview,
@@ -113,9 +112,4 @@ const ownerEventPhotos: EventPhoto[] = [
     tileAspect: '2 / 3',
     position: '70% 72%',
   },
-];
-
-export const eventPhotos: EventPhoto[] = [
-  ...ownerEventPhotos,
-  ...gallerySamples,
 ];

@@ -8,6 +8,7 @@ import sakyanBoothPreview from '../assets/community/sakyan-prototype-booth-previ
 import sakyanBooth from '../assets/community/sakyan-prototype-booth.webp';
 import sakyanTeamPreview from '../assets/community/sakyan-prototype-team-preview.webp';
 import sakyanTeam from '../assets/community/sakyan-prototype-team.webp';
+import { gallerySamples } from './gallerySamples';
 
 export const communityCategories = [
   'All',
@@ -56,12 +57,14 @@ export type EventPhoto = {
   alt: string;
   caption: string;
   aspect: string;
+  tileAspect?: string;
   position?: string;
+  temporary?: boolean;
 };
 
 // Five unique owner-supplied photos; the second and third uploaded files were
 // identical. Previews load in galleries; larger WebP copies load on opening.
-export const eventPhotos: EventPhoto[] = [
+const ownerEventPhotos: EventPhoto[] = [
   {
     id: 'pitching-team-01',
     src: pitchingTeamPreview,
@@ -78,7 +81,8 @@ export const eventPhotos: EventPhoto[] = [
     alt: 'Sakyan booth showing the website, mobile app, and project banner',
     caption: 'Sakyan website & mobile app prototype',
     aspect: '16 / 9',
-    position: '58% 50%',
+    tileAspect: '1 / 1',
+    position: '76% 50%',
   },
   {
     id: 'pitching-behind-scenes',
@@ -87,6 +91,7 @@ export const eventPhotos: EventPhoto[] = [
     alt: 'Group selfie at the presentation and pitching activity',
     caption: 'Moments with the team',
     aspect: '3 / 4',
+    tileAspect: '3 / 5',
   },
   {
     id: 'sakyan-prototype-team',
@@ -95,6 +100,8 @@ export const eventPhotos: EventPhoto[] = [
     alt: 'Group photo beside the Sakyan prototype presentation booth',
     caption: 'Sakyan prototype presentation',
     aspect: '16 / 9',
+    tileAspect: '4 / 5',
+    position: '72% 50%',
   },
   {
     id: 'pitching-team-02',
@@ -103,6 +110,12 @@ export const eventPhotos: EventPhoto[] = [
     alt: 'Another team photo in front of the Pitch Deck presentation screen',
     caption: 'Presentation & pitching',
     aspect: '3 / 4',
+    tileAspect: '2 / 3',
     position: '70% 72%',
   },
+];
+
+export const eventPhotos: EventPhoto[] = [
+  ...ownerEventPhotos,
+  ...gallerySamples,
 ];

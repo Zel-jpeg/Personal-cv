@@ -8,6 +8,7 @@ import {
   getRelevantProfileFacts,
 } from './personalProfile.ts';
 import { needsAIReasoning } from '../src/data/chatLanguage.ts';
+import { scopedConversation, scopeReply } from './chatScope.ts';
 
 const maxBodyBytes = 12_000;
 const localRequests: number[] = [];
@@ -133,7 +134,12 @@ export async function handleZelRequest(
       'application/json'
     )
       throw new RequestError(415, 'Please use the chat on my portfolio.');
-    const messages = validateMessages(await readBody(request));
+    const submitted = validateMessages(await readBody(request));
+    const messages = scopedConversation(submitted);
+    if (!messages)
+      return json(
+        scopeReply(submitted.at(-1)!.content, submitted.slice(0, -1)),
+      );
     const question = messages[messages.length - 1].content;
     const history = messages.slice(0, -1);
     const personal = getPersonalProfileReply(

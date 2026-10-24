@@ -19,7 +19,10 @@ export type PersonalTopic =
   | 'design'
   | 'learning'
   | 'constraints'
-  | 'teamwork';
+  | 'teamwork'
+  | 'strengths'
+  | 'weaknesses'
+  | 'strengthsAndWeaknesses';
 
 export function normalizeQuestion(text: string) {
   return text
@@ -27,6 +30,10 @@ export function normalizeQuestion(text: string) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[’']/g, '')
+    .replace(/\bu\b/g, 'you')
+    .replace(/\bur\b/g, 'your')
+    .replace(/\br\b/g, 'are')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
@@ -115,6 +122,15 @@ export function personalTopic(
   history: ChatMessage[] = [],
 ): PersonalTopic | undefined {
   const text = normalizeQuestion(question);
+  const strength =
+    /\b(strengths?|strong points?|kusog|kalig.on|lakas|kalakasan)\b/.test(text);
+  const weakness =
+    /\b(weakness(?:es)?|weak points?|kahuyang|kahinaan|kahina(?:an)?|kakulangan)\b/.test(
+      text,
+    );
+  if (strength && weakness) return 'strengthsAndWeaknesses';
+  if (strength) return 'strengths';
+  if (weakness) return 'weaknesses';
   if (
     /\b(birth ?date|date of birth|birth year|when were you born|birthday|kaarawan|adlaw.*natawo|kanus.a.*natawo|kailan.*ipinanganak|petsa.*kapanganakan)\b/.test(
       text,
@@ -130,7 +146,7 @@ export function personalTopic(
   if (/\b(born|birthplace|natawo|ipinanganak|pinanganak)\b/.test(text))
     return 'birthplace';
   if (
-    /\b(your name|your nickname|who are you|call you|ngalan|pangalan|kinsa ka|sino ka)\b/.test(
+    /\b(your name|your nickname|who are you|whore you|who you|hu are you|call you|ngalan|pangalan|kinsa ka|sino ka)\b/.test(
       text,
     )
   )
@@ -224,13 +240,21 @@ export function needsAIReasoning(question: string) {
     .split(/\b(?:and|ug|at)\b/i)
     .map((part) => personalTopic(part))
     .filter(Boolean);
+  const pairedTraits =
+    topics.length > 1 &&
+    topics.every(
+      (topic) =>
+        topic === 'strengths' ||
+        topic === 'weaknesses' ||
+        topic === 'strengthsAndWeaknesses',
+    );
   return (
     question.length > 140 ||
     /\b(explain|compare|why|ngano|nganong|bakit|how would|paano.*(makatulong|nakatulong)|unsaon.*(makatabang|nakatabang)|relate|connect|impact (?:on|of)|affect|influence)\b/i.test(
       question,
     ) ||
     (question.match(/\?/g)?.length ?? 0) > 1 ||
-    new Set(topics).size > 1
+    (!pairedTraits && new Set(topics).size > 1)
   );
 }
 

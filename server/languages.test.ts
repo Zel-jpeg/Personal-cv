@@ -26,6 +26,16 @@ const profile = {
       },
     },
     {
+      id: 'growth',
+      topic: 'workStyle',
+      keywords: ['overthink'],
+      text: {
+        en: 'Sometimes I overthink the available options.',
+        ceb: 'Usahay ma-overthink nako ang mga kapilian.',
+        fil: 'Minsan nao-overthink ko ang mga pagpipilian.',
+      },
+    },
+    {
       id: 'games',
       topic: 'games',
       keywords: ['games', 'laro', 'duwa'],
@@ -77,6 +87,42 @@ function request(messages: ChatMessage[]) {
 const noFetch = async () => {
   assert.fail('Prepared answers must not consume provider quota');
 };
+
+test('casual name aliases and paired strengths/weaknesses stay prepared with AI enabled', async () => {
+  for (const content of [
+    'who are u',
+    'who r u?',
+    'who are you?',
+    'kinsa ka?',
+    'sino ka?',
+  ]) {
+    const response = await handleZelRequest(
+      request([{ role: 'user', content }]),
+      env,
+      { fetcher: noFetch },
+    );
+    const reply = await response.json();
+    assert.equal(reply.source, 'portfolio');
+    assert.match(reply.text, /Zel/);
+  }
+  for (const content of [
+    'what are your weakness and strength',
+    'What are your strengths and weaknesses?',
+    'Unsa imong kusog ug kahuyang?',
+    'Ano ang kalakasan at kahinaan mo?',
+  ]) {
+    const response = await handleZelRequest(
+      request([{ role: 'user', content }]),
+      env,
+      { fetcher: noFetch },
+    );
+    const reply = await response.json();
+    assert.equal(reply.source, 'portfolio');
+    assert.match(reply.text, /task/i);
+    assert.match(reply.text, /overthink/i);
+    assert.doesNotMatch(reply.text, /confirmed answer|2000-11-05/);
+  }
+});
 
 test('language detection handles mixed phrasing, explicit switches and short follow-ups', () => {
   assert.equal(detectChatLanguage('Pila imong edad?'), 'ceb');

@@ -129,6 +129,12 @@ function rankedFacts(
       fact,
       score:
         (fact.topic === topic ? 6 : 0) +
+        ((topic === 'strengths' ||
+          topic === 'weaknesses' ||
+          topic === 'strengthsAndWeaknesses') &&
+        (fact.topic === 'workStyle' || fact.topic === 'teamwork')
+          ? 6
+          : 0) +
         fact.keywords.reduce(
           (score, keyword) =>
             score +
@@ -155,6 +161,51 @@ export function getPersonalProfileReply(
   const say = (en: string, ceb: string, fil: string) =>
     localize({ en, ceb, fil }, language);
   const answer = (text: string): ChatReply => ({ text, source: 'portfolio' });
+  if (
+    topic === 'strengths' ||
+    topic === 'weaknesses' ||
+    topic === 'strengthsAndWeaknesses'
+  ) {
+    // Select only explicit self-descriptions, never invent a weakness or a
+    // remedy. The underlying answer text remains in private configuration.
+    const strength = profile.facts.find(
+      (fact) =>
+        fact.topic === 'workStyle' &&
+        /\b(focus|focused|persistence|finish)\b/i.test(fact.keywords.join(' ')),
+    );
+    const challenge = profile.facts.find(
+      (fact) =>
+        fact.topic === 'workStyle' && /\boverthink\w*\b/i.test(fact.text.en),
+    );
+    const leadership = profile.facts.find(
+      (fact) =>
+        fact.topic === 'teamwork' &&
+        /\b(growing|learning)\b/i.test(fact.text.en),
+    );
+    const parts: string[] = [];
+    if (topic !== 'weaknesses' && strength)
+      parts.push(
+        say(
+          'For my strengths: ',
+          'Sa akong mga kalig-on: ',
+          'Sa mga kalakasan ko: ',
+        ) + strength.text[language],
+      );
+    if (topic !== 'strengths') {
+      if (challenge)
+        parts.push(
+          say(
+            'For the challenges I face: ',
+            'Sa akong mga hagit: ',
+            'Sa mga hamon na hinaharap ko: ',
+          ) + challenge.text[language],
+        );
+      if (leadership) parts.push(leadership.text[language]);
+    }
+    return parts.length
+      ? answer(parts.join(' ').slice(0, 1800))
+      : getPreparedReply(question, history);
+  }
   if (topic === 'birthday')
     return answer(
       say(

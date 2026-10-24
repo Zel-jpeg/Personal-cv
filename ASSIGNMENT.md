@@ -49,6 +49,7 @@ The dedicated GitHub repository is `Zel-jpeg/Personal-cv`. Vercel deployment is 
 ## Reference-inspired presentation
 
 - Featured-work panels expand on hover, focus, and click.
+- Featured panels keep a constant base width and animate only growth over 0.85 seconds. Hover follows actual mouse movement, preventing moving card boundaries from repeatedly activating adjacent panels. Click/tap and keyboard focus remain supported.
 - Verde is the first and initially expanded featured panel; panels and Outside the IDE photos use 1px borders, with direct click/tap activation for featured panels on phones. The phone name/social links sit beside the profile photo, and Print CV moves into the home burger menu.
 - Explore all projects navigates to `/projects`, which lists all verified projects and shares the detail-page navigation and theme toggle.
 - All six project cards use the owner's screenshots where available, verified code/demo URLs, and icon-only language lists from GitHub's public repository languages API (checked 2026-10-24). Keep GitHub's ordering, accessible names/tooltips, and wrapping; omit percentages, byte totals, and language bars. The archive includes BG Salon with its verified repository, live link, and WebP screenshot. A neutral cursor-following spotlight and small lift adapt to both themes; screenshots zoom only when their own image area is hovered. Touch and reduced-motion preferences are respected.

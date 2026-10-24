@@ -5,6 +5,7 @@ import { featuredProjects } from '../data/projects';
 export default function FeaturedWork() {
   const [active, setActive] = useState(0);
   const stripRef = useRef<HTMLDivElement>(null);
+  const lastHoverPoint = useRef<{ x: number; y: number } | null>(null);
   const [imageWidth, setImageWidth] = useState(600);
   useEffect(() => {
     const element = stripRef.current;
@@ -22,6 +23,9 @@ export default function FeaturedWork() {
       className="featured-strip"
       aria-label="Featured work"
       ref={stripRef}
+      onPointerLeave={() => {
+        lastHoverPoint.current = null;
+      }}
       style={
         { '--featured-image-width': `${imageWidth}px` } as React.CSSProperties
       }
@@ -32,12 +36,18 @@ export default function FeaturedWork() {
           key={project.name}
           className={`featured-panel ${active === index ? 'is-expanded' : ''}`}
           aria-expanded={active === index}
-          onPointerEnter={(event) => {
+          onPointerMove={(event) => {
             if (
               event.pointerType === 'mouse' &&
               matchMedia('(hover: hover)').matches
-            )
+            ) {
+              const point = { x: event.clientX, y: event.clientY };
+              const previous = lastHoverPoint.current;
+              // Moving card edges must not activate a neighbour under a still cursor.
+              if (previous?.x === point.x && previous.y === point.y) return;
+              lastHoverPoint.current = point;
               setActive(index);
+            }
           }}
           onFocus={() => setActive(index)}
           onClick={() => setActive(index)}

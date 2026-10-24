@@ -925,12 +925,10 @@ h2 {
 /* A fixed image canvas is clipped by each panel, so only the visible width changes. */
 .featured-panel {
   flex: 0 0 clamp(44px, 12%, 100px);
-  transition:
-    flex-basis 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-    flex-grow 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: flex-grow 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .featured-panel.is-expanded {
-  flex: 1 1 0%;
+  flex: 1 0 clamp(44px, 12%, 100px);
 }
 .featured-panel img {
   width: var(--featured-image-width);
@@ -1042,7 +1040,7 @@ h2 {
     flex-basis: 44px;
   }
   .featured-panel.is-expanded {
-    flex: 1 1 0%;
+    flex: 1 0 44px;
   }
   .featured-vertical {
     left: 6px;

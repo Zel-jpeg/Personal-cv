@@ -42,7 +42,7 @@ h2 {
   letter-spacing: -0.045em;
 }
 .profile-photo {
-  border-radius: 50%;
+  border-radius: 20px;
   width: 176px;
   height: 176px;
 }

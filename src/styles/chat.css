@@ -432,6 +432,64 @@
   resize: none;
   overflow-y: auto;
 }
+.zel-contact-form > input:autofill {
+  background: var(--tag);
+  color: var(--text);
+  caret-color: var(--text);
+}
+.zel-contact-form > input:-webkit-autofill,
+.zel-contact-form > input:-webkit-autofill:hover,
+.zel-contact-form > input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  box-shadow: 0 0 0 1000px var(--tag) inset;
+}
+.zel-primary:disabled,
+.zel-clear-draft:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.zel-captcha {
+  align-self: center;
+  max-width: 100%;
+  margin-bottom: 12px;
+}
+.zel-captcha p {
+  color: var(--muted);
+  font-size: 11px;
+}
+.zel-captcha button {
+  border: 0;
+  padding: 4px;
+  background: transparent;
+  color: var(--text);
+  text-decoration: underline;
+}
+.zel-toast {
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 16%);
+  font-size: 12px;
+  line-height: 1.5;
+  animation: zel-message-in 0.24s ease-out both;
+}
+.zel-toast span {
+  flex: 1;
+}
+.zel-toast > svg {
+  flex-shrink: 0;
+}
 .zel-composer textarea:focus-visible,
 .zel-contact-form input:focus-visible,
 .zel-contact-form textarea:focus-visible {
@@ -469,6 +527,30 @@
   color: var(--muted);
   font-size: 10px;
   line-height: 1.6;
+}
+.zel-contact-policy {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+.zel-contact-policy summary {
+  min-height: 32px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+.zel-contact-policy p {
+  margin: 4px 0 10px;
+}
+.zel-contact-policy a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.zel-contact-policy summary:focus-visible,
+.zel-contact-policy a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .zel-form-notice {
   margin: 12px 0 0;
@@ -596,6 +678,7 @@
   .zel-dialog[open],
   .zel-thinking-dots i,
   .zel-thinking,
+  .zel-toast,
   .zel-message-arriving,
   .zel-typing-cursor {
     animation: none;

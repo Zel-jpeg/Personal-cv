@@ -1,11 +1,14 @@
-import { ExternalLink, Mail, ShieldCheck } from 'lucide-react';
-import { useState } from 'react';
+import { CheckCircle2, Mail, Send, ShieldCheck, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { contactEmail } from '../data/personal';
+import ZelCaptcha from './ZelCaptcha';
 
 export type ContactDraft = { name: string; email: string; message: string };
 type Props = {
   endpoint: string | null;
+  siteKey: string | null;
+  active: boolean;
   loading: boolean;
   draft: ContactDraft;
   onChange: (draft: ContactDraft) => void;
@@ -13,31 +16,99 @@ type Props = {
 
 export default function ZelContactForm({
   endpoint,
+  siteKey,
+  active,
   loading,
   draft,
   onChange,
 }: Props) {
-  const [opened, setOpened] = useState(false);
-  const [lastSubmit, setLastSubmit] = useState(0);
+  const [busy, setBusy] = useState(false);
+  const [token, setToken] = useState('');
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const [success, setSuccess] = useState(false);
   const [notice, setNotice] = useState('');
-  const submit = (event: FormEvent<HTMLFormElement>) => {
-    if (!endpoint || Date.now() - lastSubmit < 60_000) {
-      event.preventDefault();
+  const controller = useRef<AbortController | null>(null);
+  const inFlight = useRef(false);
+  const retryAt = useRef(0);
+  const latestDraft = useRef(draft);
+  latestDraft.current = draft;
+
+  useEffect(() => () => controller.current?.abort(), []);
+  useEffect(() => {
+    if (!success) return;
+    const timer = window.setTimeout(() => setSuccess(false), 6000);
+    return () => window.clearTimeout(timer);
+  }, [success]);
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (inFlight.current) return;
+    setSuccess(false);
+    if (Date.now() < retryAt.current) {
+      setNotice('Please wait a minute before sending another message.');
+      return;
+    }
+    if (!endpoint || !siteKey || !token) {
+      setNotice('Please complete the spam verification before sending.');
+      return;
+    }
+    if (!draft.email.trim() || draft.message.trim().length < 5) {
       setNotice(
-        'Please wait a minute before opening another send request. Your draft is still here.',
+        'Please enter your email and a message of at least 5 characters.',
       );
       return;
     }
-    if (!draft.email.trim() || !draft.message.trim()) {
-      event.preventDefault();
-      setNotice('Please enter your email and a message.');
-      return;
-    }
-    setLastSubmit(Date.now());
-    setOpened(true);
+    const submittedMessage = draft.message;
+    const data = new FormData(event.currentTarget);
+    data.set('cf-turnstile-response', token);
+    const current = new AbortController();
+    controller.current = current;
+    inFlight.current = true;
+    setBusy(true);
     setNotice('');
-    // Native POST preserves Formspree’s hosted CAPTCHA. Opening a tab does not
-    // prove delivery, so retain the draft and never show a false “sent” state.
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+        credentials: 'omit',
+        redirect: 'error',
+        signal: AbortSignal.any([current.signal, AbortSignal.timeout(20000)]),
+      });
+      const result = await response.json().catch(() => null);
+      if (current.signal.aborted) return;
+      if (!response.ok || result?.ok !== true) {
+        if (response.status === 429) retryAt.current = Date.now() + 60000;
+        setNotice(
+          response.status === 429
+            ? 'The form is receiving too many requests. Please try again later or email me directly.'
+            : "Your message couldn't be sent. Please check your details and verification, then try again.",
+        );
+        return;
+      }
+      retryAt.current = Date.now() + 60000;
+      onChange({
+        ...latestDraft.current,
+        message:
+          latestDraft.current.message === submittedMessage
+            ? ''
+            : latestDraft.current.message,
+      });
+      setSuccess(true);
+    } catch {
+      if (!current.signal.aborted)
+        setNotice(
+          "I couldn't confirm that your message was sent. Your message is still here; please check your connection before trying again.",
+        );
+    } finally {
+      if (!current.signal.aborted) {
+        setBusy(false);
+        setToken('');
+        setCaptchaReset((value) => value + 1);
+      }
+      inFlight.current = false;
+      if (controller.current === current) controller.current = null;
+    }
   };
 
   return (
@@ -49,14 +120,7 @@ export default function ZelContactForm({
         <h3>Have something in mind?</h3>
         <p>Leave your email and a message. I'll get back to you by email.</p>
       </div>
-      <form
-        action={endpoint ?? undefined}
-        method="POST"
-        target="_blank"
-        rel="noopener"
-        onSubmit={submit}
-        className="zel-contact-form"
-      >
+      <form onSubmit={submit} className="zel-contact-form" aria-busy={busy}>
         <label htmlFor="zel-contact-name">
           Name <span>(optional)</span>
         </label>
@@ -66,6 +130,7 @@ export default function ZelContactForm({
           autoComplete="name"
           maxLength={80}
           value={draft.name}
+          readOnly={busy}
           onChange={(event) => onChange({ ...draft, name: event.target.value })}
         />
         <label htmlFor="zel-contact-email">Your email</label>
@@ -78,6 +143,7 @@ export default function ZelContactForm({
           maxLength={254}
           placeholder="you@example.com"
           value={draft.email}
+          readOnly={busy}
           onChange={(event) =>
             onChange({ ...draft, email: event.target.value })
           }
@@ -92,6 +158,7 @@ export default function ZelContactForm({
           rows={4}
           placeholder="Tell me what you have in mind…"
           value={draft.message}
+          readOnly={busy}
           onChange={(event) =>
             onChange({ ...draft, message: event.target.value })
           }
@@ -114,34 +181,53 @@ export default function ZelContactForm({
           <ShieldCheck size={14} aria-hidden="true" /> Your email and message
           stay out of the AI chat.
         </p>
+        {active && endpoint && siteKey && (
+          <ZelCaptcha
+            siteKey={siteKey}
+            resetKey={captchaReset}
+            onToken={setToken}
+          />
+        )}
         <button
           type="submit"
           className="zel-primary"
-          disabled={!endpoint || loading}
+          disabled={!endpoint || !siteKey || !token || loading || busy}
         >
-          {loading ? 'Getting ready…' : 'Continue to send'}{' '}
-          <ExternalLink size={15} aria-hidden="true" />
+          {loading ? 'Getting ready…' : busy ? 'Sending…' : 'Send message'}{' '}
+          <Send size={15} aria-hidden="true" />
         </button>
-        <p className="zel-contact-help">
-          Opens a secure Formspree tab. Complete any spam verification there to
-          send your message.
-        </p>
-        {opened && (
-          <p className="zel-form-notice" role="status">
-            Finish sending in the new tab. Your draft stays here until you clear
-            it.
-          </p>
-        )}
         {notice && (
-          <p className="zel-form-notice" role="status">
+          <p className="zel-form-notice" role="alert">
             {notice}
           </p>
         )}
-        {!loading && !endpoint && (
+        {!loading && (!endpoint || !siteKey) && (
           <p className="zel-form-notice" role="status">
             The form is unavailable right now. You can email me directly below.
           </p>
         )}
+        <details className="zel-contact-policy">
+          <summary>Privacy notice</summary>
+          <p>
+            This form uses Cloudflare Turnstile to check for spam in the
+            background. Cloudflare processes browser and network signals as
+            described in its{' '}
+            <a
+              href="https://www.cloudflare.com/turnstile-privacy-policy/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Turnstile Privacy Addendum
+            </a>
+            .
+          </p>
+          <p>
+            Your name, email, and message are sent through Formspree to me so I
+            can reply. They are not sent to the AI chat. Form drafts stay in
+            memory until you clear them or reload the page; a successful send
+            clears the message.
+          </p>
+        </details>
       </form>
       <a className="zel-direct-email" href={`mailto:${contactEmail}`}>
         <Mail size={14} aria-hidden="true" /> Email me directly
@@ -152,12 +238,27 @@ export default function ZelContactForm({
           className="zel-clear-draft"
           onClick={() => {
             onChange({ name: '', email: '', message: '' });
-            setOpened(false);
+            setSuccess(false);
             setNotice('');
           }}
+          disabled={busy}
         >
-          Clear draft
+          Clear form
         </button>
+      )}
+      {success && (
+        <div className="zel-toast" role="status" aria-live="polite">
+          <CheckCircle2 size={18} aria-hidden="true" />
+          <span>Message sent! I'll reply by email.</span>
+          <button
+            type="button"
+            className="zel-icon-button"
+            aria-label="Dismiss notification"
+            onClick={() => setSuccess(false)}
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
       )}
     </div>
   );

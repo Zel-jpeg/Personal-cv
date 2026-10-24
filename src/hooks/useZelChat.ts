@@ -89,7 +89,7 @@ export function useZelChat() {
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
     const requestReply = async (): Promise<ChatReply> => {
-      const quick = getQuickReply(question);
+      const quick = getQuickReply(question, history);
       if (quick) return quick;
       try {
         const response = await fetch('/api/zel', {
@@ -118,11 +118,11 @@ export function useZelChat() {
           throw new Error('Invalid reply');
         // Links are chosen locally from verified data; never trust model URLs.
         return {
-          text: reply.text.slice(0, 1800),
-          source: reply.source,
           ...(reply.source === 'portfolio'
             ? getPreparedReply(question, history)
             : {}),
+          text: reply.text.slice(0, 1800),
+          source: reply.source,
         };
       } catch {
         return getPreparedReply(question, history);

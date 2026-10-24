@@ -3,6 +3,11 @@ import type { ChatMessage } from '../src/data/chat.ts';
 import { getAIReply } from './providers.ts';
 import type { ServerEnv, Fetcher } from './providers.ts';
 import { protectPublicChat, RequestError } from './protection.ts';
+import {
+  getPersonalProfileReply,
+  getRelevantProfileFacts,
+} from './personalProfile.ts';
+import { needsAIReasoning } from '../src/data/chatLanguage.ts';
 
 const maxBodyBytes = 12_000;
 const localRequests: number[] = [];
@@ -101,7 +106,16 @@ export async function handleZelRequest(
       env.VERCEL !== '1' &&
       ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
     if (request.method === 'GET')
-      return json({ contactEndpoint: formEndpoint(env) });
+      return json({
+        contactEndpoint: formEndpoint(env),
+        // A Turnstile site key is intentionally public. Its secret belongs only
+        // in Formspree's CAPTCHA settings, never in this response.
+        contactSiteKey: /^[a-zA-Z0-9_-]{3,100}$/.test(
+          env.FORMSPREE_TURNSTILE_SITE_KEY ?? '',
+        )
+          ? env.FORMSPREE_TURNSTILE_SITE_KEY
+          : null,
+      });
     if (request.method !== 'POST')
       return json({ error: 'Method not allowed.' }, 405);
     const allowed = new Set([
@@ -121,13 +135,30 @@ export async function handleZelRequest(
       throw new RequestError(415, 'Please use the chat on my portfolio.');
     const messages = validateMessages(await readBody(request));
     const question = messages[messages.length - 1].content;
-    const prepared = getPreparedReply(question, messages.slice(0, -1));
+    const history = messages.slice(0, -1);
+    const personal = getPersonalProfileReply(
+      question,
+      env,
+      new Date(),
+      history,
+    );
+    const prepared = personal ?? getPreparedReply(question, history);
     if (
       env.CHAT_AI_ENABLED !== 'true' ||
       env.CHAT_FREE_TIER_CONFIRMED !== 'true'
     )
       return json(prepared);
-    const quick = getQuickReply(question);
+    if (personal && !needsAIReasoning(question)) return json(personal);
+    // Full birth-date requests always use the privacy response, never AI.
+    if (
+      personal &&
+      getRelevantProfileFacts(question, env, history).length === 0 &&
+      /birth|birthday|kaarawan|petsa|kanus.a.*natawo|kailan.*ipinanganak/i.test(
+        question,
+      )
+    )
+      return json(personal);
+    const quick = getQuickReply(question, history);
     if (quick) return json(quick);
     if (isLocal) {
       const now = Date.now();
@@ -142,7 +173,13 @@ export async function handleZelRequest(
     } else {
       await (dependencies.protect ?? protectPublicChat)(request);
     }
-    const text = await getAIReply(messages, env, dependencies.fetcher);
+    const text = await getAIReply(
+      messages,
+      env,
+      dependencies.fetcher,
+      undefined,
+      getRelevantProfileFacts(question, env, history),
+    );
     return json(text ? { text, source: 'ai' } : prepared);
   } catch (error) {
     if (error instanceof RequestError)

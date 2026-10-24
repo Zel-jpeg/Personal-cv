@@ -10,6 +10,7 @@ import type { Fetcher } from './providers.ts';
 import { RequestError } from './protection.ts';
 import { getPreparedReply } from '../src/data/chat.ts';
 import knowledge from '../src/data/chatKnowledge.json' with { type: 'json' };
+import { getPersonalProfileReply } from './personalProfile.ts';
 
 const env = {
   VERCEL: '1',
@@ -170,8 +171,107 @@ test('public configuration returns only an allowlisted submission endpoint', asy
   );
   assert.deepEqual(await response.json(), {
     contactEndpoint: 'https://formspree.io/f/formid',
+    contactSiteKey: null,
   });
   assert.equal(response.headers.get('Cache-Control'), 'no-store');
+});
+
+test('only the public CAPTCHA site key is exposed, never the secret', async () => {
+  const response = await handleZelRequest(
+    new Request('https://zeelll.vercel.app/api/zel'),
+    {
+      ...env,
+      FORMSPREE_TURNSTILE_SITE_KEY: 'public-widget-id',
+      TURNSTILE_SECRET_KEY: 'synthetic-private-captcha-credential',
+    },
+  );
+  assert.deepEqual(await response.json(), {
+    contactEndpoint: null,
+    contactSiteKey: 'public-widget-id',
+  });
+});
+
+test('common personal questions never use AI even when enabled', async () => {
+  for (const content of [
+    'How old are you?',
+    "What's your age?",
+    'When is your birthday?',
+    'What is your name?',
+    'What are your interests?',
+    'What do you do in your free time?',
+    'What are your goals?',
+    'Where are you based?',
+  ]) {
+    const response = await handleZelRequest(
+      request({ messages: [{ role: 'user', content }] }),
+      env,
+      {
+        fetcher: neverFetch,
+        protect: async () =>
+          assert.fail(
+            'Prepared personal answers must skip paid/external services',
+          ),
+      },
+    );
+    assert.equal(response.status, 200);
+    const reply = await response.json();
+    assert.equal(reply.source, 'portfolio');
+    if (/age|old/.test(content)) assert.match(reply.text, /haven't shared/);
+  }
+});
+
+test('private profile answers calculate age in Manila without exposing full dates or calling AI', async () => {
+  const privateEnv = {
+    ...env,
+    CHAT_PERSONAL_PROFILE: JSON.stringify({
+      birthDate: '2000-11-05',
+      birthplace: 'Example City',
+      hobbies: ['playing games', 'building projects'],
+      goals: ['a software engineer'],
+      workStyle: 'I stay focused on a task until it is done.',
+    }),
+  };
+  assert.equal(
+    getPersonalProfileReply(
+      'How old are you?',
+      privateEnv,
+      new Date('2026-11-04T15:59:00Z'),
+    )?.text,
+    "I'm 25 years old.",
+  );
+  assert.equal(
+    getPersonalProfileReply(
+      'How old are you?',
+      privateEnv,
+      new Date('2026-11-04T16:00:00Z'),
+    )?.text,
+    "I'm 26 years old.",
+  );
+  for (const content of [
+    'How old are you?',
+    'Where were you born?',
+    'What are your hobbies?',
+    'What are your goals?',
+    'Describe your working style',
+    'What is your birth date?',
+  ]) {
+    const response = await handleZelRequest(
+      request({ messages: [{ role: 'user', content }] }),
+      privateEnv,
+      { fetcher: neverFetch },
+    );
+    const result = await response.json();
+    assert.equal(result.source, 'portfolio');
+    assert.doesNotMatch(
+      JSON.stringify(result),
+      /2000-11-05|CHAT_PERSONAL_PROFILE/,
+    );
+  }
+  const config = await handleZelRequest(
+    new Request('https://zeelll.vercel.app/api/zel'),
+    privateEnv,
+  );
+  assert.doesNotMatch(await config.text(), /birthDate|hobbies|workStyle|2000/);
 });
 
 test('contact questions use prepared answers without sending personal details to AI', async () => {

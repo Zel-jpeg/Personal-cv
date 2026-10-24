@@ -6,9 +6,34 @@ export default function ExperienceSection() {
       aria-labelledby="experience-title"
     >
       <div className="section-heading">
-        <h2 id="experience-title">Development experience</h2>
+        <h2 id="experience-title">Experience</h2>
       </div>
-      <p className="section-intro">Academic and project-based experience</p>
+      <p className="section-intro">
+        Academic, project-based, and training experience
+      </p>
+
+      <article className="experience-entry">
+        <div className="entry-top">
+          <h3>Lead research &amp; website development</h3>
+          <span className="type-label">Training</span>
+        </div>
+        <ul className="experience-points">
+          <li>
+            Completed nearly one month of training researching US-based
+            companies and creating lead lists for website development services.
+          </li>
+          <li>
+            Checked website availability, identified potential improvements, and
+            recorded findings to support the team&apos;s cold-email outreach and
+            follow-up conversations with prospective clients.
+          </li>
+          <li>
+            Built BG Salon as a practical training project for a business
+            needing a new or improved website, showcasing salon services and
+            contact information.
+          </li>
+        </ul>
+      </article>
 
       <article className="experience-entry">
         <div className="entry-top">

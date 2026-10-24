@@ -55,3 +55,18 @@ test('safe builds pass and missing required build output fails', (t) => {
   writeFileSync(join(root, 'dist', 'index.html'), '<h1>Portfolio</h1>');
   assert.doesNotThrow(() => checkSecrets(root, { env: {}, requireDist: true }));
 });
+
+test('the exact public Turnstile site key may be published but CAPTCHA secrets may not', (t) => {
+  const root = fixture(t);
+  writeFileSync(join(root, 'widget.js'), 'public-widget-identifier');
+  assert.doesNotThrow(() =>
+    checkSecrets(root, {
+      env: { FORMSPREE_TURNSTILE_SITE_KEY: 'public-widget-identifier' },
+    }),
+  );
+  assert.throws(() =>
+    checkSecrets(root, {
+      env: { TURNSTILE_SECRET_KEY: 'public-widget-identifier' },
+    }),
+  );
+});

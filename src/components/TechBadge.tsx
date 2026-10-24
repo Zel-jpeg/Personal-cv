@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { IconType } from 'react-icons';
 import {
   SiHtml5,
@@ -84,12 +85,35 @@ export default function TechBadge({
   name: string;
   compact?: boolean;
 }) {
+  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const entry = icons[name];
   const Icon = entry?.icon ?? Code2;
   return (
-    <span className={compact ? 'tech-icon' : 'tech-badge'} title={name}>
+    <span
+      className={compact ? 'tech-icon' : 'tech-badge'}
+      title={compact ? undefined : name}
+      tabIndex={compact ? 0 : undefined}
+      role={compact ? 'img' : undefined}
+      aria-label={compact ? name : undefined}
+      onMouseLeave={() => setTooltipDismissed(false)}
+      onFocus={() => setTooltipDismissed(false)}
+      onBlur={() => setTooltipDismissed(false)}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') setTooltipDismissed(true);
+      }}
+    >
       <Icon aria-hidden="true" style={{ color: entry?.color }} />
-      <span className={compact ? 'sr-only' : undefined}>{name}</span>
+      {compact ? (
+        <span
+          className="tech-tooltip"
+          aria-hidden="true"
+          data-dismissed={tooltipDismissed || undefined}
+        >
+          {name}
+        </span>
+      ) : (
+        <span>{name}</span>
+      )}
     </span>
   );
 }

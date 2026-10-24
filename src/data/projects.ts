@@ -185,9 +185,9 @@ export const projects: Project[] = [
   },
   {
     name: 'BG Salon',
-    category: 'Salon website',
+    category: 'Training project',
     description:
-      'A salon website showcasing services, styling work, client testimonials, and appointment contact information.',
+      'A salon website built as a practical training project for a business needing a new or improved website, showcasing services, styling work, client testimonials, and appointment contact information.',
     image: bgSalon,
     technologies: ['HTML', 'CSS', 'JavaScript', 'Vercel'],
     languages: ['HTML', 'CSS', 'JavaScript'],

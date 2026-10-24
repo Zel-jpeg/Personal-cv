@@ -25,6 +25,7 @@ export default function ChatWidget() {
     message: '',
   });
   const [endpoint, setEndpoint] = useState<string | null>(null);
+  const [siteKey, setSiteKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const dialog = useRef<HTMLDialogElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
@@ -39,12 +40,20 @@ export default function ChatWidget() {
     fetch('/api/zel', { signal: active.signal, cache: 'no-store' })
       .then((response) => (response.ok ? response.json() : null))
       .then((data) => {
+        if (active.signal.aborted) return;
         const value = data?.contactEndpoint;
         if (
           typeof value === 'string' &&
           /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(value)
         )
           setEndpoint(value);
+        else setEndpoint(null);
+        setSiteKey(
+          typeof data?.contactSiteKey === 'string' &&
+            /^[a-zA-Z0-9_-]{3,100}$/.test(data.contactSiteKey)
+            ? data.contactSiteKey
+            : null,
+        );
       })
       .catch(() => {})
       .finally(() => {
@@ -333,6 +342,8 @@ export default function ChatWidget() {
           >
             <ZelContactForm
               endpoint={endpoint}
+              siteKey={siteKey}
+              active={open && mode === 'contact'}
               loading={loading}
               draft={draft}
               onChange={setDraft}

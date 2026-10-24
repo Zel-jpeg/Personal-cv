@@ -327,9 +327,44 @@ h2 {
   min-width: 0;
 }
 .tech-icon {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   flex-shrink: 0;
   font-size: 17px;
+}
+.tech-icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+.tech-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.12);
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  visibility: hidden;
+}
+.tech-icon:hover .tech-tooltip:not([data-dismissed]),
+.tech-icon:focus-visible .tech-tooltip:not([data-dismissed]) {
+  visibility: visible;
+}
+@media print {
+  .tech-tooltip {
+    display: none;
+  }
 }
 .project-links {
   display: flex;

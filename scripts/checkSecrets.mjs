@@ -4,10 +4,13 @@ import { basename, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
 
-const privateName = /(?:api_?key|secret|token|password|private_?key)/i;
+const privateName =
+  /(?:api_?key|secret|token|password|private_?key|personal_?profile)/i;
 const credentialPattern = /(?:AIza[\w-]{35}|gsk_[\w-]{20,})/;
 const skipped = new Set(['.git', '.vercel', 'node_modules', 'dist']);
 const required = ['GEMINI_API_KEY', 'GROQ_API_KEY', 'FORMSPREE_LINK'];
+// This exact variable is a browser-facing widget identifier, not a credential.
+const publicSiteKey = 'FORMSPREE_TURNSTILE_SITE_KEY';
 
 function isEnvFile(name) {
   return (
@@ -50,7 +53,12 @@ export function checkSecrets(
           'An API key or other credential uses a public VITE_ name.',
         );
       }
-      if (privateName.test(name) && value.length >= 12) secrets.add(value);
+      if (
+        privateName.test(name) &&
+        name !== publicSiteKey &&
+        value.length >= 12
+      )
+        secrets.add(value);
     }
   }
 

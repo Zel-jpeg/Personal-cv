@@ -21,7 +21,7 @@ A personal CV website showcasing my profile, education, technical and profession
 - Optimized WebP images with asynchronous decoding and lazy loading
 - Print-friendly CV layout
 - Email and GitHub contact links
-- Chat with Zel: first-person portfolio answers, optional Gemini → Groq fallback, and a separate email contact form with Formspree's hosted verification
+- Chat with Zel: first-person portfolio answers, optional Gemini → Groq fallback, private server-configured personal FAQs, and an in-place contact form with CAPTCHA and a success toast
 - Expanding featured work panels and project cards with previews, code links, and demos
 - Cursor-following project card spotlights in both themes, with image-only hover zoom
 - Scrolling technology icons and a dedicated full tech stack page
@@ -85,7 +85,7 @@ Open the local URL shown in the terminal.
 
 ## Chat credentials, spam protection, and free usage
 
-Store `GEMINI_API_KEY`, `GROQ_API_KEY`, and `FORMSPREE_LINK` in `.env.local` beside `package.json`. Use `.env.example` for the variable names. Local environment files are excluded from Git. Never prefix credentials with `VITE_`: Vite exposes those variables to the browser. For deployment, set private keys in Vercel's server environment variables.
+Store `GEMINI_API_KEY`, `GROQ_API_KEY`, and `FORMSPREE_LINK` in `.env.local` beside `package.json`. Local environment files, including the owner's local `.env.example`, are excluded from Git. Never prefix credentials with `VITE_`: Vite exposes those variables to the browser. For deployment, set private keys in Vercel's server environment variables.
 
 `npm run security:check` checks environment naming, Git tracking, source files, and any existing production output for the configured credentials and common Gemini/Groq key formats. It prints presence only, never values, and makes no network requests. The check runs before `npm run dev` and `npm run build`, and production output is checked again after the build. `npm run security:test` verifies that accidental source, build, public-env, and browser-variable leaks are rejected. These checks are a guard against accidental disclosure, not a replacement for reviewing changes or rotating an exposed key.
 
@@ -95,7 +95,9 @@ AI is off unless both `CHAT_AI_ENABLED=true` and `CHAT_FREE_TIER_CONFIRMED=true`
 
 `npm run chat:knowledge` rebuilds `src/data/chatKnowledge.json` from the existing public portfolio modules. This runs before development and production builds. Only selected public text and project links enter the AI context; email fields, private certificate files, images, and contact drafts do not. Email/phone patterns in chat history are redacted before provider requests. AI instructions guide answers but cannot guarantee factual accuracy; responses are rendered as plain text and only locally verified links become buttons.
 
-The contact form posts directly to the validated Formspree endpoint in a new tab to retain Formspree's hosted CAPTCHA. The visitor completes verification there. The widget keeps their draft and never claims a message was delivered just because a tab opened. Formspree receives the submitted email and message; AI providers do not. `FORMSPREE_LINK` is intentionally public, unlike the AI keys.
+Personal FAQ facts live in `CHAT_PERSONAL_PROFILE`, a JSON value in ignored `.env.local` and Vercel's private server settings. Supported fields are `birthDate` (YYYY-MM-DD), `birthplace`, `hobbies` (array), `goals` (array), `workStyle`, and `facts` (array of `id`, `topic`, `keywords`, and localized `text` with `en`, `ceb`, `fil`). Simple questions get prepared English, Cebuano/Bisaya, or Tagalog/Filipino answers without calling AI. The server calculates age in Asia/Manila without returning the full date. The raw profile never enters Git, browser bundles, public configuration, or AI prompts. At the owner's request, protected AI synthesis for open-ended questions can receive up to three relevant approved answer texts (1,800 characters total), with contact/credential redaction. Unrelated facts are omitted. AI-off mode still uses prepared multilingual replies; language switches and short follow-ups use recent history. Anyone can ask the public chat for allowed answers. Never commit the actual profile; `src/data/chatProfile.ts` contains only existing public portfolio facts and empty defaults. Copy the updated private JSON into Vercel and redeploy after changing it.
+
+The contact form submits in the background to Formspree and stays on the portfolio. Set `FORMSPREE_TURNSTILE_SITE_KEY` to a real Cloudflare Turnstile public site key, then enable CAPTCHA in Formspree, select Cloudflare Turnstile, and save the matching secret there. Do not store that secret in browser code. This widget identifier and `FORMSPREE_LINK` are intentionally public, unlike the AI keys and personal profile. Missing verification configuration disables sending and offers direct email. After a confirmed `{ ok: true }` response, an accessible toast appears and only the message clears; name/email remain in memory until cleared or the page reloads. Failures retain the entire draft. No new tab or success-page redirect is used. Provider acceptance does not prove inbox delivery; verify that separately.
 
 See [the implementation plan and deployment steps](docs/chat-with-zel.md). Run `npm run chat:test` for validation, fallback, privacy, and protection tests; run `npm run security:test` for credential-guard tests. `npm run dev` serves the local API. `npm run preview` serves static build output only and uses prepared answers if no API is available.
 

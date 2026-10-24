@@ -1,147 +1,238 @@
-# Azel M. Villanueva — Personal CV Portfolio
+# Azel M. Villanueva — Personal Portfolio
 
-A personal CV website showcasing my profile, education, technical and professional skills, academic development experience, and certifications. Created for IT 415 — Application Development and Emerging Technologies.
+A responsive CV and portfolio website presenting my development experience, projects, technical and professional skills, education, and certifications. Built for **IT 415 — Application Development and Emerging Technologies** at Davao del Norte State College.
 
-## Links
+[Live website](https://zeelll.vercel.app/) · [GitHub](https://github.com/Zel-jpeg) · [LinkedIn](https://www.linkedin.com/in/azel-villanueva-b81773446)
 
-- **Live website:** [zeelll.vercel.app](https://zeelll.vercel.app/)
-- **Source code:** [Personal-cv](https://github.com/Zel-jpeg/Personal-cv)
-- **GitHub profile:** [Zel-jpeg](https://github.com/Zel-jpeg)
+## Contents
+
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Getting started](#getting-started)
+- [Available commands](#available-commands)
+- [Project structure](#project-structure)
+- [Pages](#pages)
+- [Updating content](#updating-content)
+- [Optional chat and contact setup](#optional-chat-and-contact-setup)
+- [Deployment](#deployment)
+- [Accessibility and performance](#accessibility-and-performance)
+- [Outside the IDE photo plan](#outside-the-ide-photo-plan)
+- [Credits](#credits)
 
 ## Features
 
-- Responsive layout for desktop, tablet, and mobile screens
-- Burger navigation on mobile and tablet screens, with keyboard and Escape support
-- Glass navbar on scroll, with a compact AV monogram, View Resume action, and theme toggle
-- Light and dark themes with saved preferences
-- Section navigation with active section highlighting
-- Hover effects and scroll animations with reduced-motion support
-- Smooth internal page navigation with Back/Forward scroll restoration
-- Custom 404, offline, and app-error screens with theme-aware recovery actions. Unknown paths render the 404 view; `/404`, `/offline`, and `/error` provide direct status-page routes. A connection notice appears when the browser reports offline and clears on reconnect without reloading the page. `AppErrorBoundary` provides recovery from React rendering errors.
-- Compact experience overview with a “View details” link to `/experience`, a full timeline of confirmed training and project work, and full responsibility bullets retained in the printed CV. Shared content lives in `src/data/experience.ts`; experience categories stand in for dates until the owner supplies them.
-- A floating Back to top button appears after 400px on home and detail pages, with smooth scrolling and reduced-motion support
-- Optimized WebP images with asynchronous decoding and lazy loading
-- Print-friendly CV layout
-- Matching two-page resume PDF: View Resume opens it in a new tab from the desktop profile toolbar and the home mobile menu. There is no separate Download CV option. Contact cards offer email and GitHub; the mobile number remains in the resume only.
-- Email and GitHub contact links
-- Chat with Zel: first-person portfolio answers, optional Gemini → Groq fallback, private server-configured personal FAQs, and an in-place contact form with CAPTCHA and a success toast
-- Expanding featured work panels and project cards with previews, code links, and demos
-- Cursor-following project card spotlights in both themes, with image-only hover zoom
-- Scrolling technology icons and a dedicated full tech stack page
-- One Skills card with technology highlights above a professional skills paragraph covering problem solving, communication, teamwork, adaptability, and attention to detail
-- Compact GitHub and email icon links beneath the profile name
-- Dedicated projects archive with repository and live demo links
-- Entire project cards open their preview or project destination, with independent Code and Visit site links
-- Project cards show a single row of primary technology icons, including Supabase and SQLite where used
-- DoneeIt mobile app preview at `/projects/doneeit`, with 13 expandable screenshots, a GitHub APK download, and a repository link
-- Financify preview at `/projects/financify`, with four populated screens (dashboard, analytics, recipes, and currency conversion), a GitHub APK download, release details, and a repository link; both app pages reuse `src/sections/MobileProjectPreview.tsx`
-- Community page featuring presentation/pitching and Sakyan prototype photos, with category filters, staggered gallery entrances, and full-screen photo browsing
-- Events displays five real owner-supplied photos and ten blank “More moments coming soon” cards inside the animated masonry gallery in place of the former stock photos. Blank cards are non-interactive and excluded from the photo viewer. New real photos can be added in `src/data/community.ts`.
-- Lightweight gallery previews with larger WebP photos loaded when opened
-- DoneeIt and Financify UI screenshots reuse the community event gallery's masonry positions, staggered fade/blur reveals, hover effects, and full-size viewer. Portrait screenshots stay uncropped, with slightly offset columns and responsive two/three-column layouts.
-- Certification overview and archive; supporting documents are available on request
-- Diagonal light/dark theme transition in supported browsers
-- Interactive Outside the IDE photo stack with the profile portrait and three presentation/pitching photos, keeping the photo sequence fixed while randomly choosing left/right motion with coordinated spring settling and no fading
-- Public GitHub contribution grid with square cells and a 15-minute session cache with an unavailable-data fallback
+- **Responsive CV:** profile, development experience, skills, community involvement, projects, certifications, education, and contact information.
+- **Adaptive navigation:** desktop section navigation, a mobile burger menu, and a glass header that condenses to an AV monogram while scrolling.
+- **Project showcase:** expanding featured panels, project cards with repository and demo links, and dedicated DoneeIt and Financify preview pages with screenshot galleries and APK links.
+- **Skills:** independently scrolling technology rows, a full tech stack page, and professional skills covering problem solving, communication, teamwork, adaptability, and attention to detail.
+- **Community gallery:** presentation, pitching, and Sakyan prototype photos in an animated masonry layout with a keyboard-accessible photo viewer. The events page includes ten coming-soon spaces for future photos.
+- **Credentials and resume:** certification previews, a resume PDF opened by View Resume, and a print-friendly CV layout.
+- **Personal touches:** an interactive Outside the IDE photo stack and a GitHub contribution calendar using real public activity.
+- **Light and dark themes:** saved theme preferences and animated transitions where supported.
+- **Chat with Zel:** prepared portfolio answers, optional server-side AI replies, and an in-place contact form.
+- **Recovery screens:** custom not-found, offline, and error views, plus a connection notice and React error boundary.
 
-## Outside the IDE photo plan
+## Tech stack
 
-Saved for a future update: choose four or five real personal photos with variety:
+| Area                  | Tools                                                                    |
+| --------------------- | ------------------------------------------------------------------------ |
+| Interface             | React, TypeScript, React Router                                          |
+| Styling and animation | Custom CSS, browser animation APIs                                       |
+| Icons                 | Lucide React, React Icons                                                |
+| Development and build | Vite, npm, Prettier                                                      |
+| API and hosting       | Vercel Functions, Vercel                                                 |
+| Optional integrations | Gemini, Groq, Formspree, Cloudflare Turnstile, Vercel BotID and Firewall |
+| Resume generation     | Python and ReportLab; required only when regenerating the PDF            |
 
-- A relaxed, casual portrait.
-- An everyday campus or student-life moment.
-- An outdoor photo from a memorable trip, scenery, or a favorite place.
-- A photo of a hobby the owner actually enjoys.
-- An optional candid with friends.
+## Getting started
 
-Suggested sequence: portrait → campus → outdoors → hobby. Choose clear photos with the main subject near the center so they crop well in the stack. These are photo ideas, not confirmed hobbies or activities.
+### Requirements
 
-For now, at the owner's request, the stack uses the profile portrait plus three existing owner-supplied photos: the Pitch Deck team photo, a candid group selfie from pitching, and the Sakyan prototype team photo. Photos always cycle in this order: profile portrait → Pitch Deck team → pitching group selfie → Sakyan team → profile portrait. Only the left/right transition direction is random, allowing repeated or changing directions. The front photo grows to full size while photos receding behind it step down to 90%, 80%, and 70% scale. Transitions adapt to click cadence: 520ms for a normal click, accelerating toward 200ms for fast clicks. Clicks during a transition accelerate that same motion without queuing additional shuffles, so the stack stops after the active transition. Reduced motion changes the photo immediately. It reuses lightweight WebP previews and intentional focal points; the presentation photos remain available in Community. Replace these through `src/data/personal.ts` when personal photos are supplied. The four-to-five-photo plan above remains saved for that future update.
+- **Node.js 22.18 or later** on the Node 22 release line, or Node.js 24.
+- **npm**, included with Node.js.
+- **Git** to clone the repository.
 
-## Technologies
+Python is optional. Regular development and production builds use the saved resume PDF.
 
-- React
-- React Router
-- TypeScript
-- Vite
-- Custom CSS
-- Lucide React and React Icons
-
-## Student
-
-**Azel M. Villanueva**
-
-4th Year · BSIT 4G
-
-Davao del Norte State College
-
-## Run locally
-
-### Updating the resume
-
-The profile and resume share the “Aspiring Software Engineer / Full-Stack Developer” title and a job-focused summary from `src/data/cv.ts`. Experience counts reflect the named work: five applications, two UI/UX prototypes, one business website, one capstone recommendation system, and nearly one month of training; overlapping work is not presented as a combined total.
-
-The resume PDF is bundled from `src/assets/resume/azel-villanueva-resume.pdf`. Its content is selected in `src/data/resume.ts` from the existing public experience, projects, education, skills, and certificate metadata. Its summary focuses on development experience and omits fourth-year/student status; Education lists the program and school without year-level wording or an unconfirmed graduation claim. The website's Education section separately shows “4th Year / Present” to meet the course requirements. Update the resume's mobile number in `src/data/personal.ts`. No original certificate PDFs or private profile settings are included.
-
-Run `npm run resume:build` after editing resume content, then visually check both PDF pages. Generation requires Python with `reportlab`; set `RESUME_PYTHON` to a Python executable if needed. The rendering script is `scripts/renderResume.py`. Normal development and production builds use the saved PDF and need no Python dependencies.
-
-### Starting the portfolio
-
-With Node.js 22.18+ (or Node.js 24 LTS) installed:
+### Installation
 
 ```sh
 git clone https://github.com/Zel-jpeg/Personal-cv.git
 cd Personal-cv
-npm install
+npm ci
 npm run dev
 ```
 
-Open the local URL shown in the terminal.
+Open the local URL printed by Vite. The portfolio runs without API credentials; external AI replies and contact submission require the optional configuration below.
 
-### Error and connection states
-
-Unknown URLs show the custom 404 screen instead of the homepage. The build emits `dist/404.html` from the compiled app shell for Vercel's static 404 fallback, while explicit rewrites continue to handle valid routes. There is no broad catch-all rewrite over API, asset, or download paths. After deploying, test a made-up URL directly as well as `/404`, `/offline`, and `/error`.
-
-The offline notice and `/offline` page use the browser's connectivity signal, not a server-health probe. They work after the app loads; this is not an offline-cached app, and a first visit or reload without connectivity may show the browser's own network page. Reconnecting does not automatically reload or discard an open contact draft. Rendering failures show a retry/home fallback without exposing exception details; async requests keep their existing local error handling. The `/error` route previews that design without deliberately crashing the app.
-
-## Chat credentials, spam protection, and free usage
-
-Store `GEMINI_API_KEY`, `GROQ_API_KEY`, and `FORMSPREE_LINK` in `.env.local` beside `package.json`. Local environment files, including the owner's local `.env.example`, are excluded from Git. Never prefix credentials with `VITE_`: Vite exposes those variables to the browser. For deployment, set private keys in Vercel's server environment variables.
-
-`npm run security:check` checks environment naming, Git tracking, source files, and any existing production output for the configured credentials and common Gemini/Groq key formats. It prints presence only, never values, and makes no network requests. The check runs before `npm run dev` and `npm run build`, and production output is checked again after the build. `npm run security:test` verifies that accidental source, build, public-env, and browser-variable leaks are rejected. These checks are a guard against accidental disclosure, not a replacement for reviewing changes or rotating an exposed key.
-
-The shared Vercel endpoint is `api/zel.ts`; request handling, provider calls, and production protection live under `server/`. Vite serves the same handler locally through `server/devPlugin.ts`. `ChatWidget` is mounted once in `main.tsx`, so navigation preserves the conversation and contact draft. A bounded transcript is saved in tab-scoped `sessionStorage` to survive refreshes; closing the chat panel keeps it. Closing the browser tab normally ends the session, though browser restore features may recover tab data. Contact drafts remain in memory and are never saved with chat. An interrupted reply restores its question to the composer without automatically making another AI request. Blocked/full storage falls back to memory.
-
-The chat header uses a circular avatar and a small green status dot, with “Online · AI assistant” (or “Offline · AI assistant”) based on browser connectivity; it does not claim the owner is personally present. The reset icon and contact form's direct-email link are removed. Greetings addressed to Zel, casual check-ins, short replies, introductions, compliments, and tiny standalone calculations use friendly prepared replies without AI tokens. Homework, code/essay generation, and prompt overrides remain blocked; off-topic redirects use conversational wording instead of a policy lecture.
-
-Courtesy replies also understand English, Bisaya, and Tagalog slang compliments (“wow”, “galing/magaling”, “mamaw”, “hawda oi”). Clear swearing gets a gentle localized reminder to keep the chat friendly, without an AI call or a session ban. Client/server share the same rules; the server checks courtesy before portfolio lookup and excludes earlier swearing from later AI history. Whole-word/full-utterance matching reduces false positives, but slang and quoted language can still be ambiguous. The raw vocabulary lives in `src/data/chatEtiquette.ts`; no external moderation service is used.
-
-AI is off unless both `CHAT_AI_ENABLED=true` and `CHAT_FREE_TIER_CONFIRMED=true` are explicitly set. Prepared answers remain available without either flag. No provider calls are made by builds or automated tests. The server bounds requests, history, and output; validates origins; fixes provider/model choices; and checks Vercel BotID **Basic** and a shared firewall rule before public AI requests. Missing/failed protection never permits an unprotected AI call. Local-only rate limiting is used solely on loopback development URLs; deployed requests never use that bypass. Failed providers have per-instance cooldowns (an optimization, not a quota guarantee).
-
-`npm run chat:knowledge` rebuilds `src/data/chatKnowledge.json` from the existing public portfolio modules. This runs before development and production builds. Only selected public text and project links enter the AI context; email fields, private certificate files, images, and contact drafts do not. Email/phone patterns in chat history are redacted before provider requests. AI instructions guide answers but cannot guarantee factual accuracy; responses are rendered as plain text and only locally verified links become buttons.
-
-Personal FAQ facts live in `CHAT_PERSONAL_PROFILE`, a JSON value in ignored `.env.local` and Vercel's private server settings. Supported fields are `birthDate` (YYYY-MM-DD), `birthplace`, `hobbies` (array), `goals` (array), `workStyle`, and `facts` (array of `id`, `topic`, `keywords`, and localized `text` with `en`, `ceb`, `fil`). Simple questions get prepared English, Cebuano/Bisaya, or Tagalog/Filipino answers without calling AI. The server calculates age in Asia/Manila without returning the full date. The raw profile never enters Git, browser bundles, public configuration, or AI prompts. At the owner's request, protected AI synthesis for open-ended questions can receive up to three relevant approved answer texts (1,800 characters total), with contact/credential redaction. Unrelated facts are omitted. AI-off mode still uses prepared multilingual replies; language switches and short follow-ups use recent history. Anyone can ask the public chat for allowed answers. Never commit the actual profile; `src/data/chatProfile.ts` contains only existing public portfolio facts and empty defaults. Copy the updated private JSON into Vercel and redeploy after changing it.
-
-The contact form submits in the background to Formspree and stays on the portfolio. Set `FORMSPREE_TURNSTILE_SITE_KEY` to a real Cloudflare Turnstile public site key, then enable CAPTCHA in Formspree, select Cloudflare Turnstile, and save the matching secret there. Do not store that secret in browser code. This widget identifier and `FORMSPREE_LINK` are intentionally public, unlike the AI keys and personal profile. Missing verification configuration disables sending and shows an unavailable notice. After a confirmed `{ ok: true }` response, an accessible toast appears and only the message clears; name/email remain in memory until cleared or the page reloads. Failures retain the entire draft. No new tab or success-page redirect is used. Provider acceptance does not prove inbox delivery; verify that separately.
-
-See [the implementation plan and deployment steps](docs/chat-with-zel.md). Run `npm run chat:test` for validation, fallback, privacy, and protection tests; run `npm run security:test` for credential-guard tests. `npm run dev` serves the local API. `npm run preview` serves static build output only and uses prepared answers if no API is available.
-
-Account settings must also be checked before launch; a local API key cannot reveal or enforce the provider's billing plan:
-
-- **Gemini:** use a project on the Free tier without a linked active paid billing account. A model with a free allowance can still incur charges when used through a paid project. [Billing documentation](https://ai.google.dev/gemini-api/docs/billing)
-- **Groq:** remain on the Free tier; do not upgrade to the paid Developer tier. [Billing documentation](https://console.groq.com/docs/billing-faqs)
-- **Formspree:** remain on Free (currently 50 submissions/month), keep spam protection/reCAPTCHA enabled, and restrict the form to the actual deployed domain. The form endpoint is a public submission address, not a secret: hiding it in an env file cannot prevent direct submissions. Domain restriction alone is not sufficient bot protection. [Plans](https://formspree.io/plans), [reCAPTCHA settings](https://help.formspree.io/articles/form-and-project-settings/recaptcha-settings), [domain restrictions](https://help.formspree.io/articles/form-and-project-settings/restrict-to-domain)
-- **Vercel:** remain on Hobby for eligible personal, noncommercial use, with no paid add-ons. Exhausting free hosting limits can interrupt the feature. [Hobby plan](https://vercel.com/docs/plans/hobby)
-
-Vercel's Basic BotID mode is explicitly selected on client and server; do not turn on paid Deep Analysis. Create the `zel-chat` firewall SDK rule before enabling public AI. Hobby currently includes one rate-limit rule. [BotID pricing](https://vercel.com/docs/botid#pricing), [rate-limit setup](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting-sdk)
-
-The intended zero-cost behavior is to stop at free limits, never purchase capacity. Free allowances and terms can change. No public form can be guaranteed completely spam-free, and repository code cannot guarantee zero charges on accounts whose billing configuration has not been verified.
-
-The owner approved public certificate previews and badges. Their WebP files live in `src/assets/certifications/` and are included in production builds. Original PDFs remain private in ignored `public/local-certificates/`, available only in the owner's local development copy. Deployed entries offer image previews and a “Request PDF” contact link; the full certifications page also shows the course badge and supporting credential preview.
-
-To build and preview the production version:
+### Production preview
 
 ```sh
 npm run build
 npm run preview
 ```
+
+`npm run preview` serves the compiled frontend. It does not run the Vercel API; use `npm run dev` for local API development. Prepared chat answers remain available when the API is unavailable.
+
+## Available commands
+
+| Command                  | Purpose                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `npm run dev`            | Start Vite and the local chat API handler.                                                             |
+| `npm run build`          | Check credentials, refresh public chat knowledge, type-check, build into `dist/`, and scan the output. |
+| `npm run preview`        | Preview the static production build.                                                                   |
+| `npm run typecheck`      | Check TypeScript without generating output.                                                            |
+| `npm run format:check`   | Check repository formatting with Prettier.                                                             |
+| `npm run format`         | Format the repository with Prettier.                                                                   |
+| `npm run chat:knowledge` | Refresh the chat snapshot from selected public portfolio content.                                      |
+| `npm run chat:test`      | Run chat, fallback, language, session, and protection tests.                                           |
+| `npm run security:check` | Check for accidentally tracked or exposed credentials.                                                 |
+| `npm run security:test`  | Test the credential checks.                                                                            |
+| `npm run resume:build`   | Regenerate the resume PDF from the typed resume data.                                                  |
+
+Development startup also runs the credential check and refreshes the chat knowledge snapshot. Automated tests use mocked providers and do not send emails or make AI requests.
+
+## Project structure
+
+```text
+Personal-cv/
+├── api/                    # Vercel function entry point
+├── docs/                   # Detailed integration and deployment guides
+├── public/                 # Development-only local certificate files (ignored)
+├── scripts/                # Resume, chat knowledge, and credential utilities
+├── server/                 # Chat API, provider integrations, protection, and tests
+├── src/
+│   ├── assets/             # WebP images, fonts, and the resume PDF
+│   ├── components/         # Shared UI, navigation, galleries, and chat
+│   ├── data/               # Typed portfolio content and generated chat knowledge
+│   ├── hooks/              # Theme, navigation, animation, and layout logic
+│   ├── sections/           # Homepage sections and detail-page content
+│   ├── styles/             # Global and component stylesheets
+│   ├── App.tsx             # Page composition and route selection
+│   └── main.tsx            # Application initialization
+├── index.html
+├── package.json
+├── vercel.json             # API configuration and explicit page rewrites
+└── vite.config.ts          # Build configuration and local API integration
+```
+
+## Pages
+
+| Route                        | Content                                        |
+| ---------------------------- | ---------------------------------------------- |
+| `/`                          | Main CV and portfolio                          |
+| `/experience`                | Development experience timeline                |
+| `/projects`                  | Project archive                                |
+| `/projects/doneeit`          | DoneeIt screenshots and release links          |
+| `/projects/financify`        | Financify screenshots and release links        |
+| `/tech-stack`                | Full technology list                           |
+| `/certifications`            | Credentials, previews, and supporting material |
+| `/community`                 | Community activities and gallery preview       |
+| `/events`                    | Event photo gallery                            |
+| `/404`, `/offline`, `/error` | Status and recovery views                      |
+
+Unknown paths display the not-found page. The offline view uses the browser's connectivity signal; the site does not provide a service worker or guarantee offline access on a first visit or reload.
+
+## Updating content
+
+Edit the typed data modules rather than placing content directly in `App.tsx`.
+
+| Content                                                     | File                             |
+| ----------------------------------------------------------- | -------------------------------- |
+| Profile summary, education, and technology groups           | `src/data/cv.ts`                 |
+| Social links, contact details, and personal photo stack     | `src/data/personal.ts`           |
+| Development experience                                      | `src/data/experience.ts`         |
+| Project metadata, language icons, screenshots, and releases | `src/data/projects.ts`           |
+| Professional skills                                         | `src/data/professionalSkills.ts` |
+| Certifications and preview metadata                         | `src/data/certifications.ts`     |
+| Community activities and event photos                       | `src/data/community.ts`          |
+| Resume content selection                                    | `src/data/resume.ts`             |
+| Section navigation                                          | `src/data/navigation.ts`         |
+
+### Images and certificates
+
+Keep portfolio photos and screenshots in `src/assets/` as optimized WebP files. Gallery entries use lightweight previews and load larger images when the viewer opens. Preserve image dimensions, aspect ratios, alt text, and focal points when replacing assets.
+
+Approved certificate previews and badges live in `src/assets/certifications/` and are included in production. Original certificate PDFs remain in ignored `public/local-certificates/` for local development only. Production builds exclude that directory; deployed entries offer a preview and a Request PDF contact link.
+
+### Resume PDF
+
+The View Resume action opens `src/assets/resume/azel-villanueva-resume.pdf` in a new tab. After updating resume content, install ReportLab and regenerate the saved PDF:
+
+```sh
+python -m pip install reportlab
+npm run resume:build
+```
+
+Set `RESUME_PYTHON` if the generator needs a specific Python executable. Visually review both pages after regeneration. Normal builds use the saved PDF and require no Python installation.
+
+## Optional chat and contact setup
+
+Create an ignored `.env.local` beside `package.json` only when configuring integrations. No environment file or real credential is committed to this repository.
+
+| Variable                       | Purpose                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`               | Server-only Gemini credential.                                                  |
+| `GROQ_API_KEY`                 | Server-only fallback provider credential.                                       |
+| `CHAT_AI_ENABLED`              | Enables external AI only when set to `true`.                                    |
+| `CHAT_FREE_TIER_CONFIRMED`     | Additional required opt-in after checking provider billing settings.            |
+| `CHAT_ALLOWED_ORIGIN`          | Allowed deployed site origin.                                                   |
+| `CHAT_PERSONAL_PROFILE`        | Optional private JSON configuration for approved personal FAQ answers.          |
+| `FORMSPREE_LINK`               | Public form submission endpoint, supplied through server configuration.         |
+| `FORMSPREE_TURNSTILE_SITE_KEY` | Public Turnstile widget identifier. Configure its matching secret in Formspree. |
+
+Keep credentials and personal profile configuration server-side; never prefix them with `VITE_`. The form endpoint and Turnstile site key are intentionally public identifiers.
+
+AI is disabled unless both opt-in flags are `true`. Public AI requests also require successful BotID Basic validation and the `zel-chat` firewall rule. Prepared answers remain available when AI is disabled or unavailable. Contact submission requires a configured Formspree endpoint and matching Turnstile verification.
+
+Chat history is bounded and stored in tab-scoped `sessionStorage`. Contact drafts stay in memory and are excluded from that storage and AI requests. Closing a panel preserves the conversation; browser session restoration can retain tab data after a tab is reopened.
+
+See [Chat with Zel: configuration and deployment](docs/chat-with-zel.md) for the full environment setup, personal FAQ schema, CAPTCHA settings, protection rules, and live verification steps. Account billing, deployed protection, and inbox delivery require separate verification; a successful frontend build does not confirm them.
+
+## Deployment
+
+The portfolio is configured for the existing [zeelll.vercel.app](https://zeelll.vercel.app/) deployment.
+
+1. Connect the repository to Vercel, using the directory containing `package.json` as the project root.
+2. Use the **Vite** preset, `npm run build` as the build command, and `dist` as the output directory.
+3. Add any optional integration variables through Vercel's environment settings. Keep AI disabled until the protection and provider settings in the [chat guide](docs/chat-with-zel.md) are verified.
+4. Deploy and check direct navigation to the detail pages, a nonexistent URL, both themes, and mobile navigation.
+
+`vercel.json` explicitly rewrites supported frontend routes while keeping `/api/zel` separate. Add matching rewrites when introducing a new detail page. Vite also emits `dist/404.html` for unknown paths. A static host can serve the portfolio frontend, but the chat API requires a compatible server environment.
+
+## Accessibility and performance
+
+- Keyboard navigation, skip links, visible focus states, and accessible labels for icon-only controls.
+- Escape dismissal, focus restoration, and keyboard navigation in menus and photo viewers.
+- Reduced-motion alternatives for transitions and animations.
+- Optimized WebP assets, reserved image space, lazy loading below the fold, and full-size gallery images loaded on demand.
+- Fixed square GitHub calendar cells with internal scrolling on small screens and a 15-minute activity cache.
+- Scroll restoration between pages and a floating Back to top control.
+
+Before submitting changes, run:
+
+```sh
+npm run format:check
+npm run build
+```
+
+For chat or credential-handling changes, also run:
+
+```sh
+npm run chat:test
+npm run security:test
+```
+
+Review layout changes at 320, 390, 768, 1024, and 1440 pixels, in both themes, with keyboard navigation and reduced motion enabled.
+
+## Outside the IDE photo plan
+
+The current stack cycles through the profile portrait, Pitch Deck team photo, pitching group selfie, and Sakyan prototype team photo. Only the transition direction is randomized; the photo order stays fixed. Replace these through `src/data/personal.ts` when new personal photos are available.
+
+A future set can include four or five real personal photos: a casual portrait, a campus moment, an outdoor memory, an actual hobby, and an optional candid with friends. Suggested order: portrait → campus → outdoors → hobby. These are ideas for future photos, not claims about current hobbies or activities.
+
+## Credits
+
+Created by **Azel M. Villanueva** for IT 415 at Davao del Norte State College.
+
+The portfolio uses custom components and CSS adapted to its own content and layout. Icons are provided by Lucide React and React Icons.

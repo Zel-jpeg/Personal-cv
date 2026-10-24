@@ -100,9 +100,10 @@ h2 {
   height: 290px;
 }
 .featured-panel {
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   padding: 0;
   background: #151515;
+  background-clip: padding-box;
   color: white;
   border-radius: 13px;
   overflow: hidden;
@@ -1608,7 +1609,7 @@ h2 {
 }
 /* Featured panels support hover, keyboard focus, and direct taps. */
 .featured-panel {
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   touch-action: manipulation;
 }
 .featured-panel.is-expanded {
@@ -1665,7 +1666,7 @@ h2 {
 /* Neutral UI accents; green is reserved for GitHub contribution intensity. */
 .featured-panel,
 .featured-panel.is-expanded {
-  border: 1px solid #000;
+  border: 1px dashed rgb(0 0 0 / 35%);
 }
 .contribution-content {
   width: calc(var(--week-count) * 15px - 3px);

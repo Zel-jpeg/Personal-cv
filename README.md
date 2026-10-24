@@ -1,4 +1,4 @@
-# Azel M. Villanueva — Personal Portfolio
+# Azel M. Villanueva - Personal Portfolio
 
 A responsive CV and portfolio website presenting my development experience, projects, technical and professional skills, education, and certifications. Built for **IT 415 — Application Development and Emerging Technologies** at Davao del Norte State College.
 
